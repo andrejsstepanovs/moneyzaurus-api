@@ -1,0 +1,4 @@
+vendor*
+tests/coverage*
+.idea*
+config/config.local.php

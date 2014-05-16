@@ -1,0 +1,17 @@
+{
+    "require": {
+        "wormhit/slim-api": "dev-master",
+        "doctrine/orm": "2.*",
+        "sebastian/money": "*",
+        "phpunit/phpunit": "4.*",
+        "zendframework/zend-crypt": "2.*",
+        "zendframework/zend-permissions-acl": "2.*",
+        "adlawson/timezone": "1.0.0",
+        "rhumsaa/array_column": "~1.1",
+        "swiftmailer/swiftmailer": "@stable",
+        "egulias/email-validator": "1.0.x-dev"
+    },
+    "autoload": {
+        "psr-4": {"Api\\": "src/"}
+    }
+}
