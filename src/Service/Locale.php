@@ -34,7 +34,7 @@ class Locale
      */
     public function getDisplayLanguage()
     {
-        return \Locale::getDisplayLanguage($this->getLocale());
+        return \Locale::getDisplayLanguage($this->getLocale(), null);
     }
 
     /**
@@ -63,7 +63,7 @@ class Locale
      */
     public function isValidTimezone()
     {
-        $data = \DateTimeZone::listIdentifiers(\DateTimeZone::ALL);
+        $data = \DateTimeZone::listIdentifiers();
 
         return in_array($this->getTimezone(), $data);
     }

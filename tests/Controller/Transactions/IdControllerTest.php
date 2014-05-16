@@ -161,7 +161,7 @@ class IdControllerTest extends TestCase
                 'item'              => null,
                 'group'             => null,
                 'amount'            => null,
-                'price'             => 0.00,
+                'price'             => '0.00',
                 'money'             => null,
                 'currency'          => 'EUR',
                 'date'              => '2015-01-02',
