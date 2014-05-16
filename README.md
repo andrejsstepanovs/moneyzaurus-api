@@ -4,6 +4,8 @@ moneyzaurus-api
 API implementation for expense monitoring system [wormhit/moneyzaurus][1].
 Code is based on [wormhit/slim-api][2] framework.
 
+[![Build Status](https://travis-ci.org/wormhit/moneyzaurus-api.png?branch=master)](https://travis-ci.org/wormhit/moneyzaurus-api) [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/wormhit/moneyzaurus-api/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/wormhit/moneyzaurus-api/) [![Coverage Status](https://coveralls.io/repos/wormhit/slim-api/badge.png?branch=master)](https://coveralls.io/r/wormhit/slim-api?branch=master) [![License](https://poser.pugx.org/wormhit/slim-api/license.png)](https://packagist.org/packages/wormhit/slim-api)
+
 Setup
 -----------------
 

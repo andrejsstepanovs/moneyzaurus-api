@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit colors="true" bootstrap="tests/bootstrap.php" strict="true">
+    <testsuites>
+        <testsuite name="controller">
+            <directory>tests/Controller</directory>
+        </testsuite>
+        <testsuite name="middleware">
+            <directory>tests/Middleware</directory>
+        </testsuite>
+        <testsuite name="service">
+            <directory>tests/Service</directory>
+        </testsuite>
+        <testsuite name="entities">
+            <directory>tests/Entities</directory>
+        </testsuite>
+    </testsuites>
+
+    <logging>
+        <log type="coverage-html" target="coverage" charset="UTF-8"/>
+    </logging>
+
+</phpunit>
