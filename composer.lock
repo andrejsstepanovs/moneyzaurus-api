@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "08c3bffe194ca5f481f95f1f3fdf67cd",
+    "hash": "91035736174067927765671efc46d123",
     "packages": [
         {
             "name": "adlawson/timezone",
@@ -2040,18 +2040,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/wormhit/slim-api.git",
-                "reference": "0862c4d966680f603251bd6ab22a3e2abd4fbfae"
+                "reference": "ee6159946b7735ba9ac9fdb2c89abe6f345cd966"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wormhit/slim-api/zipball/0862c4d966680f603251bd6ab22a3e2abd4fbfae",
-                "reference": "0862c4d966680f603251bd6ab22a3e2abd4fbfae",
+                "url": "https://api.github.com/repos/wormhit/slim-api/zipball/ee6159946b7735ba9ac9fdb2c89abe6f345cd966",
+                "reference": "ee6159946b7735ba9ac9fdb2c89abe6f345cd966",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3",
                 "phpunit/phpunit": "4.*",
-                "pimple/pimple": "2.0.*@dev",
+                "pimple/pimple": "2.*@dev",
                 "satooshi/php-coveralls": "0.6.*",
                 "slim/slim": "2.*"
             },
@@ -2078,7 +2078,7 @@
                 "framework",
                 "slim"
             ],
-            "time": "2014-03-17 20:44:11"
+            "time": "2014-05-17 09:09:59"
         },
         {
             "name": "zendframework/zend-crypt",
