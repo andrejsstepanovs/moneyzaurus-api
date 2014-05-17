@@ -13,11 +13,11 @@ use Api\Service\AccessorTrait;
  *
  * @package Api\Middleware
  *
- * @method Authorization setUser(User $user)
+ * @method Authorization setUser(User $user = null)
  * @method Authorization setConnectedUserIds(array $connectedUserIds)
  * @method Authorization setToken(Token $token)
  * @method Authorization setAcl(Acl $acl)
- * @method User          getUser()
+ * @method User|null     getUser()
  * @method array         getConnectedUserIds()
  * @method Token         getToken()
  * @method Acl           getAcl()

@@ -39,6 +39,7 @@ class Container extends KernelContainer
     const AUTHORIZATION_TOKEN      = 'authorization.token';
     const AUTHORIZATION_CRYPT      = 'authorization.crypt';
 
+    const EMAIL_VALIDATOR          = 'email.validator';
     const EMAIL_MAILER             = 'email.mailer';
     const EMAIL_TRANSPORT          = 'email.transport';
 
@@ -115,6 +116,10 @@ class Container extends KernelContainer
 
     private function initServiceEmail()
     {
+        $this[self::EMAIL_VALIDATOR] = function () {
+            return new \Egulias\EmailValidator\EmailValidator();
+        };
+
         $this[self::EMAIL_TRANSPORT] = function () {
             $config = $this->getConfig()->get(Config::EMAIL);
             $transport = \Swift_SmtpTransport::newInstance(
@@ -177,7 +182,7 @@ class Container extends KernelContainer
             $data->setConnectionRepository($entityManager->getRepository('Api\Entities\Connection'));
             $data->setLocale($this->get(self::SERVICE_LOCALE));
             $data->setUserData($this->get(self::USER_DATA));
-            $data->setEmailValidator(new \Egulias\EmailValidator\EmailValidator());
+            $data->setEmailValidator($this->get(self::EMAIL_VALIDATOR));
 
             return $data;
         };
@@ -276,7 +281,7 @@ class Container extends KernelContainer
         $this['controller.user.update'] = function () {
             $controller = new \Api\Controller\User\UpdateController();
             $controller->setUser($this->get(self::USER_SAVE));
-            $controller->setEmailValidator(new \Egulias\EmailValidator\EmailValidator());
+            $controller->setEmailValidator($this->get(self::EMAIL_VALIDATOR));
             $controller->setLocale($this->get(self::SERVICE_LOCALE));
 
             return $controller;

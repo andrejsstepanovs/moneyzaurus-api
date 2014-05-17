@@ -15,10 +15,10 @@ use Api\Service\AccessorTrait;
  * @package Api\Service\Authorization
  *
  * @method Token                        setEntityManager(EntityManager $entityManager)
- * @method Token                        setAccessToken(EntityRepository $accessToken)
+ * @method Token                        setAccessToken(AccessToken $accessToken)
  * @method Token                        setUser(User $user)
  * @method EntityManager                getEntityManager()
- * @method EntityRepository|AccessToken getAccessToken()
+ * @method AccessToken|EntityRepository getAccessToken()
  * @method User                         getUser()
  */
 class Token

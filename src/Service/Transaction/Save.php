@@ -23,7 +23,7 @@ use Api\Service\AccessorTrait;
  * @method Save             setGroupEntity(EntityRepository $groupEntity)
  * @method Save             setItemEntity(EntityRepository $itemEntity)
  * @method EntityManager    getEntityManager()
- * @method EntityManager    getCurrencyEntity()
+ * @method EntityRepository getCurrencyEntity()
  * @method EntityRepository getGroupEntity()
  * @method EntityRepository getItemEntity()
  */

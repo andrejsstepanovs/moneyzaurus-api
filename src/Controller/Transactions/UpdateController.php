@@ -25,7 +25,7 @@ use Api\Service\AccessorTrait;
  * @method TransactionData  getData()
  * @method Save             getSave()
  * @method Date             getDate()
- * @method Date             getMoney()
+ * @method Money            getMoney()
  */
 class UpdateController
 {
