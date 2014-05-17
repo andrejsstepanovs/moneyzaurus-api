@@ -22,3 +22,5 @@ Import db structure:
 
 ```mysql -u root < data/app.sql```
 
+[1]: https://github.com/wormhit/moneyzaurus
+[2]: https://github.com/wormhit/slim-api
