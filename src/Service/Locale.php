@@ -34,7 +34,9 @@ class Locale
      */
     public function getDisplayLanguage()
     {
-        return \Locale::getDisplayLanguage($this->getLocale(), null);
+        $displayLanguage = \Locale::getDisplayLanguage($this->getLocale(), $this->getLocale());
+
+        return ucfirst($displayLanguage);
     }
 
     /**

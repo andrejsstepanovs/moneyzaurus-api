@@ -46,8 +46,11 @@ class IdController
             $locale = $this->getLocale()
                 ->setLocale($entity->getUser()->getLocale())
                 ->setTimezone($entity->getUser()->getTimezone());
-            $data = array_merge($data, $this->getTransactionData($entity, $locale));
+
+            $transactionData = $this->getTransactionData($entity, $locale);
+
             $data['success'] = true;
+            $data['data']    = $transactionData;
         }
 
         return $data;
@@ -75,11 +78,11 @@ class IdController
             'price'             => $this->getMoney()->getPrice($price),
             'money'             => $locale->getFormattedMoney($currency, $price),
             'currency'          => $currency,
-            'date'              => $locale->getDateFormatter()->format($date),
-            'date_full'         => $locale->getDateFormatter(\IntlDateFormatter::FULL)->format($date),
+            'date'              => $locale->getDateFormatter()->format($date->getTimestamp()),
+            'date_full'         => $locale->getDateFormatter(\IntlDateFormatter::FULL)->format($date->getTimestamp()),
             'date_timestamp'    => $date->getTimestamp(),
-            'created'           => $locale->getDateTimeFormatter()->format($dateCreated),
-            'created_full'      => $locale->getDateTimeFormatter(\IntlDateFormatter::FULL)->format($dateCreated),
+            'created'           => $locale->getDateTimeFormatter()->format($dateCreated->getTimestamp()),
+            'created_full'      => $locale->getDateTimeFormatter(\IntlDateFormatter::FULL)->format($dateCreated->getTimestamp()),
             'created_timestamp' => $dateCreated->getTimestamp(),
             'user'              => $user->getId(),
             'email'             => $user->getEmail()

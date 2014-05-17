@@ -97,9 +97,9 @@ class Data
                 'id'                => $connection->getId(),
                 'email'             => $connection->getParent()->getEmail(),
                 'state'             => $connection->getState(),
-                'created'           => $locale->getDateTimeFormatter()->format($dateCreated),
+                'created'           => $locale->getDateTimeFormatter()->format($dateCreated->getTimestamp()),
                 'created_full'      => $locale->getDateTimeFormatter(\IntlDateFormatter::FULL)
-                                              ->format($dateCreated),
+                                              ->format($dateCreated->getTimestamp()),
                 'created_timestamp' => $dateCreated->getTimestamp(),
             );
         }

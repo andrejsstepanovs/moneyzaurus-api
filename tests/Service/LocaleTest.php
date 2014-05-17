@@ -126,12 +126,12 @@ class LocatorTest extends TestCase
     public function getDisplayLanguageProvider()
     {
         return array(
-            array('lt', 'Lithuanian'),
-            array('de_DE', 'German'),
-            array('DE_DE', 'German'),
-            array('lv_LV', 'Latvian'),
-            array('unknown', 'unknown'),
-            array('', 'English'),
+            array('lt', array('Lietuvių')),
+            array('de_DE', array('Deutsch')),
+            array('DE_DE', array('Deutsch')),
+            array('lv_LV', array('Latviešu')),
+            array('unknown', array('Unknown')),
+            array('', array('English', 'En')),
         );
     }
 
@@ -139,13 +139,13 @@ class LocatorTest extends TestCase
      * @dataProvider getDisplayLanguageProvider
      *
      * @param string $locale
-     * @param string $expected
+     * @param array  $expected
      */
     public function testGetDisplayLanguage($locale, $expected)
     {
         $response = $this->sut->setLocale($locale)->getDisplayLanguage();
 
-        $this->assertEquals($expected, $response);
+        $this->assertTrue(in_array($response, $expected));
     }
 
     public function getRegionProvider()
