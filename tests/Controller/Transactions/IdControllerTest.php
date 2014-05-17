@@ -56,7 +56,7 @@ class IdControllerTest extends TestCase
      */
     private function getDateTimeStub()
     {
-        return new \DateTime('2015-01-02 10:00:59');
+        return new \DateTime('2014-01-02 10:00:59');
     }
 
     public function testTransactionIdNotFound()
@@ -156,22 +156,24 @@ class IdControllerTest extends TestCase
         $this->assertTrue($response['success']);
         $this->assertEquals(
             array(
-                'success'           => true,
-                'id'                => null,
-                'item'              => null,
-                'group'             => null,
-                'amount'            => null,
-                'price'             => 0.00,
-                'money'             => null,
-                'currency'          => 'EUR',
-                'date'              => '2015-01-02',
-                'date_full'         => '2015-01-02',
-                'date_timestamp'    => 1420192859,
-                'created'           => '2015-01-02',
-                'created_full'      => '2015-01-02',
-                'created_timestamp' => 1420192859,
-                'user'              => null,
-                'email'             => null
+                'success' => true,
+                'data' => array(
+                    'id'                => null,
+                    'item'              => null,
+                    'group'             => null,
+                    'amount'            => null,
+                    'price'             => '0.00',
+                    'money'             => null,
+                    'currency'          => 'EUR',
+                    'date'              => '2014-01-02',
+                    'date_full'         => '2014-01-02',
+                    'date_timestamp'    => 1388656859,
+                    'created'           => '2014-01-02',
+                    'created_full'      => '2014-01-02',
+                    'created_timestamp' => 1388656859,
+                    'user'              => null,
+                    'email'             => null
+                )
             ),
             $response
         );
