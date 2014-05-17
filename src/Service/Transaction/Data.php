@@ -6,7 +6,6 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Api\Service\Locale;
 use Api\Entities\Transaction;
-use Api\Entities\User;
 use Api\Service\AccessorTrait;
 
 /**
@@ -169,7 +168,7 @@ class Data
     }
 
     /**
-     * @param $transactionId
+     * @param int $transactionId
      *
      * @return Transaction
      */

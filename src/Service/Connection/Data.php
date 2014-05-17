@@ -110,7 +110,7 @@ class Data
     /**
      * @param int $connectionId
      *
-     * @return Connection|null
+     * @return Connection
      */
     public function findById($connectionId)
     {

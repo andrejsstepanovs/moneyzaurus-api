@@ -120,12 +120,14 @@ class Acl
     /**
      * @param string $role
      * @param string $resource
+     * @param string $privilege
      *
      * @return bool
      */
     public function isAllowed($role, $resource, $privilege = null)
     {
         $this->initialize();
-        return $this->getAcl()->isAllowed($role, $resource, $privilege);
+
+        return (bool)$this->getAcl()->isAllowed($role, $resource, $privilege);
     }
 }

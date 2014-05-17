@@ -14,12 +14,12 @@ use Api\Service\AccessorTrait;
  *
  * @package Api\Service\Authorization
  *
- * @method Token                        setEntityManager(EntityManager $entityManager)
- * @method Token                        setAccessToken(AccessToken $accessToken)
- * @method Token                        setUser(User $user)
- * @method EntityManager                getEntityManager()
- * @method AccessToken|EntityRepository getAccessToken()
- * @method User                         getUser()
+ * @method Token         setEntityManager(EntityManager $entityManager)
+ * @method Token         setAccessToken(AccessToken $accessToken)
+ * @method Token         setUser(User $user)
+ * @method EntityManager getEntityManager()
+ * @method AccessToken   getAccessToken()
+ * @method User          getUser()
  */
 class Token
 {
@@ -31,7 +31,7 @@ class Token
     /**
      * @param string $token
      *
-     * @return User|null
+     * @return User
      */
     public function findUser($token)
     {
