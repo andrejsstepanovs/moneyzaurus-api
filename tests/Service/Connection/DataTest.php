@@ -85,7 +85,7 @@ class DataTest extends TestCase
                ->method('setLocale')
                ->will($this->returnSelf());
 
-        $dateTime = new \DateTime('2015-01-01');
+        $dateTime = new \DateTime('2014-01-01');
         $intlDateFormatter = $formatter = new \IntlDateFormatter(
             'Europe/Berlin',
             \IntlDateFormatter::SHORT,
@@ -111,9 +111,9 @@ class DataTest extends TestCase
                     'id'                => null,
                     'email'             => null,
                     'state'             => null,
-                    'created'           => '2015-01-01',
-                    'created_full'      => '2015-01-01',
-                    'created_timestamp' => 1420070400
+                    'created'           => '2014-01-01',
+                    'created_full'      => '2014-01-01',
+                    'created_timestamp' => 1388534400
                  )
              ),
              $response

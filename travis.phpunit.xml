@@ -15,10 +15,7 @@
             <directory>tests/Entities</directory>
         </testsuite>
     </testsuites>
-
     <logging>
-        <log type="coverage-html" target="build/coverage" charset="UTF-8"/>
         <log type="coverage-clover" target="build/logs/clover.xml"/>
     </logging>
-
 </phpunit>

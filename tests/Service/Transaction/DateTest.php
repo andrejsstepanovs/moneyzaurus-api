@@ -22,8 +22,10 @@ class DateTest extends TestCase
 
     public function testUserTimezoneIsUsed()
     {
-        $timezone = 'Europe/Riga';
-        $date = '2015-12-30';
+        $timezone     = 'Europe/Riga';
+        $date         = '2014-12-30';
+        $timeZoneRiga = new \DateTimeZone('Europe/Berlin');
+
 
         $this->mock()->get('Api\Entities\User')
             ->expects($this->once())
@@ -34,14 +36,16 @@ class DateTest extends TestCase
 
         $this->assertInstanceOf('DateTime', $result);
 
-        $location = $result->getTimezone()->getLocation();
-        $this->assertEquals($location['country_code'], 'LV');
+        $compareDateTime = new \DateTime($date, $timeZoneRiga);
+        $offset = $result->getTimezone()->getOffset($compareDateTime);
+
+        $this->assertEquals(7200, $offset);
     }
 
     public function testDateIsSetCorrectly()
     {
         $timezone = 'Europe/Berlin';
-        $date = '2015-12-30';
+        $date = '2014-12-30';
 
         $this->mock()->get('Api\Entities\User')
              ->expects($this->once())

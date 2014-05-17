@@ -1,4 +1,4 @@
 <?php
 
-require_once 'MockContainer.php';
-require_once 'TestCase.php';
+require_once __DIR__ . '/MockContainer.php';
+require_once __DIR__ . '/TestCase.php';
