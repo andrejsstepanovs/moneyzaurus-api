@@ -32,5 +32,4 @@ register_shutdown_function(function() use ($pid) {
 });
 
 // More bootstrap code
-require_once 'Client.php';
 require_once 'TestCase.php';

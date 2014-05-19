@@ -2,15 +2,18 @@
 
 namespace Tests\Acceptance\Transactions;
 
-
 use Tests\Acceptance\TestCase;
 
-
+/**
+ * Class IndexTest
+ *
+ * @package Tests\Acceptance\Transactions
+ */
 class IndexTest extends TestCase
 {
     public function testIndexRespondsWithExpectedJson()
     {
-        $response = $this->getClient()->call('GET', '/');
+        $response = $this->call('GET', '/');
 
         $this->assertContains('json', $response->getHeader('content-type'));
 
