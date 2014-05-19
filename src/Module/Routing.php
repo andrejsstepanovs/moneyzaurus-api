@@ -47,6 +47,7 @@ class Routing extends KernelRouting
                  /** @var \Api\Controller\Index\IndexController $controller */
                  $controller = $container->get('controller.index.index');
                  $slim->setData($controller->getResponse());
+                 \DEBUG::log($controller->getResponse());
              }
         )
         ->via(Request::METHOD_GET);
