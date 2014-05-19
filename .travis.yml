@@ -6,7 +6,6 @@ php:
 
 before_script:
   - php composer.phar install
-  - chmod 777 travis.phpunit.xml
   - mkdir -p build/logs
 
 script:
