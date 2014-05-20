@@ -87,6 +87,7 @@ class Acl
     {
         $this->getAcl()->allow(User::ROLE_GUEST, self::ROLE_INDEX);
         $this->getAcl()->allow(User::ROLE_GUEST, self::ROLE_AUTHENTICATE, array('login', 'password-recovery'));
+        $this->getAcl()->allow(User::ROLE_GUEST, self::ROLE_USER, array('register'));
 
         $this->getAcl()->deny(User::ROLE_USER, self::ROLE_AUTHENTICATE, array('login', 'password-recovery'));
         $this->getAcl()->allow(User::ROLE_USER, self::ROLE_AUTHENTICATE, array('logout'));
@@ -94,9 +95,11 @@ class Acl
         $this->getAcl()->allow(User::ROLE_USER, self::ROLE_DISTINCT);
         $this->getAcl()->allow(User::ROLE_USER, self::ROLE_PREDICT);
         $this->getAcl()->allow(User::ROLE_USER, self::ROLE_USER);
+        $this->getAcl()->deny(User::ROLE_USER, self::ROLE_USER, array('register'));
         $this->getAcl()->allow(User::ROLE_USER, self::ROLE_CONNECTION);
 
         $this->getAcl()->deny(User::ROLE_ADMIN, self::ROLE_AUTHENTICATE, array('login', 'password-recovery'));
+        $this->getAcl()->deny(User::ROLE_ADMIN, self::ROLE_USER, array('register'));
         $this->getAcl()->allow(User::ROLE_ADMIN);
 
         return $this;

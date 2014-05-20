@@ -12,12 +12,11 @@ return [
             __DIR__ . '/../src/Entities'
         ],
         Config::DATABASE_CONNECTION => [
-            'driver'   => 'pdo_mysql',
-            'host'     => 'moneyzaurus.local.com',
+            'driver'   => 'pdo_sqlite',
+            'path'     => __DIR__ . '/tmp.appdb.sqlite',
             'user'     => 'root',
             'password' => 'root',
-            'dbname'   => 'app',
-            'charset'  => 'utf8'
+            'memory'   => false
         ]
     ],
     Config::EMAIL => [

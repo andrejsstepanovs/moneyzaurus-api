@@ -286,6 +286,18 @@ class Container extends KernelContainer
 
             return $controller;
         };
+
+        $this['controller.user.register'] = function () {
+            $controller = new \Api\Controller\User\RegisterController();
+            $controller->setCrypt($this->get(self::AUTHORIZATION_CRYPT));
+            $controller->setToken($this->get(self::AUTHORIZATION_TOKEN));
+            $controller->setUserSave($this->get(self::USER_SAVE));
+            $controller->setUserData($this->get(self::USER_DATA));
+            $controller->setEmailValidator($this->get(self::EMAIL_VALIDATOR));
+
+            return $controller;
+        };
+
     }
 
     private function initControllerPredict()

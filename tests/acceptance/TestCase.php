@@ -3,8 +3,8 @@
 namespace Tests\Acceptance;
 
 use PHPUnit_Framework_TestCase;
-use GuzzleHttp\Client as HttpClient;
-use GuzzleHttp\Message\Response;
+use Guzzle\Http\Client as HttpClient;
+use Guzzle\Http\Message\Response;
 
 /**
  * Class TestCase
@@ -22,7 +22,7 @@ class TestCase extends PHPUnit_Framework_TestCase
     /**
      * @return string
      */
-    private function getBaseUrl()
+    protected function getBaseUrl()
     {
         if ($this->baseUrl === null) {
             $this->baseUrl = 'http://' . WEB_SERVER_HOST . ':' . WEB_SERVER_PORT;
@@ -44,23 +44,32 @@ class TestCase extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param string $method
      * @param string $url
-     * @param array  $params
+     * @param array  $postBody
      *
      * @return Response
      */
-    public function call($method, $url, array $params = array())
+    public function post($url, array $postBody = array())
     {
-        $client = $this->getClient();
-
-        $request = $client->createRequest($method);
-        $request->setUrl($this->getBaseUrl() . $url);
-        $request->setQuery(http_build_query($params));
-
-        /** @var Response $response */
-        $response = $client->send($request);
+        $requestUrl = $this->getBaseUrl() . $url;
+        $request = $this->getClient()->post($requestUrl, null, $postBody);
+        $response = $this->getClient()->send($request);
 
         return $response;
     }
+
+    /**
+     * @param string $url
+     *
+     * @return Response
+     */
+    public function get($url)
+    {
+        $requestUrl = $this->getBaseUrl() . $url;
+        $request = $this->getClient()->get($requestUrl);
+        $response = $this->getClient()->send($request);
+
+        return $response;
+    }
+
 }

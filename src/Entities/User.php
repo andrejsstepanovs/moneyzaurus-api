@@ -21,6 +21,8 @@ class User
     /** guest role name */
     const ROLE_GUEST = 'guest';
 
+    const STATE_ACTIVE = 1;
+
     /**
      * @var integer
      *
@@ -91,7 +93,7 @@ class User
      *
      * @ORM\Column(name="state", type="smallint", nullable=true)
      */
-    private $state;
+    private $state = self::STATE_ACTIVE;
 
     /**
      * @param string $displayName

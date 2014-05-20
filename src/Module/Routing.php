@@ -47,7 +47,6 @@ class Routing extends KernelRouting
                  /** @var \Api\Controller\Index\IndexController $controller */
                  $controller = $container->get('controller.index.index');
                  $slim->setData($controller->getResponse());
-                 \DEBUG::log($controller->getResponse());
              }
         )
         ->via(Request::METHOD_GET);
@@ -60,6 +59,19 @@ class Routing extends KernelRouting
 
                  /** @var \Api\Controller\Authenticate\LoginController $controller */
                  $controller = $container->get('controller.authenticate.login');
+                 $slim->setData($controller->getResponse($username, $password));
+             }
+        )
+        ->via(Request::METHOD_POST);
+
+        $slim->map(
+             '/user/register',
+             function() use ($container, $slim) {
+                 $username = $slim->request()->post('username');
+                 $password = $slim->request()->post('password');
+
+                 /** @var \Api\Controller\User\RegisterController $controller */
+                 $controller = $container->get('controller.user.register');
                  $slim->setData($controller->getResponse($username, $password));
              }
         )

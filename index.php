@@ -4,7 +4,11 @@ ini_set('display_errors', 1);
 
 require 'vendor/autoload.php';
 
-$configData = include 'config/config.php';
+
+$configFile = get_cfg_var('app_config_file');
+$configFile = !$configFile ? 'config/config.php' : $configFile;
+
+$configData = include __DIR__ . DIRECTORY_SEPARATOR . $configFile;
 
 
 $config    = new Api\Module\Config();
