@@ -51,9 +51,11 @@ class LoginController
         $token = $this->getToken()->get($user);
 
         $response['success'] = true;
-        $response['id']      = $user->getId();
-        $response['email']   = $user->getEmail();
-        $response['token']   = $token->getToken();
+        $response['data'] = array(
+            'id'    => $user->getId(),
+            'email' => $user->getEmail(),
+            'token' => $token->getToken()
+        );
 
         return $response;
     }

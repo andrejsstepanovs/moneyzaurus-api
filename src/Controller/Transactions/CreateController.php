@@ -55,7 +55,9 @@ class CreateController
                 $this->getDate()->getDateTime($user, $date)
             );
 
-            $response['id'] = $transaction->getId();
+            $response['data'] = array(
+                'id' => $transaction->getId()
+            );
 
         } catch (\Exception $exc) {
             $response['success'] = false;
