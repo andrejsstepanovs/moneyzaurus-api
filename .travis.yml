@@ -1,5 +1,7 @@
 language: php
 
+services: sqlite
+
 php:
   - "5.5"
   - hhvm
@@ -11,6 +13,7 @@ before_script:
 script:
   - cd $TRAVIS_BUILD_DIR;
   - vendor/bin/phpunit --configuration tests/unit/phpunit.xml
+  - vendor/bin/phpunit --configuration tests/acceptance/phpunit.xml
 
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar
