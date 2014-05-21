@@ -14,13 +14,13 @@ use Api\Entities\User;
  */
 class Acl
 {
-    const ROLE_INDEX        = '';
-    const ROLE_AUTHENTICATE = 'authenticate';
-    const ROLE_TRANSACTIONS = 'transactions';
-    const ROLE_DISTINCT     = 'distinct';
-    const ROLE_PREDICT      = 'predict';
-    const ROLE_USER         = 'user';
-    const ROLE_CONNECTION   = 'connection';
+    const RESOURCE_INDEX        = '';
+    const RESOURCE_AUTHENTICATE = 'authenticate';
+    const RESOURCE_TRANSACTIONS = 'transactions';
+    const RESOURCE_DISTINCT     = 'distinct';
+    const RESOURCE_PREDICT      = 'predict';
+    const RESOURCE_USER         = 'user';
+    const RESOURCE_CONNECTION   = 'connection';
 
     /** @var ZendAcl */
     private $acl;
@@ -69,13 +69,13 @@ class Acl
      */
     private function initResources()
     {
-        $this->getAcl()->addResource(new Resource(self::ROLE_INDEX));
-        $this->getAcl()->addResource(new Resource(self::ROLE_AUTHENTICATE));
-        $this->getAcl()->addResource(new Resource(self::ROLE_TRANSACTIONS));
-        $this->getAcl()->addResource(new Resource(self::ROLE_DISTINCT));
-        $this->getAcl()->addResource(new Resource(self::ROLE_PREDICT));
-        $this->getAcl()->addResource(new Resource(self::ROLE_USER));
-        $this->getAcl()->addResource(new Resource(self::ROLE_CONNECTION));
+        $this->getAcl()->addResource(new Resource(self::RESOURCE_INDEX));
+        $this->getAcl()->addResource(new Resource(self::RESOURCE_AUTHENTICATE));
+        $this->getAcl()->addResource(new Resource(self::RESOURCE_TRANSACTIONS));
+        $this->getAcl()->addResource(new Resource(self::RESOURCE_DISTINCT));
+        $this->getAcl()->addResource(new Resource(self::RESOURCE_PREDICT));
+        $this->getAcl()->addResource(new Resource(self::RESOURCE_USER));
+        $this->getAcl()->addResource(new Resource(self::RESOURCE_CONNECTION));
 
         return $this;
     }
@@ -85,21 +85,21 @@ class Acl
      */
     private function initPrivileges()
     {
-        $this->getAcl()->allow(User::ROLE_GUEST, self::ROLE_INDEX);
-        $this->getAcl()->allow(User::ROLE_GUEST, self::ROLE_AUTHENTICATE, array('login', 'password-recovery'));
-        $this->getAcl()->allow(User::ROLE_GUEST, self::ROLE_USER, array('register'));
+        $this->getAcl()->allow(User::ROLE_GUEST, self::RESOURCE_INDEX);
+        $this->getAcl()->allow(User::ROLE_GUEST, self::RESOURCE_AUTHENTICATE, array('login', 'password-recovery'));
+        $this->getAcl()->allow(User::ROLE_GUEST, self::RESOURCE_USER, array('register'));
 
-        $this->getAcl()->deny(User::ROLE_USER, self::ROLE_AUTHENTICATE, array('login', 'password-recovery'));
-        $this->getAcl()->allow(User::ROLE_USER, self::ROLE_AUTHENTICATE, array('logout'));
-        $this->getAcl()->allow(User::ROLE_USER, self::ROLE_TRANSACTIONS);
-        $this->getAcl()->allow(User::ROLE_USER, self::ROLE_DISTINCT);
-        $this->getAcl()->allow(User::ROLE_USER, self::ROLE_PREDICT);
-        $this->getAcl()->allow(User::ROLE_USER, self::ROLE_USER);
-        $this->getAcl()->deny(User::ROLE_USER, self::ROLE_USER, array('register'));
-        $this->getAcl()->allow(User::ROLE_USER, self::ROLE_CONNECTION);
+        $this->getAcl()->deny(User::ROLE_USER, self::RESOURCE_AUTHENTICATE, array('login', 'password-recovery'));
+        $this->getAcl()->allow(User::ROLE_USER, self::RESOURCE_AUTHENTICATE, array('logout'));
+        $this->getAcl()->allow(User::ROLE_USER, self::RESOURCE_TRANSACTIONS);
+        $this->getAcl()->allow(User::ROLE_USER, self::RESOURCE_DISTINCT);
+        $this->getAcl()->allow(User::ROLE_USER, self::RESOURCE_PREDICT);
+        $this->getAcl()->allow(User::ROLE_USER, self::RESOURCE_USER);
+        $this->getAcl()->deny(User::ROLE_USER, self::RESOURCE_USER, array('register'));
+        $this->getAcl()->allow(User::ROLE_USER, self::RESOURCE_CONNECTION);
 
-        $this->getAcl()->deny(User::ROLE_ADMIN, self::ROLE_AUTHENTICATE, array('login', 'password-recovery'));
-        $this->getAcl()->deny(User::ROLE_ADMIN, self::ROLE_USER, array('register'));
+        $this->getAcl()->deny(User::ROLE_ADMIN, self::RESOURCE_AUTHENTICATE, array('login', 'password-recovery'));
+        $this->getAcl()->deny(User::ROLE_ADMIN, self::RESOURCE_USER, array('register'));
         $this->getAcl()->allow(User::ROLE_ADMIN);
 
         return $this;

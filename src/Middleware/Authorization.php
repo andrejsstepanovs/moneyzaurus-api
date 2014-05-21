@@ -121,7 +121,7 @@ class Authorization extends Middleware
         $resource  = $this->getResource();
         $privilege = $this->getPrivilege();
 
-        $resource = empty($resource) ? Acl::ROLE_INDEX : $resource;
+        $resource = empty($resource) ? Acl::RESOURCE_INDEX : $resource;
 
         $allowed = $this->getAcl()->isAllowed($role, $resource, $privilege);
 
