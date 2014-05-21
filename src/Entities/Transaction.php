@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Transaction
  *
- * @ORM\Table(name="transaction", indexes={@ORM\Index(name="id_user", columns={"id_user"}), @ORM\Index(name="id_group", columns={"id_group"}), @ORM\Index(name="id_item", columns={"id_item"}), @ORM\Index(name="price", columns={"price"}), @ORM\Index(name="id_currency", columns={"id_currency"}), @ORM\Index(name="date_transaction", columns={"date"})})
+ * @ORM\Table(name="`transaction`", indexes={@ORM\Index(name="id_user", columns={"id_user"}), @ORM\Index(name="id_group", columns={"id_group"}), @ORM\Index(name="id_item", columns={"id_item"}), @ORM\Index(name="price", columns={"price"}), @ORM\Index(name="id_currency", columns={"id_currency"}), @ORM\Index(name="date_transaction", columns={"date"})})
  * @ORM\Entity
  */
 class Transaction
