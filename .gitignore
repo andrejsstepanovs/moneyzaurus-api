@@ -1,5 +1,5 @@
 vendor
-tests/coverage
+tests/unit/coverage
 build
 config/config.local.php
 .idea
