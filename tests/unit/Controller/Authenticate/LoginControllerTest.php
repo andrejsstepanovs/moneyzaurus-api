@@ -83,9 +83,10 @@ class LoginControllerTest extends TestCase
         $response = $this->sut->getResponse($username, $password);
 
         $this->assertTrue($response['success']);
-        $this->assertArrayHasKey('id', $response);
-        $this->assertArrayHasKey('email', $response);
-        $this->assertArrayHasKey('token', $response);
+        $this->assertNotEmpty($response['data']);
+        $this->assertArrayHasKey('id', $response['data']);
+        $this->assertArrayHasKey('email', $response['data']);
+        $this->assertArrayHasKey('token', $response['data']);
     }
 
 }

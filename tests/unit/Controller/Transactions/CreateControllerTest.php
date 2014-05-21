@@ -76,9 +76,10 @@ class CreateControllerTest extends TestCase
         $response = $this->sut->getResponse($user, $item, $group, $price, $currency, $date);
 
         $this->assertTrue(is_array($response));
-        $this->assertArrayHasKey('id', $response);
         $this->assertArrayHasKey('success', $response);
         $this->assertTrue($response['success']);
+        $this->assertNotEmpty($response['data']);
+        $this->assertArrayHasKey('id', $response['data']);
     }
 
 }
