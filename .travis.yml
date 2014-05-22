@@ -10,7 +10,7 @@ before_script:
 
 script:
   - vendor/bin/phpunit --configuration tests/unit/phpunit.xml
-  - vendor/bin/phpunit --configuration tests/acceptance/phpunit.xml
+  - vendor/bin/phpunit --configuration tests/acceptance/phpunit.xml --stop-on-failure --stop-on-error
 
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar
