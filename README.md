@@ -16,7 +16,9 @@ Start server:
 
 Run tests:
 
-```vendor/bin/phpunit -c tests/phpunit.xml```
+```vendor/bin/phpunit -c tests/unit/phpunit.xml```
+
+```vendor/bin/phpunit -c tests/acceptance/phpunit.xml```
 
 Import db structure:
 
