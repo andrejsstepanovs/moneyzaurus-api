@@ -67,12 +67,20 @@ class Routing extends KernelRouting
         $slim->map(
              '/user/register',
              function() use ($container, $slim) {
-                 $username = $slim->request()->post('username');
-                 $password = $slim->request()->post('password');
+                 $request = $slim->request();
 
                  /** @var \Api\Controller\User\RegisterController $controller */
                  $controller = $container->get('controller.user.register');
-                 $slim->setData($controller->getResponse($username, $password));
+                 $responseData = $controller->getResponse(
+                    $request->post('username'),
+                    $request->post('password'),
+                    $request->post('timezone'),
+                    $request->post('display_name'),
+                    $request->post('language'),
+                    $request->post('locale')
+                 );
+
+                 $slim->setData($responseData);
              }
         )
         ->via(Request::METHOD_POST);

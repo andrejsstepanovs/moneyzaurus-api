@@ -294,6 +294,7 @@ class Container extends KernelContainer
             $controller->setUserSave($this->get(self::USER_SAVE));
             $controller->setUserData($this->get(self::USER_DATA));
             $controller->setEmailValidator($this->get(self::EMAIL_VALIDATOR));
+            $controller->setLocale($this->get(self::SERVICE_LOCALE));
 
             return $controller;
         };

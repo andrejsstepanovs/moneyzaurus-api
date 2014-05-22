@@ -32,8 +32,12 @@ class IndexTest extends TestCase
         $password = 'abc 123 ., *#$';
 
         $postData = array(
-            'username' => $email,
-            'password' => $password
+            'username'     => $email,
+            'password'     => $password,
+            'timezone'     => 'Europe/Berlin',
+            'display_name' => 'Test User',
+            'language'     => 'en_EN',
+            'locale'       => 'en_EN',
         );
 
         $response = $this->post('/user/register', $postData);
