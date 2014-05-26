@@ -22,7 +22,6 @@
         </blacklist>
     </filter>
     <logging>
-        <log type="coverage-clover" target="../../build/logs/clover.xml"/>
         <!--<log type="coverage-html" target="coverage" charset="UTF-8"/>-->
     </logging>
 </phpunit>
