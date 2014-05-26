@@ -20,6 +20,10 @@ class Date
     public function getDateTime(User $user, $date)
     {
         $time  = strtotime($date);
+        if ($time === false) {
+            throw new \InvalidArgumentException('Provided date cannot be found');
+        }
+
         $year  = date('Y', $time);
         $month = date('m', $time);
         $day   = date('d', $time);

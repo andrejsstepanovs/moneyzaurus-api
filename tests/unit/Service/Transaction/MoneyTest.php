@@ -20,6 +20,33 @@ class MoneyTest extends TestCase
         $this->sut = new Money();
     }
 
+    public function wrongPriceDataProvider()
+    {
+        return array(
+            array('ABC'),
+            array('EUR10'),
+            array('EUR10.00'),
+            array('10.00EUR'),
+            array('_'),
+            array('.'),
+            array(','),
+            array('#'),
+            array('*'),
+        );
+    }
+
+    /**
+     * @dataProvider wrongPriceDataProvider
+     *
+     * @param string $price
+     *
+     * @expectedException \InvalidArgumentException
+     */
+    public function testWrongPrice($price)
+    {
+        $this->sut->getAmount($price);
+    }
+
     /**
      * @return array
      */
@@ -34,8 +61,10 @@ class MoneyTest extends TestCase
             array('0.6', 60),
             array('0.01', 1),
             array('.01', 1),
-            array('7.01EUR', 701), // @todo not allowed
-            array('EUR7.01', 0),   // @todo not allowed
+            array('7.01', 701),
+            array('0', 0),
+            array('0.0', 0),
+            array('0.00', 0),
         );
     }
 

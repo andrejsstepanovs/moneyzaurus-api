@@ -56,4 +56,31 @@ class DateTest extends TestCase
 
         $this->assertEquals($date, $result->format('Y-m-d'));
     }
+
+    /**
+     * @return array
+     */
+    public function invalidDateDataProvider()
+    {
+        return array(
+            array('ABC'),
+            array('date'),
+            array('0'),
+            array(''),
+            array('2010-10-01 abc'),
+            array('abc 2010-10-01'),
+        );
+    }
+
+    /**
+     * @dataProvider invalidDateDataProvider
+     *
+     * @expectedException \InvalidArgumentException
+     *
+     * @param string $date
+     */
+    public function testWrongDateData($date)
+    {
+        $this->sut->getDateTime($this->mock()->get('Api\Entities\User'), $date);
+    }
 }

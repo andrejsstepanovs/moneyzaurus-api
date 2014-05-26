@@ -82,4 +82,74 @@ class CreateControllerTest extends TestCase
         $this->assertArrayHasKey('id', $response['data']);
     }
 
+    public function testCreateTransactionWithEmptyItem()
+    {
+        $user = $this->mock()->get('Api\Entities\User');
+        $item     = '';
+        $group    = 'group';
+        $price    = '10.00';
+        $currency = 'EUR';
+        $date     = '2014-12-30';
+
+        $response = $this->sut->getResponse($user, $item, $group, $price, $currency, $date);
+        $this->assertFalse($response['success']);
+        $this->assertArrayHasKey('message', $response);
+    }
+
+    public function testCreateTransactionWithEmptyGroup()
+    {
+        $user = $this->mock()->get('Api\Entities\User');
+        $item     = 'item';
+        $group    = '';
+        $price    = '10.00';
+        $currency = 'EUR';
+        $date     = '2014-12-30';
+
+        $response = $this->sut->getResponse($user, $item, $group, $price, $currency, $date);
+        $this->assertFalse($response['success']);
+        $this->assertArrayHasKey('message', $response);
+    }
+
+    public function testCreateTransactionWithEmptyCurrency()
+    {
+        $user = $this->mock()->get('Api\Entities\User');
+        $item     = 'item';
+        $group    = 'group';
+        $price    = '10.00';
+        $currency = '';
+        $date     = '2014-12-30';
+
+        $response = $this->sut->getResponse($user, $item, $group, $price, $currency, $date);
+        $this->assertFalse($response['success']);
+        $this->assertArrayHasKey('message', $response);
+    }
+
+    public function testCreateTransactionWithEmptyDate()
+    {
+        $user = $this->mock()->get('Api\Entities\User');
+        $item     = 'item';
+        $group    = 'group';
+        $price    = '10.00';
+        $currency = 'EUR';
+        $date     = '';
+
+        $response = $this->sut->getResponse($user, $item, $group, $price, $currency, $date);
+        $this->assertFalse($response['success']);
+        $this->assertArrayHasKey('message', $response);
+    }
+
+    public function testCreateTransactionWithEmptyPrice()
+    {
+        $user = $this->mock()->get('Api\Entities\User');
+        $item     = 'item';
+        $group    = 'group';
+        $price    = '';
+        $currency = 'EUR';
+        $date     = '2010-01-01';
+
+        $response = $this->sut->getResponse($user, $item, $group, $price, $currency, $date);
+        $this->assertFalse($response['success']);
+        $this->assertArrayHasKey('message', $response);
+    }
+
 }

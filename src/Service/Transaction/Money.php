@@ -16,6 +16,10 @@ class Money
      */
     public function getAmount($price)
     {
+        if (!empty($price) && !is_numeric($price)) {
+            throw new \InvalidArgumentException('Provided price is not numeric');
+        }
+
         return (int) ($price * 100);
     }
 

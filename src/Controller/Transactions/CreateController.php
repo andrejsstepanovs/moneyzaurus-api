@@ -45,6 +45,8 @@ class CreateController
         $response = array('success' => true);
 
         try {
+            $this->checkNotEmpty($item, $group, $currency, $date, $price);
+
             $transaction = $this->getSave()->save(
                 new Transaction,
                 $user,
@@ -67,4 +69,35 @@ class CreateController
         return $response;
     }
 
+    /**
+     * @param string $item
+     * @param string $group
+     * @param string $currency
+     * @param string $date
+     * @param string $price
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function checkNotEmpty($item, $group, $currency, $date, $price)
+    {
+        if (empty($item)) {
+            throw new \InvalidArgumentException('Item cannot be empty');
+        }
+
+        if (empty($group)) {
+            throw new \InvalidArgumentException('Group cannot be empty');
+        }
+
+        if (empty($currency)) {
+            throw new \InvalidArgumentException('Currency cannot be empty');
+        }
+
+        if (empty($date)) {
+            throw new \InvalidArgumentException('Date cannot be empty');
+        }
+
+        if (empty($price)) {
+            throw new \InvalidArgumentException('Price cannot be empty');
+        }
+    }
 }

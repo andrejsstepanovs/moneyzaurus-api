@@ -4,6 +4,8 @@
     <testsuites>
         <testsuite name="controller">
             <directory>Index</directory>
+            <directory>User</directory>
+            <directory>Transactions</directory>
         </testsuite>
     </testsuites>
     <php>

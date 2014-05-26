@@ -72,4 +72,56 @@ class TestCase extends PHPUnit_Framework_TestCase
         return $response;
     }
 
+    /**
+     * @return array
+     */
+    public function registerNewUser()
+    {
+        $email    = uniqid('email_') . '@email.com';
+        $password = uniqid('password');
+
+        $postData = array(
+            'username'     => $email,
+            'password'     => $password,
+            'timezone'     => 'Europe/Berlin',
+            'display_name' => 'Test User',
+            'language'     => 'en_EN',
+            'locale'       => 'en_EN',
+        );
+
+        $response = $this->post('/user/register', $postData);
+        $data = (array)$response->json();
+
+        $this->assertTrue($data['success']);
+        $this->assertGreaterThan(0, $data['data']['id']);
+        $this->assertEquals(\Api\Entities\User::STATE_ACTIVE, $data['data']['state']);
+        $this->assertEquals($postData['username'], $data['data']['email']);
+        $this->assertEquals('user', $data['data']['role']);
+
+        $user = array_merge($data['data'], ['password' => $password]);
+
+        return $user;
+    }
+
+    /**
+     * @param array $user
+     *
+     * @return string token
+     */
+    public function login(array $user)
+    {
+        $postData = array(
+            'username' => $user['email'],
+            'password' => $user['password']
+        );
+
+        $response = $this->post('/authenticate/login', $postData);
+        $responseData = (array)$response->json();
+
+        $this->assertTrue($responseData['success']);
+        $this->assertNotEmpty($responseData['data']['token']);
+        $this->assertEquals($user['id'], $responseData['data']['id']);
+
+        return $responseData['data']['token'];
+    }
 }
