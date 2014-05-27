@@ -122,6 +122,36 @@ class Data
     }
 
     /**
+     * @param Transaction $transaction
+     *
+     * @return array
+     */
+    public function toArray(Transaction $transaction)
+    {
+        $data = array(
+            'id'              => $transaction->getId(),
+            'dateTransaction' => $transaction->getDate(),
+            'dateCreated'     => $transaction->getDateCreated(),
+            'amount'          => $transaction->getPrice(),
+            'currency'        => $transaction->getCurrency()->getCurrency(),
+            'currencyName'    => $transaction->getCurrency()->getName(),
+            'currencySymbol'  => $transaction->getCurrency()->getHtml(),
+            'email'           => $transaction->getUser()->getEmail(),
+            'role'            => $transaction->getUser()->getRole(),
+            'userId'          => $transaction->getUser()->getId(),
+            'locale'          => $transaction->getUser()->getLocale(),
+            'timezone'        => $transaction->getUser()->getTimezone(),
+            'userName'        => $transaction->getUser()->getDisplayName(),
+            'itemName'        => $transaction->getItem()->getName(),
+            'itemId'          => $transaction->getItem()->getId(),
+            'groupName'       => $transaction->getGroup()->getName(),
+            'groupId'         => $transaction->getGroup()->getId(),
+        );
+
+        return $data;
+    }
+
+    /**
      * @param array $transactions
      *
      * @return array

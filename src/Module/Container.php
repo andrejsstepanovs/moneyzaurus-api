@@ -414,7 +414,6 @@ class Container extends KernelContainer
         $this['controller.transactions.id'] = function () {
             $controller = new \Api\Controller\Transactions\IdController();
             $controller->setData($this->get(self::TRANSACTION_DATA));
-            $controller->setLocale($this->get(self::SERVICE_LOCALE));
             $controller->setValidate($this->get(self::TRANSACTION_VALIDATE));
             $controller->setMoney($this->get(self::TRANSACTION_MONEY));
 

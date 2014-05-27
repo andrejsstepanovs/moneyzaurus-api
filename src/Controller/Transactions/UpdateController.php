@@ -69,7 +69,9 @@ class UpdateController
                 );
 
                 $response['success'] = true;
-                $response['id'] = $transaction->getId();
+                $response['data'] = array(
+                    'id' => $transaction->getId()
+                );
 
             } catch (\Exception $exc) {
                 $response['success'] = false;
