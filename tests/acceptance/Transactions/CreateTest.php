@@ -55,6 +55,33 @@ class CreateTest extends TestCase
                     'date'     => date('Y-m-d')
                 ),
             ),
+            array(
+                array(
+                    'item'     => 'Test1',
+                    'group'    => 'Test1',
+                    'price'    => '10.95',
+                    'currency' => 'EUR',
+                    'date'     => date('Y-m-d')
+                ),
+            ),
+            array(
+                array(
+                    'item'     => 'Test2',
+                    'group'    => 'Test1',
+                    'price'    => '5.05',
+                    'currency' => 'EUR',
+                    'date'     => date('Y-m-d')
+                ),
+            ),
+            array(
+                array(
+                    'item'     => 'Test3',
+                    'group'    => 'Test1',
+                    'price'    => '5.05',
+                    'currency' => 'EUR',
+                    'date'     => date('Y-m-d')
+                ),
+            ),
         );
     }
 

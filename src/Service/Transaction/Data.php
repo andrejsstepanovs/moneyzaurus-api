@@ -98,7 +98,9 @@ class Data
 
         $dql .= ' ORDER BY t.id DESC';
 
-        return $this->fetchResults($dql, $parameters, $limit, $offset);
+        $transactions = $this->fetchResults($dql, $parameters, $limit, $offset);
+
+        return $transactions;
     }
 
     /**
