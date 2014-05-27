@@ -93,6 +93,7 @@ class MockContainer extends Pimple
                 'Api\Service\Transaction\Data',
                 array(
                     'find',
+                    'toArray',
                     'getTransactionsList',
                     'normalizeResults'
                 )

@@ -139,4 +139,96 @@ class DataTest extends TestCase
         $this->assertInstanceOf(get_class($this->mock()->get('Api\Entities\Transaction')), $response);
     }
 
+    /**
+     * @return \IntlDateFormatter
+     */
+    private function getIntlDateFormatterStub()
+    {
+        return new \IntlDateFormatter(
+            'Europe/Berlin',
+            \IntlDateFormatter::SHORT,
+            \IntlDateFormatter::NONE
+        );
+    }
+
+    /**
+     * @return \DateTime
+     */
+    private function getDateTimeStub()
+    {
+        return new \DateTime('2014-01-02 10:00:59');
+    }
+
+    public function testToArray()
+    {
+        $this->mock()->get('Api\Entities\Transaction')
+             ->expects($this->any())
+             ->method('getItem')
+             ->will($this->returnValue($this->mock()->get('Api\Entities\Item')));
+
+        $this->mock()->get('Api\Entities\Transaction')
+             ->expects($this->any())
+             ->method('getGroup')
+             ->will($this->returnValue($this->mock()->get('Api\Entities\Group')));
+
+        $this->mock()->get('Api\Entities\Transaction')
+             ->expects($this->once())
+             ->method('getCurrency')
+             ->will($this->returnValue($this->mock()->get('Api\Entities\Currency')));
+
+        $this->mock()->get('Api\Entities\Transaction')
+             ->expects($this->once())
+             ->method('getUser')
+             ->will($this->returnValue($this->mock()->get('Api\Entities\User')));
+
+        $this->mock()->get('Api\Entities\Transaction')
+             ->expects($this->once())
+             ->method('getDate')
+             ->will($this->returnValue($this->getDateTimeStub()));
+
+        $this->mock()->get('Api\Entities\Transaction')
+             ->expects($this->once())
+             ->method('getPrice')
+             ->will($this->returnValue(100));
+
+        $this->mock()->get('Api\Entities\Transaction')
+             ->expects($this->once())
+             ->method('getId')
+             ->will($this->returnValue(12345));
+
+        $this->mock()->get('Api\Entities\Transaction')
+             ->expects($this->once())
+             ->method('getDateCreated')
+             ->will($this->returnValue($this->getDateTimeStub()));
+
+        $this->mock()->get('Api\Entities\Currency')
+             ->expects($this->any())
+             ->method('getCurrency')
+             ->will($this->returnValue('EUR'));
+
+        $response = $this->sut->toArray($this->mock()->get('Api\Entities\Transaction'));
+
+        $expected = array(
+            'id'              => 12345,
+            'dateTransaction' => $this->getDateTimeStub(),
+            'dateCreated'     => $this->getDateTimeStub(),
+            'amount'          => 100,
+            'currency'        => 'EUR',
+            'currencyName'    => null,
+            'currencySymbol'  => null,
+            'email'           => null,
+            'role'            => null,
+            'userId'          => null,
+            'locale'          => null,
+            'timezone'        => null,
+            'userName'        => null,
+            'itemName'        => null,
+            'itemId'          => null,
+            'groupName'       => null,
+            'groupId'         => null
+        );
+
+        $this->assertTrue(is_array($response));
+        $this->assertEquals($expected, $response);
+    }
 }

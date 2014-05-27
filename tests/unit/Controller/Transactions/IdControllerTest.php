@@ -20,43 +20,12 @@ class IdControllerTest extends TestCase
         $this->sut = new IdController();
         $this->sut->setMoney($this->mock()->get('Api\Service\Transaction\Money'));
         $this->sut->setData($this->mock()->get('Api\Service\Transaction\Data'));
-        $this->sut->setLocale($this->mock()->get('Api\Service\Locale'));
         $this->sut->setValidate($this->mock()->get('Api\Service\Transaction\Validate'));
 
         $this->mock()->get('Api\Entities\Transaction')
             ->expects($this->any())
             ->method('getUser')
             ->will($this->returnValue($this->mock()->get('Api\Entities\User')));
-
-        $this->mock()->get('Api\Entities\Transaction')
-            ->expects($this->any())
-            ->method('getItem')
-            ->will($this->returnValue($this->mock()->get('Api\Entities\Item')));
-
-        $this->mock()->get('Api\Entities\Transaction')
-            ->expects($this->any())
-            ->method('getGroup')
-            ->will($this->returnValue($this->mock()->get('Api\Entities\Group')));
-    }
-
-    /**
-     * @return \IntlDateFormatter
-     */
-    private function getIntlDateFormatterStub()
-    {
-        return new \IntlDateFormatter(
-            'Europe/Berlin',
-            \IntlDateFormatter::SHORT,
-            \IntlDateFormatter::NONE
-        );
-    }
-
-    /**
-     * @return \DateTime
-     */
-    private function getDateTimeStub()
-    {
-        return new \DateTime('2014-01-02 10:00:59');
     }
 
     public function testTransactionIdNotFound()
@@ -116,40 +85,16 @@ class IdControllerTest extends TestCase
              ->method('isAllowed')
              ->will($this->returnValue(true));
 
-        $this->mock()->get('Api\Service\Locale')
-             ->expects($this->any())
-             ->method('setLocale')
-             ->will($this->returnSelf());
+        $this->mock()->get('Api\Service\Transaction\Data')
+             ->expects($this->once())
+             ->method('toArray')
+             ->will($this->returnValue(array()));
 
-        $this->mock()->get('Api\Entities\Transaction')
-            ->expects($this->once())
-            ->method('getCurrency')
-            ->will($this->returnValue($this->mock()->get('Api\Entities\Currency')));
+        $this->mock()->get('Api\Service\Transaction\Data')
+             ->expects($this->once())
+             ->method('normalizeResults')
+             ->will($this->returnValue(array(array('apple' => 'red'))));
 
-        $this->mock()->get('Api\Entities\Transaction')
-            ->expects($this->once())
-            ->method('getDate')
-            ->will($this->returnValue($this->getDateTimeStub()));
-
-        $this->mock()->get('Api\Entities\Transaction')
-            ->expects($this->once())
-            ->method('getDateCreated')
-            ->will($this->returnValue($this->getDateTimeStub()));
-
-        $this->mock()->get('Api\Entities\Currency')
-             ->expects($this->any())
-             ->method('getCurrency')
-             ->will($this->returnValue('EUR'));
-
-        $this->mock()->get('Api\Service\Locale')
-            ->expects($this->any())
-            ->method('getDateFormatter')
-            ->will($this->returnValue($this->getIntlDateFormatterStub()));
-
-        $this->mock()->get('Api\Service\Locale')
-            ->expects($this->any())
-            ->method('getDateTimeFormatter')
-            ->will($this->returnValue($this->getIntlDateFormatterStub()));
 
         $response = $this->sut->getResponse($this->mock()->get('Api\Entities\User'), $connectedUserIds, $transactionId);
 
@@ -158,21 +103,7 @@ class IdControllerTest extends TestCase
             array(
                 'success' => true,
                 'data' => array(
-                    'id'                => null,
-                    'item'              => null,
-                    'group'             => null,
-                    'amount'            => null,
-                    'price'             => '0.00',
-                    'money'             => null,
-                    'currency'          => 'EUR',
-                    'date'              => '2014-01-02',
-                    'date_full'         => '2014-01-02',
-                    'date_timestamp'    => 1388656859,
-                    'created'           => '2014-01-02',
-                    'created_full'      => '2014-01-02',
-                    'created_timestamp' => 1388656859,
-                    'user'              => null,
-                    'email'             => null
+                    'apple' => 'red'
                 )
             ),
             $response

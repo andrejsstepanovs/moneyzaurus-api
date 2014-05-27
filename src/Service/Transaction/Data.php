@@ -128,24 +128,29 @@ class Data
      */
     public function toArray(Transaction $transaction)
     {
+        $user = $transaction->getUser();
+        $item = $transaction->getItem();
+        $group = $transaction->getGroup();
+        $currency = $transaction->getCurrency();
+
         $data = array(
             'id'              => $transaction->getId(),
             'dateTransaction' => $transaction->getDate(),
             'dateCreated'     => $transaction->getDateCreated(),
             'amount'          => $transaction->getPrice(),
-            'currency'        => $transaction->getCurrency()->getCurrency(),
-            'currencyName'    => $transaction->getCurrency()->getName(),
-            'currencySymbol'  => $transaction->getCurrency()->getHtml(),
-            'email'           => $transaction->getUser()->getEmail(),
-            'role'            => $transaction->getUser()->getRole(),
-            'userId'          => $transaction->getUser()->getId(),
-            'locale'          => $transaction->getUser()->getLocale(),
-            'timezone'        => $transaction->getUser()->getTimezone(),
-            'userName'        => $transaction->getUser()->getDisplayName(),
-            'itemName'        => $transaction->getItem()->getName(),
-            'itemId'          => $transaction->getItem()->getId(),
-            'groupName'       => $transaction->getGroup()->getName(),
-            'groupId'         => $transaction->getGroup()->getId(),
+            'currency'        => $currency->getCurrency(),
+            'currencyName'    => $currency->getName(),
+            'currencySymbol'  => $currency->getHtml(),
+            'email'           => $user->getEmail(),
+            'role'            => $user->getRole(),
+            'userId'          => $user->getId(),
+            'locale'          => $user->getLocale(),
+            'timezone'        => $user->getTimezone(),
+            'userName'        => $user->getDisplayName(),
+            'itemName'        => $item->getName(),
+            'itemId'          => $item->getId(),
+            'groupName'       => $group->getName(),
+            'groupId'         => $group->getId(),
         );
 
         return $data;
