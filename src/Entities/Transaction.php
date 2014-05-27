@@ -15,7 +15,7 @@ class Transaction
     /**
      * @var integer
      *
-     * @ORM\Column(name="transaction_id", type="integer", nullable=false)
+     * @ORM\Column(name="`transaction_id`", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -24,21 +24,21 @@ class Transaction
     /**
      * @var int
      *
-     * @ORM\Column(name="price", type="integer", nullable=false)
+     * @ORM\Column(name="`price`", type="integer", nullable=false)
      */
     private $price;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date", type="date", nullable=false)
+     * @ORM\Column(name="`date`", type="date", nullable=false)
      */
     private $date;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_created", type="datetime", nullable=false)
+     * @ORM\Column(name="`date_created`", type="datetime", nullable=false)
      */
     private $dateCreated = 'CURRENT_TIMESTAMP';
 

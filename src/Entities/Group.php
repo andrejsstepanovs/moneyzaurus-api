@@ -15,7 +15,7 @@ class Group
     /**
      * @var integer
      *
-     * @ORM\Column(name="group_id", type="integer", nullable=false)
+     * @ORM\Column(name="`group_id`", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -31,7 +31,7 @@ class Group
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_created", type="datetime", nullable=false)
+     * @ORM\Column(name="`date_created`", type="datetime", nullable=false)
      */
     private $dateCreated = 'CURRENT_TIMESTAMP';
 

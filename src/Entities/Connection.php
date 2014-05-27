@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Connection
  *
- * @ORM\Table(name="connection", uniqueConstraints={@ORM\UniqueConstraint(name="id_user-id_user_parent", columns={"id_user", "id_user_parent"})}, indexes={@ORM\Index(name="id_user_parent", columns={"id_user_parent"}), @ORM\Index(name="status", columns={"state"}), @ORM\Index(name="IDX_29F773666B3CA4B", columns={"id_user"})})
+ * @ORM\Table(name="`connection`", uniqueConstraints={@ORM\UniqueConstraint(name="id_user-id_user_parent", columns={"id_user", "id_user_parent"})}, indexes={@ORM\Index(name="id_user_parent", columns={"id_user_parent"}), @ORM\Index(name="status", columns={"state"}), @ORM\Index(name="IDX_29F773666B3CA4B", columns={"id_user"})})
  * @ORM\Entity
  */
 class Connection
@@ -18,7 +18,7 @@ class Connection
     /**
      * @var integer
      *
-     * @ORM\Column(name="connection_id", type="integer", nullable=false)
+     * @ORM\Column(name="`connection_id`", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -27,14 +27,14 @@ class Connection
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_created", type="datetime", nullable=false)
+     * @ORM\Column(name="`date_created`", type="datetime", nullable=false)
      */
     private $dateCreated = 'CURRENT_TIMESTAMP';
 
     /**
      * @var string
      *
-     * @ORM\Column(name="state", type="string", nullable=false)
+     * @ORM\Column(name="`state`", type="string", nullable=false)
      */
     private $state = 'rejected';
 

@@ -12,7 +12,8 @@ use Zend\Crypt\Password\Bcrypt as PasswordCrypt;
  */
 class Container extends KernelContainer
 {
-    const ENTITY_MANAGER           = 'entityManager';
+    const ENTITY_MANAGER           = 'entity.manager';
+    const DOCTRINE_LOGGER          = 'doctrine.logger';
     const PASSWORD_CRYPT           = 'password.crypt';
 
     const SERVICE_TIME             = 'service.time';
@@ -478,6 +479,10 @@ class Container extends KernelContainer
     {
         $dbConfig = $this->getConfig()->get(Config::DATABASE);
 
+        $this[self::DOCTRINE_LOGGER] = function() {
+            return new \Api\Service\Doctrine\SQLLogger();
+        };
+
         $this[self::ENTITY_MANAGER] = function () use ($dbConfig) {
             $proxyDir                  = null;
             $cache                     = null;
@@ -489,6 +494,8 @@ class Container extends KernelContainer
                 $cache,
                 $useSimpleAnnotationReader
             );
+
+            $config->setSQLLogger($this[self::DOCTRINE_LOGGER]);
 
             $entityManager = \Doctrine\ORM\EntityManager::create(
                 $dbConfig[Config::DATABASE_CONNECTION],

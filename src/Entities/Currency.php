@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Currency
  *
- * @ORM\Table(name="currency", uniqueConstraints={@ORM\UniqueConstraint(name="currency", columns={"currency_id"})})
+ * @ORM\Table(name="`currency`", uniqueConstraints={@ORM\UniqueConstraint(name="currency", columns={"currency_id"})})
  * @ORM\Entity
  */
 class Currency
@@ -15,7 +15,7 @@ class Currency
     /**
      * @var string
      *
-     * @ORM\Column(name="currency_id", type="string", length=3, nullable=false)
+     * @ORM\Column(name="`currency_id`", type="string", length=3, nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -31,14 +31,14 @@ class Currency
     /**
      * @var string
      *
-     * @ORM\Column(name="html", type="string", length=10, nullable=false)
+     * @ORM\Column(name="`html`", type="string", length=10, nullable=false)
      */
     private $html;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_created", type="datetime", nullable=false)
+     * @ORM\Column(name="`date_created`", type="datetime", nullable=false)
      */
     private $dateCreated = 'CURRENT_TIMESTAMP';
 

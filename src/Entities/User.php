@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * User
  *
- * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="username", columns={"username"}), @ORM\UniqueConstraint(name="email", columns={"email"})}, indexes={@ORM\Index(name="role", columns={"role"})})
+ * @ORM\Table(name="`user`", uniqueConstraints={@ORM\UniqueConstraint(name="username", columns={"username"}), @ORM\UniqueConstraint(name="email", columns={"email"})}, indexes={@ORM\Index(name="role", columns={"role"})})
  * @ORM\Entity
  */
 class User
@@ -35,63 +35,63 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="role", type="string", nullable=false)
+     * @ORM\Column(name="`role`", type="string", nullable=false)
      */
     private $role = self::ROLE_USER;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="username", type="string", length=255, nullable=true)
+     * @ORM\Column(name="`username`", type="string", length=255, nullable=true)
      */
     private $username;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255, nullable=true)
+     * @ORM\Column(name="`email`", type="string", length=255, nullable=true)
      */
     private $email;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="display_name", type="string", length=50, nullable=true)
+     * @ORM\Column(name="`display_name`", type="string", length=50, nullable=true)
      */
     private $displayName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="password", type="string", length=128, nullable=false)
+     * @ORM\Column(name="`password`", type="string", length=128, nullable=false)
      */
     private $password;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="locale", type="string", nullable=false)
+     * @ORM\Column(name="`locale`", type="string", nullable=false)
      */
     private $locale = 'de_DE';
 
     /**
      * @var string
      *
-     * @ORM\Column(name="timezone", type="string", nullable=false)
+     * @ORM\Column(name="`timezone`", type="string", nullable=false)
      */
     private $timezone = 'Europe/Berlin';
 
     /**
      * @var string
      *
-     * @ORM\Column(name="language", type="string", nullable=false)
+     * @ORM\Column(name="`language`", type="string", nullable=false)
      */
     private $language = 'en_US';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="state", type="smallint", nullable=true)
+     * @ORM\Column(name="`state`", type="smallint", nullable=true)
      */
     private $state = self::STATE_ACTIVE;
 

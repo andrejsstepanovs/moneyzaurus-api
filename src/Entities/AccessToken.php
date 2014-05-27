@@ -8,7 +8,7 @@ use Api\Entities\User;
 /**
  * AccessToken
  *
- * @ORM\Table(name="access_token", uniqueConstraints={@ORM\UniqueConstraint(name="token", columns={"token"})}, indexes={@ORM\Index(name="id_user", columns={"id_user"})})
+ * @ORM\Table(name="`access_token`", uniqueConstraints={@ORM\UniqueConstraint(name="token", columns={"token"})}, indexes={@ORM\Index(name="id_user", columns={"id_user"})})
  * @ORM\Entity
  */
 class AccessToken
@@ -16,7 +16,7 @@ class AccessToken
     /**
      * @var integer
      *
-     * @ORM\Column(name="access_token_id", type="integer", nullable=false)
+     * @ORM\Column(name="`access_token_id`", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -25,14 +25,14 @@ class AccessToken
     /**
      * @var string
      *
-     * @ORM\Column(name="token", type="string", length=40, nullable=false)
+     * @ORM\Column(name="`token`", type="string", length=40, nullable=false)
      */
     private $token;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created", type="datetime", nullable=false)
+     * @ORM\Column(name="`created`", type="datetime", nullable=false)
      */
     private $created;
 
