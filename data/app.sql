@@ -148,6 +148,23 @@ CREATE TABLE IF NOT EXISTS `user_provider` (
   UNIQUE KEY `provider_id` (`provider_id`,`provider`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `access_token`
+--
+
+CREATE TABLE IF NOT EXISTS `access_token` (
+ `access_token_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+ `id_user` int(10) unsigned NOT NULL,
+ `token` varchar(100) NOT NULL,
+ `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ PRIMARY KEY (`access_token_id`),
+ UNIQUE KEY `token` (`token`),
+ KEY `id_user` (`id_user`),
+ CONSTRAINT `access_token_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
 --
 -- Constraints for dumped tables
 --
