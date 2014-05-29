@@ -254,13 +254,13 @@ class Routing extends KernelRouting
                  $response = $controller->getResponse(
                     $slim->config('user'),
                     $slim->config('connectedUserIds'),
-                    $slim->request()->get('item'),
-                    $slim->request()->get('group')
+                    $slim->request()->post('item'),
+                    $slim->request()->post('group')
                  );
                  $slim->setData($response);
              }
         )
-        ->via(Request::METHOD_GET);
+        ->via(Request::METHOD_POST);
 
         $slim->map(
             '/user/data',

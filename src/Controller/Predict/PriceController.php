@@ -33,13 +33,20 @@ class PriceController
     {
         $userIds = array_merge(array($user->getId()), $connectedUserIds);
 
-        $prices = $this->getPredictPrice()->predict($userIds, $item, $group);
-
         $data = array(
-            'success' => true,
-            'count'   => count($prices),
-            'data'    => $this->getData()->normalizeResults($prices, $user),
+            'success' => true
         );
+
+        try {
+            $prices = $this->getPredictPrice()->predict($userIds, $item, $group);
+            $normalizedPrice = $this->getData()->normalizeResults($prices, $user);
+
+            $data['count'] = count($prices);
+            $data['data']  = $normalizedPrice;
+        } catch (\Exception $exc) {
+            $data['success'] = false;
+            $data['message'] = $exc->getMessage();
+        }
 
         return $data;
     }

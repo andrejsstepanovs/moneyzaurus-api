@@ -61,7 +61,7 @@ class Price
         \DateTime $dateFrom = null
     ) {
         $dql = 'SELECT '
-               . 't.price AS amount, u.locale, c.currency, c.name as currencyName, '
+               . 't.price AS amount, u.locale, u.timezone, c.currency, c.name as currencyName, '
                . 'c.html as currencySymbol, COUNT(t.id) AS usedCount '
                . 'FROM \Api\Entities\Transaction t '
                . 'JOIN t.item i '
