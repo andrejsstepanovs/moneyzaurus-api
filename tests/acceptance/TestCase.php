@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Acceptance;
+namespace AcceptanceTests;
 
 use PHPUnit_Framework_TestCase;
 use Guzzle\Http\Client as HttpClient;

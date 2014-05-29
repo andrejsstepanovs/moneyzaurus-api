@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Acceptance\Transactions;
+namespace AcceptanceTests\Transactions;
 
 /**
  * Class UpdateTest
  *
- * @package Tests\Acceptance\Transactions
+ * @package AcceptanceTests\Transactions
  */
 class UpdateTest extends CreateTest
 {

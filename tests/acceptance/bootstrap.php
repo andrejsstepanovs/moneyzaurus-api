@@ -7,7 +7,6 @@ if (defined('HHVM_VERSION')) {
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-
 $sourceDb = __DIR__ . '/../../data/appdb.sqlite';
 $dbFile   = __DIR__ . '/tmp.appdb.sqlite';
 
@@ -46,6 +45,3 @@ register_shutdown_function(
         unlink($dbFile);
     }
 );
-
-// More bootstrap code
-require_once 'TestCase.php';

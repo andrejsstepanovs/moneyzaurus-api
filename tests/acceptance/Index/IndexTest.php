@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Acceptance\Index;
+namespace AcceptanceTests\Index;
 
-use Tests\Acceptance\TestCase;
+use AcceptanceTests\TestCase;
 
 /**
  * Class IndexTest

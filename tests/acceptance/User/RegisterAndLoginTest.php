@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\Acceptance\User;
+namespace AcceptanceTests\User;
 
-use Tests\Acceptance\TestCase;
+use AcceptanceTests\TestCase;
 
 /**
  * Class IndexTest
  *
- * @package Tests\Acceptance\User
+ * @package AcceptanceTests\User
  */
 class RegisterTest extends TestCase
 {

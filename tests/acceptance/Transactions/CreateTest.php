@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\Acceptance\Transactions;
+namespace AcceptanceTests\Transactions;
 
-use Tests\Acceptance\TestCase;
+use AcceptanceTests\TestCase;
 
 /**
  * Class IndexTest
  *
- * @package Tests\Acceptance\Transactions
+ * @package AcceptanceTests\Transactions
  */
 class CreateTest extends TestCase
 {

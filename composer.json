@@ -17,6 +17,10 @@
         "guzzlehttp/guzzle": "~4.0"
     },
     "autoload": {
-        "psr-4": {"Api\\": "src/"}
+        "psr-4": {
+            "Api\\": "src/",
+            "Tests\\": "tests/unit/",
+            "AcceptanceTests\\": "tests/acceptance/"
+        }
     }
 }
