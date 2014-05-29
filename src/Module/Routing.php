@@ -239,12 +239,12 @@ class Routing extends KernelRouting
                 $response = $controller->getResponse(
                     $slim->config('user'),
                     $slim->config('connectedUserIds'),
-                    $slim->request()->get('item')
+                    $slim->request()->post('item')
                 );
                 $slim->setData($response);
             }
         )
-        ->via(Request::METHOD_GET);
+        ->via(Request::METHOD_POST);
 
         $slim->map(
              '/predict/price',
