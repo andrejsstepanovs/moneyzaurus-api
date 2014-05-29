@@ -80,4 +80,30 @@ class PriceControllerTest extends TestCase
         $this->assertEquals($expected, $response);
     }
 
+    public function testWillFail()
+    {
+        $connectedUserIds = array();
+        $item  = 'item';
+        $group = 'group';
+
+        $this->mock()->get('Api\Service\Predict\Price')
+             ->expects($this->once())
+             ->method('predict')
+             ->will($this->returnValue(array()));
+
+        $this->mock()->get('Api\Service\Transaction\Data')
+             ->expects($this->once())
+             ->method('normalizeResults')
+             ->will($this->throwException(new \RuntimeException('TEST')));
+
+        $response = $this->sut->getResponse($this->mock()->get('Api\Entities\User'), $connectedUserIds, $item, $group);
+
+        $expected = array(
+            'success' => false,
+            'message' => 'TEST'
+        );
+
+        $this->assertEquals($expected, $response);
+    }
+
 }
