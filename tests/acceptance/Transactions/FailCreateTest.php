@@ -2,14 +2,13 @@
 
 namespace AcceptanceTests\Transactions;
 
-use AcceptanceTests\TestCase;
 
 /**
- * Class IndexTest
+ * Class FailCreateTest
  *
  * @package AcceptanceTests\Transactions
  */
-class CreateTest extends TestCase
+class FailCreateTest extends CreateTest
 {
     /**
      * @return array
@@ -34,7 +33,7 @@ class CreateTest extends TestCase
     /**
      * @return array
      */
-    public function correctDataProvider()
+    public function wrongDataProvider()
     {
         return array(
             array(
@@ -42,42 +41,51 @@ class CreateTest extends TestCase
                     'item'     => 'Item Name',
                     'group'    => 'Group Name',
                     'price'    => '12',
+                    'currency' => 'UNKNOWN',
+                    'date'     => date('Y-m-d')
+                ),
+            ),
+            array(
+                array(
+                    'item'     => 'apple',
+                    'group'    => 'food',
+                    'price'    => '12.34',
+                    'currency' => 'EUR',
+                    'date'     => 'WRONG'
+                ),
+            ),
+            array(
+                array(
+                    'item'     => 'banana',
+                    'group'    => 'food',
+                    'price'    => 'WRONG PRICE',
                     'currency' => 'EUR',
                     'date'     => date('Y-m-d')
                 ),
             ),
             array(
                 array(
-                    'item'     => 'Āķšādļļķī !:SL',
-                    'group'    => 'ŠĶĻĀnņūīkls',
-                    'price'    => '11.10',
+                    'item'     => '',
+                    'group'    => 'Group',
+                    'price'    => '999',
                     'currency' => 'EUR',
                     'date'     => date('Y-m-d')
                 ),
             ),
             array(
                 array(
-                    'item'     => 'Test1',
-                    'group'    => 'Test1',
-                    'price'    => '10.95',
+                    'item'     => 'Item',
+                    'group'    => '',
+                    'price'    => '123',
                     'currency' => 'EUR',
                     'date'     => date('Y-m-d')
                 ),
             ),
             array(
                 array(
-                    'item'     => 'Test2',
-                    'group'    => 'Test1',
-                    'price'    => '5.05',
-                    'currency' => 'EUR',
-                    'date'     => date('Y-m-d')
-                ),
-            ),
-            array(
-                array(
-                    'item'     => 'Test3',
-                    'group'    => 'Test1',
-                    'price'    => '5.05',
+                    'item'     => 'Item',
+                    'group'    => 'Group',
+                    'price'    => '',
                     'currency' => 'EUR',
                     'date'     => date('Y-m-d')
                 ),
@@ -86,17 +94,18 @@ class CreateTest extends TestCase
     }
 
     /**
-     * @dataProvider correctDataProvider
+     * @dataProvider wrongDataProvider
      * @depends      testLogin
      *
      * @param string $token
      */
-    public function testSuccessfulCreate(array $post, $token)
+    public function testFailCreate(array $post, $token)
     {
         $response = $this->post('/transactions/add?token=' . $token, $post);
         $data = (array)$response->json();
 
-        $this->assertTrue($data['success']);
-        $this->assertGreaterThan(0, $data['data']['id']);
+        $this->assertFalse($data['success']);
+        $this->assertArrayHasKey('message', $data);
+        $this->assertNotEmpty($data['message']);
     }
 }
