@@ -48,7 +48,7 @@ class PasswordRecoveryController
         }
 
         try {
-            $response['success'] = $this->process($user);
+            $response['success'] = (bool)$this->process($user);
         } catch (\Exception $exc) {
             $response['message'] = $exc->getMessage();
         }

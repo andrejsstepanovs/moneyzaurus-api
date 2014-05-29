@@ -123,13 +123,18 @@ class Container extends KernelContainer
 
         $this[self::EMAIL_TRANSPORT] = function () {
             $config = $this->getConfig()->get(Config::EMAIL);
-            $transport = \Swift_SmtpTransport::newInstance(
-                $config['host'],
-                $config['port'],
-                $config['security']
-            );
-            $transport->setUsername($config['username'])
-                      ->setPassword($config['password']);
+
+            if ($config['test']) {
+                $transport = new \Tests\Stub\TestTransport();
+            } else {
+                $transport = \Swift_SmtpTransport::newInstance(
+                    $config['host'],
+                    $config['port'],
+                    $config['security']
+                );
+                $transport->setUsername($config['username'])
+                          ->setPassword($config['password']);
+            }
 
             return $transport;
         };

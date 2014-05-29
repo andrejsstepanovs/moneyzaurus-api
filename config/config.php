@@ -25,6 +25,7 @@ return [
         'port'     => 465,
         'security' => 'ssl',
         'username' => 'email@gmail.com',
-        'password' => 'password'
+        'password' => 'password',
+        'test'     => false
     ]
 ];

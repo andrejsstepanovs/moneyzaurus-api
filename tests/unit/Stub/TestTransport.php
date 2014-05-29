@@ -25,6 +25,11 @@ class TestTransport extends \Swift_SmtpTransport
      */
     public function send(\Swift_Mime_Message $message, &$failedRecipients = null)
     {
-        return (int)$message->getDescription();
+        $description = $message->getDescription();
+        if (!is_null($description)) {
+            return (int)$description;
+        }
+
+        return 1;
     }
 }

@@ -20,10 +20,11 @@ return [
         ]
     ],
     Config::EMAIL => [
-        'host'     => 'smtp.gmail.com',
-        'port'     => 465,
+        'host'     => 'localhost',
+        'port'     => 123,
         'security' => 'ssl',
-        'username' => 'email@gmail.com',
-        'password' => 'password'
+        'username' => 'test@email.com',
+        'password' => 'password',
+        'test'     => true
     ]
 ];
