@@ -73,6 +73,20 @@ class TestCase extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @param string $url
+     *
+     * @return Response
+     */
+    public function delete($url)
+    {
+        $requestUrl = $this->getBaseUrl() . $url;
+        $request = $this->getClient()->delete($requestUrl);
+        $response = $this->getClient()->send($request);
+
+        return $response;
+    }
+
+    /**
      * @return array
      */
     public function registerNewUser()
