@@ -5,11 +5,11 @@ namespace AcceptanceTests\User;
 use AcceptanceTests\TestCase;
 
 /**
- * Class IndexTest
+ * Class RegisterAndLoginTest
  *
  * @package AcceptanceTests\User
  */
-class RegisterTest extends TestCase
+class RegisterAndLoginTest extends TestCase
 {
     /**
      * @return array

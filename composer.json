@@ -1,7 +1,8 @@
 {
     "require": {
         "wormhit/slim-api": "dev-master",
-        "doctrine/orm": "2.*",
+        "doctrine/orm": "2.5.*@dev",
+        "doctrine/dbal": "2.5.*@dev",
         "sebastian/money": "*",
         "phpunit/phpunit": "dev-master",
         "zendframework/zend-crypt": "2.*",
