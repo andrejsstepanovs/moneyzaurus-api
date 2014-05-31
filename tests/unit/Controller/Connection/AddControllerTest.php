@@ -50,6 +50,22 @@ class AddControllerTest extends TestCase
         $this->assertEquals('TEST', $response['message']);
     }
 
+    public function testAddWithNotExistingUserWillReturnFalse()
+    {
+        $email = 'email@email.com';
+
+        $this->mock()->get('Api\Service\Connection\Data')
+            ->expects($this->once())
+            ->method('getInvitedUser')
+            ->will($this->throwException(new \RuntimeException('TEST')));
+
+        $response = $this->sut->getResponse($this->mock()->get('Api\Entities\User'), $email);
+
+        $this->assertTrue(is_array($response));
+        $this->assertFalse($response['success']);
+        $this->assertEquals('Failed to invite', $response['message']);
+    }
+
     public function testSavingConnectionThrowsException()
     {
         $email = 'email@email.com';

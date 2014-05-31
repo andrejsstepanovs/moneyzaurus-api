@@ -81,6 +81,7 @@ class MockContainer extends Pimple
                 'Api\Service\Connection\Data',
                 array(
                     'findByUser',
+                    'findByParent',
                     'getInvitedUser',
                     'normalizeResults',
                     'findById',

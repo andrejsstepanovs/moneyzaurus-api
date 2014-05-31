@@ -38,6 +38,20 @@ class DataTest extends TestCase
         $this->assertInstanceOf(get_class($connection), $response);
     }
 
+    public function testFindByParent()
+    {
+        $connection = $this->mock()->get('Api\Entities\Connection');
+
+        $this->mock()->get('Doctrine\ORM\EntityManager')
+            ->expects($this->once())
+            ->method('findBy')
+            ->will($this->returnValue($connection));
+
+        $response = $this->sut->findByParent($this->mock()->get('Api\Entities\User'));
+
+        $this->assertInstanceOf(get_class($connection), $response);
+    }
+
     public function testFindById()
     {
         $connection = $this->mock()->get('Api\Entities\Connection');
