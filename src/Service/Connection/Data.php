@@ -44,6 +44,20 @@ class Data
     }
 
     /**
+     * @param User $user
+     *
+     * @return Connection[]
+     */
+    public function findByParent(User $user)
+    {
+        $criteria = array(
+            'parent' => $user->getId()
+        );
+
+        return $this->getConnectionRepository()->findBy($criteria);
+    }
+
+    /**
      * @param string $email
      *
      * @return User

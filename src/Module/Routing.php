@@ -296,7 +296,10 @@ class Routing extends KernelRouting
             function() use ($container, $slim) {
                 /** @var \Api\Controller\Connection\ListController $controller */
                 $controller = $container->get('controller.connection.list');
-                $response = $controller->getResponse($slim->config('user'));
+                $response = $controller->getResponse(
+                    $slim->config('user'),
+                    (bool)$slim->request()->get('parent')
+                );
                 $slim->setData($response);
             }
         )

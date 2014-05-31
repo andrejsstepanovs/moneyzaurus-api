@@ -60,6 +60,8 @@ class AddController
 
         } catch (\InvalidArgumentException $exc) {
             $response['message'] = $exc->getMessage();
+        } catch (\Exception $exc) {
+            $response['message'] = 'Failed to invite';
         }
 
         return $response;
