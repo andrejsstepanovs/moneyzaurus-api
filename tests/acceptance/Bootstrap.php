@@ -65,6 +65,7 @@ class Bootstrap
     private function getTmpDbFile()
     {
         if ($this->isHhVm()) {
+            exit(0);
             return __DIR__ . '/../../config/tmp.appdb.sqlite';
         }
 
