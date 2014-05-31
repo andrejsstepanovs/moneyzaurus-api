@@ -1,9 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
     ],
-    "hash": "3b45d652bd99706a273befcdf0f141fe",
+    "hash": "356872f91dd9ce80a6e0faf2b3cb44c4",
     "packages": [
         {
             "name": "adlawson/timezone",
@@ -344,30 +345,38 @@
         },
         {
             "name": "doctrine/dbal",
-            "version": "v2.4.2",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "fec965d330c958e175c39e61c3f6751955af32d0"
+                "reference": "fcc2a3cfd69eec0734636838fbb782919a0447e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/fec965d330c958e175c39e61c3f6751955af32d0",
-                "reference": "fec965d330c958e175c39e61c3f6751955af32d0",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/fcc2a3cfd69eec0734636838fbb782919a0447e9",
+                "reference": "fcc2a3cfd69eec0734636838fbb782919a0447e9",
                 "shasum": ""
             },
             "require": {
-                "doctrine/common": "~2.4",
+                "doctrine/common": "2.4.*",
                 "php": ">=5.3.2"
             },
             "require-dev": {
-                "phpunit/phpunit": "3.7.*",
-                "symfony/console": "~2.0"
+                "phpunit/phpunit": "4.0.*",
+                "symfony/console": "2.*"
             },
             "suggest": {
-                "symfony/console": "Allows use of the command line interface"
+                "symfony/console": "For helpful console commands such as SQL execution and import of files."
             },
+            "bin": [
+                "bin/doctrine-dbal"
+            ],
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.5.x-dev"
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "Doctrine\\DBAL\\": "lib/"
@@ -406,7 +415,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2014-01-01 16:43:57"
+            "time": "2014-05-21 17:49:35"
         },
         {
             "name": "doctrine/inflector",
@@ -526,26 +535,27 @@
         },
         {
             "name": "doctrine/orm",
-            "version": "v2.4.2",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/doctrine2.git",
-                "reference": "0363a5548d9263f979f9ca149decb9cfc66419ab"
+                "reference": "2101a8fdc640ce3df640181f83a7d2aa1eee04c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/0363a5548d9263f979f9ca149decb9cfc66419ab",
-                "reference": "0363a5548d9263f979f9ca149decb9cfc66419ab",
+                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/2101a8fdc640ce3df640181f83a7d2aa1eee04c1",
+                "reference": "2101a8fdc640ce3df640181f83a7d2aa1eee04c1",
                 "shasum": ""
             },
             "require": {
-                "doctrine/collections": "~1.1",
-                "doctrine/dbal": "~2.4",
+                "doctrine/collections": "~1.2",
+                "doctrine/dbal": ">=2.5-dev,<2.6-dev",
                 "ext-pdo": "*",
                 "php": ">=5.3.2",
-                "symfony/console": "~2.0"
+                "symfony/console": "2.*"
             },
             "require-dev": {
+                "phpunit/phpunit": "~4.0",
                 "satooshi/php-coveralls": "dev-master",
                 "symfony/yaml": "~2.1"
             },
@@ -559,7 +569,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.4.x-dev"
+                    "dev-master": "2.5.x-dev"
                 }
             },
             "autoload": {
@@ -598,7 +608,7 @@
                 "database",
                 "orm"
             ],
-            "time": "2014-02-08 16:35:09"
+            "time": "2014-05-31 11:37:50"
         },
         {
             "name": "egulias/email-validator",
@@ -1114,12 +1124,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "3e9c4d25cb1da840a506540c615950599818ee09"
+                "reference": "58bead2bb46b95d80a6577eb9e3b38e2052b1f94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3e9c4d25cb1da840a506540c615950599818ee09",
-                "reference": "3e9c4d25cb1da840a506540c615950599818ee09",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/58bead2bb46b95d80a6577eb9e3b38e2052b1f94",
+                "reference": "58bead2bb46b95d80a6577eb9e3b38e2052b1f94",
                 "shasum": ""
             },
             "require": {
@@ -1180,7 +1190,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-05-29 05:28:35"
+            "time": "2014-05-30 23:55:35"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -2440,6 +2450,8 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "wormhit/slim-api": 20,
+        "doctrine/orm": 20,
+        "doctrine/dbal": 20,
         "phpunit/phpunit": 20,
         "swiftmailer/swiftmailer": 0,
         "egulias/email-validator": 20,
