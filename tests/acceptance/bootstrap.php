@@ -2,7 +2,7 @@
 
 use AcceptanceTests\Bootstrap;
 
-require_once '/var/www/lib/auto_prepend_file.php';
+//require_once '/var/www/lib/auto_prepend_file.php';
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
