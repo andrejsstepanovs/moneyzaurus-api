@@ -133,7 +133,7 @@ class TokenTest extends TestCase
         $this->mock()->get('Doctrine\ORM\EntityRepository')
              ->expects($this->once())
              ->method('findBy')
-             ->with($this->equalTo(array('user' => 1)))
+             ->with($this->equalTo(array('user' => 1, 'state' => 'accepted')))
              ->will($this->returnValue(array($this->mock()->get('Api\Entities\Connection'))));
 
         $this->mock()->get('Api\Entities\Connection')

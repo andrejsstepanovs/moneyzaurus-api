@@ -128,6 +128,6 @@ class Data
      */
     public function findById($connectionId)
     {
-        return $this->getConnectionRepository()->find($connectionId);
+        return $this->getConnectionRepository()->find($connectionId, null);
     }
 }
