@@ -109,11 +109,7 @@ class FetchConnectedTest extends CreateTest
      */
     public function testGetTransactionListWithNotAcceptedConnection($friendToken)
     {
-        $params = array(
-            'offset' => 0,
-            'limit'  => 100
-        );
-        $response = $this->get('/transactions/list?token=' . $friendToken, $params);
+        $response = $this->get('/transactions/list?token=' . $friendToken);
         $data = (array)$response->json();
 
         $this->assertTrue($data['success']);
@@ -128,11 +124,7 @@ class FetchConnectedTest extends CreateTest
      */
     public function testGetTransactionsList($token)
     {
-        $params = array(
-            'offset' => 0,
-            'limit'  => 100
-        );
-        $response = $this->get('/transactions/list?token=' . $token, $params);
+        $response = $this->get('/transactions/list?token=' . $token);
         $data = (array)$response->json();
         $this->assertTrue($data['success']);
         $this->assertNotEmpty($data['data']);
@@ -196,11 +188,7 @@ class FetchConnectedTest extends CreateTest
      */
     public function testGetTransactionListWithAcceptedConnection($friendToken)
     {
-        $params = array(
-            'offset' => 0,
-            'limit'  => 100
-        );
-        $response = $this->get('/transactions/list?token=' . $friendToken, $params);
+        $response = $this->get('/transactions/list?token=' . $friendToken);
         $data = (array)$response->json();
 
         $this->assertTrue($data['success']);

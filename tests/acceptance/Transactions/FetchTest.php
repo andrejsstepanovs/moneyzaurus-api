@@ -73,11 +73,7 @@ class FetchTest extends CreateTest
      */
     public function testGetTransactionList($token)
     {
-        $params = array(
-            'offset' => 0,
-            'limit'  => 100
-        );
-        $response = $this->get('/transactions/list?token=' . $token, $params);
+        $response = $this->get('/transactions/list?token=' . $token);
         $data = (array)$response->json();
 
         $this->assertTrue($data['success']);
