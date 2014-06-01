@@ -54,7 +54,7 @@ class AddController
                 $message = $this->getMessage()->setConnection($connection)->getMessage();
                 $this->getMailer()->send($message);
 
-                $response['id']      = $connection->getId();
+                $response['data'] = ['id' => $connection->getId()];
                 $response['success'] = true;
             }
 

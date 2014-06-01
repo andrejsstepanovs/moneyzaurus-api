@@ -5,6 +5,8 @@
         <testsuite name="controller">
             <directory>Index</directory>
             <directory>User</directory>
+            <directory>Authenticate</directory>
+            <directory>Connection</directory>
             <directory>Transactions</directory>
             <directory>Distinct</directory>
             <directory>Predict</directory>

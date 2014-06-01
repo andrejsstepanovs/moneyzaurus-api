@@ -87,8 +87,9 @@ class ConnectionTest extends TestCase
         $data = (array)$response->json();
 
         $this->assertTrue($data['success']);
-        $this->assertArrayHasKey('id', $data);
-        $this->assertGreaterThan(0, $data['id']);
+        $this->assertArrayHasKey('data', $data);
+        $this->assertArrayHasKey('id', $data['data']);
+        $this->assertGreaterThan(0, $data['data']['id']);
 
         return $friend;
     }
