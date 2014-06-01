@@ -109,7 +109,10 @@ class Token
         if ($user) {
             /** @var \Doctrine\ORM\EntityRepository $connectionRepository */
             $connectionRepository = $this->getEntityManager()->getRepository('Api\Entities\Connection');
-            $criteria = array('user' => $user->getId());
+            $criteria = array(
+                'user'  => $user->getId(),
+                'state' => Connection::STATE_ACCEPTED
+            );
             $connections = $connectionRepository->findBy($criteria);
 
             /** @var Connection $connection */
