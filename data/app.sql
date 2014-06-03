@@ -128,6 +128,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `timezone` varchar(40) NOT NULL DEFAULT 'Europe/Berlin',
   `language` varchar(5) NOT NULL DEFAULT 'en_US',
   `state` smallint(5) unsigned DEFAULT NULL,
+  `login_attempts` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
