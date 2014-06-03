@@ -51,11 +51,11 @@ class LoginController
             return $response;
         }
 
-        $this->checkLoginAttempts($user);
+        $loginAttempts = $this->checkLoginAttempts($user);
         $success = $this->getCrypt()->verify($password, $user->getPassword());
         if ($success) {
             $token = $this->getToken()->get($user);
-            $user->setLoginAttempts(0);
+            $loginAttempts = 0;
 
             $response['success'] = true;
             $response['data'] = array(
@@ -65,6 +65,7 @@ class LoginController
             );
         }
 
+        $user->setLoginAttempts($loginAttempts);
         $this->getUserSave()->saveUser($user);
 
         return $response;
@@ -72,15 +73,18 @@ class LoginController
 
     /**
      * @param User $user
+     *
+     * @return int
      */
     private function checkLoginAttempts(User $user)
     {
         $loginAttempts = $user->getLoginAttempts();
         $loginAttempts++;
+
         if ($loginAttempts >= $this->getMaxLoginAttempts()) {
             sleep($this->getLoginAbuseSleepTime());
         }
 
-        $user->setLoginAttempts($loginAttempts);
+        return $loginAttempts;
     }
 }
