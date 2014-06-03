@@ -5,7 +5,9 @@ namespace Api\Controller\Authenticate;
 use Api\Service\Authorization\Token;
 use Api\Service\Authorization\Crypt as ModuleCrypt;
 use Api\Service\User\Data as UserData;
+use Api\Service\User\Save as UserSave;
 use Api\Service\AccessorTrait;
+use Api\Entities\User;
 
 /**
  * Authentication
@@ -16,10 +18,16 @@ use Api\Service\AccessorTrait;
  *
  * @method LoginController setCrypt(ModuleCrypt $crypt)
  * @method LoginController setUserData(UserData $userData)
+ * @method LoginController setUserSave(UserSave $userData)
  * @method LoginController setToken(Token $token)
+ * @method LoginController setMaxLoginAttempts(int)
+ * @method LoginController setLoginAbuseSleepTime(int)
  * @method ModuleCrypt     getCrypt()
  * @method UserData        getUserData()
+ * @method UserSave        getUserSave()
  * @method Token           getToken()
+ * @method int             getMaxLoginAttempts()
+ * @method int             getLoginAbuseSleepTime()
  */
 class LoginController
 {
@@ -43,21 +51,36 @@ class LoginController
             return $response;
         }
 
+        $this->checkLoginAttempts($user);
         $success = $this->getCrypt()->verify($password, $user->getPassword());
-        if (!$success) {
-            return $response;
+        if ($success) {
+            $token = $this->getToken()->get($user);
+            $user->setLoginAttempts(0);
+
+            $response['success'] = true;
+            $response['data'] = array(
+                'id'    => $user->getId(),
+                'email' => $user->getEmail(),
+                'token' => $token->getToken()
+            );
         }
 
-        $token = $this->getToken()->get($user);
-
-        $response['success'] = true;
-        $response['data'] = array(
-            'id'    => $user->getId(),
-            'email' => $user->getEmail(),
-            'token' => $token->getToken()
-        );
+        $this->getUserSave()->saveUser($user);
 
         return $response;
     }
 
+    /**
+     * @param User $user
+     */
+    private function checkLoginAttempts(User $user)
+    {
+        $loginAttempts = $user->getLoginAttempts();
+        $loginAttempts++;
+        if ($loginAttempts >= $this->getMaxLoginAttempts()) {
+            sleep($this->getLoginAbuseSleepTime());
+        }
+
+        $user->setLoginAttempts($loginAttempts);
+    }
 }

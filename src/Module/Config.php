@@ -16,4 +16,5 @@ class Config extends KernelConfig
     const DATABASE_CONNECTION   = 'databaseConnection';
     const PASSWORD_DEFAULT_COST = 'defaultPasswordCost';
     const EMAIL                 = 'email';
+    const SECURITY              = 'security';
 }

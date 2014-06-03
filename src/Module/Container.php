@@ -391,6 +391,12 @@ class Container extends KernelContainer
             $controller->setCrypt($this->get(self::AUTHORIZATION_CRYPT));
             $controller->setToken($this->get(self::AUTHORIZATION_TOKEN));
             $controller->setUserData($this->get(self::USER_DATA));
+            $controller->setUserSave($this->get(self::USER_SAVE));
+
+            $securityConfig = $this->getConfig()->get(Config::SECURITY);
+
+            $controller->setMaxLoginAttempts($securityConfig['max_login_attempts']);
+            $controller->setLoginAbuseSleepTime($securityConfig['login_abuse_sleep_time']);
 
             return $controller;
         };
