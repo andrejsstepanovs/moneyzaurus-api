@@ -27,6 +27,9 @@ return [
         'password' => 'password',
         'test'     => true
     ],
+    Config::LOG => [
+        //'file'  => __DIR__ . '/../error.log'
+    ],
     Config::SECURITY => [
         'max_login_attempts'     => 10,
         'login_abuse_sleep_time' => 10

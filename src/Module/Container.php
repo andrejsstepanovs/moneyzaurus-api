@@ -50,6 +50,9 @@ class Container extends KernelContainer
     const MIDDLEWARE_AUTHORIZATION = 'middleware.authorization';
     const MIDDLEWARE_PROCESS_TIME  = 'middleware.processTime';
 
+    const LOGGER                   = 'logger';
+    const LOGGER_HANDLER           = 'logger.handler';
+
     /**
      * @return void
      */
@@ -93,6 +96,23 @@ class Container extends KernelContainer
             $acl->setAcl(new \Zend\Permissions\Acl\Acl());
 
             return $acl;
+        };
+
+        $this[self::LOGGER_HANDLER] = function () {
+            $config  = $this->getConfig()->get(Config::LOG);
+            $handler = empty($config['file']) ? null : new \Monolog\Handler\StreamHandler($config['file']);
+
+            return $handler;
+        };
+
+        $this[self::LOGGER] = function () {
+            $logger  = new \Monolog\Logger('app');
+            $handler = $this->get(self::LOGGER_HANDLER);
+            if ($handler) {
+                $logger->pushHandler($handler);
+            }
+
+            return $logger;
         };
     }
 
