@@ -138,7 +138,11 @@ class Bootstrap
         foreach ($commands as $command) {
             $output = array();
             exec($command, $output);
-            $pid = (int)$output[0];
+            $pid = !empty($output[0]) ? (int)$output[0] : null;
+
+            if (!$pid) {
+                continue;
+            }
 
             $msg = '%s ### PID %d';
             echo sprintf($msg, $command, $pid) . PHP_EOL;
