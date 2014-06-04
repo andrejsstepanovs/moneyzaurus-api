@@ -28,7 +28,7 @@ return [
         'test'     => true
     ],
     Config::SECURITY => [
-        'max_login_attempts'     => 2,
-        'login_abuse_sleep_time' => 2
+        'max_login_attempts'     => 5,
+        'login_abuse_sleep_time' => 3
     ]
 ];

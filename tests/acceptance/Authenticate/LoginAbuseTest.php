@@ -38,7 +38,12 @@ class LoginAbuseTest extends TestCase
      */
     public function testLoginMultipleTimes(array $user)
     {
-        for($i = 1; $i <= 2; $i++) {
+        $config            = include __DIR__ . '/../config.php';
+        $security          = $config['security'];
+        $expectedSleepTime = $security['login_abuse_sleep_time'];
+        $maxLoginAttempts  = $security['max_login_attempts'];
+
+        for($i = 1; $i <= $maxLoginAttempts; $i++) {
             $start = microtime(true);
             $postData = array(
                 'username' => $user['email'],
@@ -52,10 +57,10 @@ class LoginAbuseTest extends TestCase
 
             $time = microtime(true) - $start;
 
-            if ($i <= 1) {
-                $this->assertLessThanOrEqual(2, $time);
+            if ($i >= $maxLoginAttempts) {
+                $this->assertGreaterThanOrEqual($expectedSleepTime, $time);
             } else {
-                $this->assertGreaterThanOrEqual(2, $time);
+                $this->assertLessThanOrEqual($expectedSleepTime, $time);
             }
         }
     }
