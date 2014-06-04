@@ -39,7 +39,7 @@ class LoginAbuseTest extends TestCase
     public function testLoginMultipleTimes(array $user)
     {
         for($i = 1; $i <= 2; $i++) {
-            $start = time();
+            $start = microtime(true);
             $postData = array(
                 'username' => $user['email'],
                 'password' => 'wrong password'
@@ -50,12 +50,12 @@ class LoginAbuseTest extends TestCase
 
             $this->assertFalse($data['success']);
 
-            $time = time() - $start;
+            $time = microtime(true) - $start;
 
-            if ($i > 1) {
-                $this->assertGreaterThanOrEqual(2, $time);
+            if ($i <= 1) {
+                $this->assertLessThanOrEqual(2, $time);
             } else {
-                $this->assertLessThan(2, $time);
+                $this->assertGreaterThanOrEqual(2, $time);
             }
         }
     }
