@@ -138,4 +138,16 @@ class TestCase extends PHPUnit_Framework_TestCase
 
         return $responseData['data']['token'];
     }
+
+    public function tearDown()
+    {
+        $configData = unserialize(TEST_CONFIG);
+
+        $errorLog = $configData['log']['file'];
+
+        if (file_exists($errorLog)) {
+            $contents = file_get_contents($errorLog);
+            $this->assertEmpty($contents, $contents);
+        }
+    }
 }

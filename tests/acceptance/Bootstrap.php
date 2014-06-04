@@ -13,6 +13,9 @@ class Bootstrap
     private $configOriginal;
 
     /** @var string */
+    private $configTest;
+
+    /** @var string */
     private $appDb;
 
     /** @var string */
@@ -42,6 +45,7 @@ class Bootstrap
     public function __construct(array $params)
     {
         $this->configOriginal = $params['config_original'];
+        $this->configTest     = $params['config_test'];
         $this->appDb          = $params['app_db'];
         $this->port           = $params['port'];
         $this->host           = $params['host'];
@@ -49,6 +53,16 @@ class Bootstrap
         $this->ini            = $params['ini'];
         $this->hhvmPort       = $params['hhvm_port'];
         $this->tmpDb          = $this->getTmpDbFile();
+
+        define('TEST_CONFIG', serialize($this->getConfigData()));
+    }
+
+    /**
+     * @return array
+     */
+    private function getConfigData()
+    {
+        return include $this->configTest;
     }
 
     /**
@@ -78,10 +92,11 @@ class Bootstrap
         register_shutdown_function(
             array($this, 'tearDown'),
             array(
-                'pids'      => $this->pid,
-                'tmpDbFile' => $this->tmpDb,
-                'config'    => $this->configOriginal,
-                'hhvm'      => $this->isHhVm()
+                'configData' => $this->getConfigData(),
+                'pids'       => $this->pid,
+                'tmpDbFile'  => $this->tmpDb,
+                'config'     => $this->configOriginal,
+                'hhvm'       => $this->isHhVm()
             )
         );
     }
@@ -95,14 +110,19 @@ class Bootstrap
         $originalConfig = $this->configOriginal;
 
         if ($this->isHhVm()) {
-            $testConfig = __DIR__ . '/config.php';
             copy($originalConfig, $originalConfig . '.back');
-            copy($testConfig, $originalConfig);
+            copy($this->configTest, $originalConfig);
         }
 
         $success = copy($this->appDb, $this->tmpDb);
         if (!$success) {
             throw new \RuntimeException('Was not able to copy db file.');
+        }
+
+        $configData = $this->getConfigData();
+        $errorLog = $configData['log']['file'];
+        if (file_exists($errorLog)) {
+            unset($errorLog);
         }
 
         return $this;
@@ -158,6 +178,7 @@ class Bootstrap
      */
     public function tearDown(array $params)
     {
+        $configData     = $params['configData'];
         $dbFile         = $params['tmpDbFile'];
         $originalConfig = $params['config'];
         $pids           = $params['pids'];
@@ -183,6 +204,11 @@ class Bootstrap
         if (file_exists($backupConfig)) {
             copy($backupConfig, $originalConfig);
             unlink($backupConfig);
+        }
+
+        $errorLog = $configData['log']['file'];
+        if (file_exists($errorLog)) {
+            unset($errorLog);
         }
     }
 }

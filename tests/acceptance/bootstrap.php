@@ -17,6 +17,7 @@ define('PHP_INI_FILE', __DIR__ . '/php.ini');
 
 $params = array(
     'config_original' => __DIR__ . '/../../config/config.php',
+    'config_test'     => __DIR__ . '/config.php',
     'app_db'          => __DIR__ . '/../../data/appdb.sqlite',
     'port'            => WEB_SERVER_PORT,
     'host'            => WEB_SERVER_HOST,
