@@ -41,6 +41,8 @@ class Routing extends KernelRouting
         $this->initSlim($container);
         $slim = $this->getSlim();
 
+        $slim->config('debug', boolval(APP_DEV));
+
         $slim->map(
              '/',
              function() use ($container, $slim) {
