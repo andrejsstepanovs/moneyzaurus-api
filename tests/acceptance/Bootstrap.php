@@ -36,9 +36,6 @@ class Bootstrap
     /** @var string */
     private $root;
 
-    /** @var string */
-    private $ini;
-
     /**
      * @param array $params
      */
@@ -49,10 +46,9 @@ class Bootstrap
         $this->appDb          = $params['app_db'];
         $this->port           = $params['port'];
         $this->host           = $params['host'];
-        $this->root           = $params['root'];
-        $this->ini            = $params['ini'];
+        $this->root           = realpath($params['root']);
         $this->hhvmPort       = $params['hhvm_port'];
-        $this->tmpDb          = $this->getTmpDbFile();
+        $this->tmpDb          = realpath(__DIR__ . '/../../config/') . '/tmp.appdb.sqlite';
 
         define('TEST_CONFIG', serialize($this->getConfigData()));
     }
@@ -73,20 +69,10 @@ class Bootstrap
         return defined('HHVM_VERSION');
     }
 
-    /**
-     * @return string
-     */
-    private function getTmpDbFile()
-    {
-        if ($this->isHhVm()) {
-            return __DIR__ . '/../../config/tmp.appdb.sqlite';
-        }
-
-        return __DIR__ . '/tmp.appdb.sqlite';
-    }
-
     public function init()
     {
+        $this->message('<<< BOOTSTRAP >>>');
+
         $this->setUp()->start();
 
         register_shutdown_function(
@@ -99,6 +85,8 @@ class Bootstrap
                 'hhvm'       => $this->isHhVm()
             )
         );
+
+        $this->message('<<< BOOTSTRAP >>>');
     }
 
     /**
@@ -107,23 +95,20 @@ class Bootstrap
      */
     private function setUp()
     {
-        $originalConfig = $this->configOriginal;
+        $originalConfig = realpath($this->configOriginal);
 
-        if ($this->isHhVm()) {
-            copy($originalConfig, $originalConfig . '.back');
-            copy($this->configTest, $originalConfig);
-        }
+        $this->copyFile($originalConfig, $originalConfig . '.back');
+        $this->copyFile($this->configTest, $originalConfig);
 
-        $success = copy($this->appDb, $this->tmpDb);
+        $success = $this->copyFile($this->appDb, $this->tmpDb);
         if (!$success) {
             throw new \RuntimeException('Was not able to copy db file.');
         }
 
         $configData = $this->getConfigData();
         $errorLog = $configData['log']['file'];
-        if (file_exists($errorLog)) {
-            unset($errorLog);
-        }
+
+        $this->deleteFile($errorLog);
 
         return $this;
     }
@@ -136,16 +121,11 @@ class Bootstrap
         }
 
         foreach ($commands as $command) {
-            $output = array();
-            exec($command, $output);
+            $output = $this->execute($command);
             $pid = !empty($output[0]) ? (int)$output[0] : null;
-
             if (!$pid) {
                 continue;
             }
-
-            $msg = '%s ### PID %d';
-            echo sprintf($msg, $command, $pid) . PHP_EOL;
 
             $this->pid[] = $pid;
         }
@@ -166,11 +146,10 @@ class Bootstrap
             $commands[] = 'sudo service nginx start';
         } else {
             $commands[] = sprintf(
-                'php -S %s:%d -t %s -c %s' . ' >/dev/null 2>&1 & echo $!',
+                'php -S %s:%d -t %s' . ' >/dev/null 2>&1 & echo $!',
                 $this->host,
                 $this->port,
-                $this->root,
-                $this->ini
+                $this->root
             );
         }
 
@@ -182,6 +161,8 @@ class Bootstrap
      */
     public function tearDown(array $params)
     {
+        $this->message('<<< TEAR DOWN >>>');
+
         $configData     = $params['configData'];
         $dbFile         = $params['tmpDbFile'];
         $originalConfig = $params['config'];
@@ -190,29 +171,79 @@ class Bootstrap
 
         foreach ($pids as $pid) {
             if ($pid) {
-                echo sprintf('Killing PID %d', $pid) . PHP_EOL;
-                exec('kill ' . $pid);
+                $this->execute('kill ' . $pid);
             }
         }
 
         if ($hhvm) {
-            exec('sudo service nginx stop');
-            unlink('www.pid');
+            $this->execute('sudo service nginx stop');
+            $this->deleteFile('www.pid');
         }
 
-        if (file_exists($dbFile)) {
-            unlink($dbFile);
-        }
+        $this->deleteFile($dbFile);
 
         $backupConfig = $originalConfig . '.back';
-        if (file_exists($backupConfig)) {
-            copy($backupConfig, $originalConfig);
-            unlink($backupConfig);
+        $this->copyFile($backupConfig, $originalConfig);
+        $this->deleteFile($backupConfig);
+
+        $this->deleteFile($configData['log']['file']);
+
+        $this->message('<<< TEAR DOWN >>>');
+    }
+
+    /**
+     * @param string $file
+     */
+    private function deleteFile($file)
+    {
+        if (file_exists($file)) {
+            $file    = realpath($file);
+            $success = unlink($file);
+            $this->message('rm ' . $file . ' > ' . (int)$success);
+        } else {
+            $this->message($file . ' missing for rm');
+        }
+    }
+
+    /**
+     * @param string $file
+     * @param string $destination
+     *
+     * @return bool
+     */
+    private function copyFile($file, $destination)
+    {
+        if (file_exists($file)) {
+            $file    = realpath($file);
+            $success = copy($file, $destination);
+            $this->message('cp ' . $file . ' ' . $destination . ' > ' . (int)$success);
+        } else {
+            $this->message($file . ' missing for cp');
+            $success = false;
         }
 
-        $errorLog = $configData['log']['file'];
-        if (file_exists($errorLog)) {
-            unset($errorLog);
-        }
+        return $success;
+    }
+
+    /**
+     * @param string $command
+     *
+     * @return array
+     */
+    private function execute($command)
+    {
+        $output = array();
+        exec($command, $output);
+        $this->message($command);
+
+        return $output;
+    }
+
+    /**
+     * @param string $message
+     */
+    private function message($message)
+    {
+        echo $message . PHP_EOL;
     }
 }

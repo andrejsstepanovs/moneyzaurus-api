@@ -9,11 +9,7 @@ ini_set('display_errors', intval(APP_DEV));
 require 'vendor/autoload.php';
 
 
-$configFile = get_cfg_var('app_config_file');
-$configFile = !$configFile ? 'config/config.php' : $configFile;
-
-$configData = include __DIR__ . DIRECTORY_SEPARATOR . $configFile;
-
+$configData = include __DIR__ . '/config/config.php';
 
 $config    = new Api\Module\Config();
 $container = new Api\Module\Container();

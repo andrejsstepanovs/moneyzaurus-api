@@ -60,7 +60,7 @@ class LoginAbuseTest extends TestCase
             if ($i >= $maxLoginAttempts) {
                 $this->assertGreaterThanOrEqual($expectedSleepTime, $time);
             } else {
-                $this->assertLessThanOrEqual($expectedSleepTime, $time);
+                $this->assertLessThanOrEqual($expectedSleepTime, $time, 'iterator=' . $i);
             }
         }
     }
