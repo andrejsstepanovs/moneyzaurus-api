@@ -26,10 +26,10 @@ return [
         'test'     => true
     ],
     Config::LOG => [
-        'file'  => __DIR__ . '/tmp.error.log'
+        'file'  => __DIR__ . '/../tmp.error.log'
     ],
     Config::SECURITY => [
-        'max_login_attempts'     => 5,
-        'login_abuse_sleep_time' => 4
+        'max_login_attempts'     => 3,
+        'login_abuse_sleep_time' => 2
     ]
 ];

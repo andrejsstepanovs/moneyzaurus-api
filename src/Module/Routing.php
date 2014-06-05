@@ -47,6 +47,14 @@ class Routing extends KernelRouting
         ini_set('display_errors', intval($devMode));
         $slim->config('debug', $devMode);
 
+
+        set_error_handler(
+            function($errno, $errstr) {
+                throw new \RuntimeException($errstr);
+            },
+            E_ALL
+        );
+
         if (!$devMode) {
             $slim->error(function (\Exception $exc) {
                 throw $exc;

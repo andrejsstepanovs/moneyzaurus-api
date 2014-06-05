@@ -51,9 +51,16 @@ class TestCase extends PHPUnit_Framework_TestCase
      */
     public function post($url, array $postBody = array())
     {
-        $requestUrl = $this->getBaseUrl() . $url;
-        $request = $this->getClient()->post($requestUrl, null, $postBody);
-        $response = $this->getClient()->send($request);
+        try {
+            $requestUrl = $this->getBaseUrl() . $url;
+            $request = $this->getClient()->post($requestUrl, null, $postBody);
+            $response = $this->getClient()->send($request);
+
+        } catch (\Exception $exc) {
+            $this->tearDown();
+            $this->fail($exc->getMessage());
+            $response = null;
+        }
 
         return $response;
     }
@@ -65,9 +72,15 @@ class TestCase extends PHPUnit_Framework_TestCase
      */
     public function get($url)
     {
-        $requestUrl = $this->getBaseUrl() . $url;
-        $request = $this->getClient()->get($requestUrl);
-        $response = $this->getClient()->send($request);
+        try {
+            $requestUrl = $this->getBaseUrl() . $url;
+            $request = $this->getClient()->get($requestUrl);
+            $response = $this->getClient()->send($request);
+        } catch (\Exception $exc) {
+            $this->tearDown();
+            $this->fail($exc->getMessage());
+            $response = null;
+        }
 
         return $response;
     }
@@ -79,9 +92,15 @@ class TestCase extends PHPUnit_Framework_TestCase
      */
     public function delete($url)
     {
-        $requestUrl = $this->getBaseUrl() . $url;
-        $request = $this->getClient()->delete($requestUrl);
-        $response = $this->getClient()->send($request);
+        try {
+            $requestUrl = $this->getBaseUrl() . $url;
+            $request = $this->getClient()->delete($requestUrl);
+            $response = $this->getClient()->send($request);
+        } catch (\Exception $exc) {
+            $this->tearDown();
+            $this->fail($exc->getMessage());
+            $response = null;
+        }
 
         return $response;
     }
@@ -143,7 +162,8 @@ class TestCase extends PHPUnit_Framework_TestCase
     {
         $configData = unserialize(TEST_CONFIG);
 
-        $errorLog = $configData['log']['file'];
+        $errorFile = basename($configData['log']['file']);
+        $errorLog = realpath(__DIR__ . '/../../') . '/' . $errorFile;
 
         if (file_exists($errorLog)) {
             $contents = file_get_contents($errorLog);
