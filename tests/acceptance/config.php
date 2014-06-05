@@ -3,9 +3,7 @@
 use Api\Module\Config;
 
 return [
-    Config::ROUTING               => 'Api\Module\Routing',
-    Config::SLIM                  => 'Api\Slim',
-    Config::DEVMODE               => true,
+    Config::DEVMODE               => false,
     Config::PASSWORD_DEFAULT_COST => 4,
     Config::DATABASE  => [
         Config::DATABASE_ENTITIES   => [

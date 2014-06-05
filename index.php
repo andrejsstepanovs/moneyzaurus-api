@@ -1,11 +1,7 @@
 <?php
-//require_once '/var/www/lib/auto_prepend_file.php';
-
-define('APP_DEV', (bool)getenv('APP_DEV'));
-
+require_once '/var/www/lib/auto_prepend_file.php';
 
 error_reporting(E_ALL);
-ini_set('display_errors', intval(APP_DEV));
 
 require 'vendor/autoload.php';
 

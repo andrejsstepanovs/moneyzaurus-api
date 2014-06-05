@@ -41,7 +41,10 @@ class Routing extends KernelRouting
         $this->initSlim($container);
         $slim = $this->getSlim();
 
-        $devMode = boolval(APP_DEV);
+        $config  = $container->get(Container::CONFIG);
+        $devMode = $config->get(Config::DEVMODE);
+
+        ini_set('display_errors', intval($devMode));
         $slim->config('debug', $devMode);
 
         if (!$devMode) {
