@@ -44,7 +44,7 @@ class LoginAbuseTest extends TestCase
         $maxLoginAttempts  = $security['max_login_attempts'];
 
         for($i = 1; $i <= $maxLoginAttempts; $i++) {
-            $start = microtime(true);
+            $start = time();
             $postData = array(
                 'username' => $user['email'],
                 'password' => 'wrong password'
@@ -55,7 +55,7 @@ class LoginAbuseTest extends TestCase
 
             $this->assertFalse($data['success']);
 
-            $time = microtime(true) - $start;
+            $time = time() - $start;
 
             if ($i >= $maxLoginAttempts) {
                 $this->assertGreaterThanOrEqual($expectedSleepTime, $time);
