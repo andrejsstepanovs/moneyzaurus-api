@@ -97,8 +97,9 @@ class Bootstrap
     {
         $originalConfig = realpath($this->configOriginal);
 
-        $this->copyFile($originalConfig, $originalConfig . '.back');
-        $this->copyFile($this->configTest, $originalConfig);
+        $localConfig = substr($originalConfig, 0, -4) . '.local.php';
+        $this->moveFile($localConfig, $localConfig . '.back');
+        $this->copyFile($this->configTest, $localConfig);
 
         $success = $this->copyFile($this->appDb, $this->tmpDb);
         if (!$success) {
@@ -182,9 +183,8 @@ class Bootstrap
 
         $this->deleteFile($dbFile);
 
-        $backupConfig = $originalConfig . '.back';
-        $this->copyFile($backupConfig, $originalConfig);
-        $this->deleteFile($backupConfig);
+        $localConfig = substr($originalConfig, 0, -4) . '.local.php';
+        $this->moveFile($localConfig . '.back', $localConfig);
 
         $this->deleteFile($configData['log']['file']);
 
@@ -203,6 +203,26 @@ class Bootstrap
         } else {
             $this->message($file . ' missing for rm');
         }
+    }
+
+    /**
+     * @param string $file
+     * @param string $destination
+     *
+     * @return bool
+     */
+    private function moveFile($file, $destination)
+    {
+        if (file_exists($file)) {
+            $file    = realpath($file);
+            $success = rename($file, $destination);
+            $this->message('mv ' . $file . ' ' . $destination . ' > ' . (int)$success);
+        } else {
+            $this->message($file . ' missing for cp');
+            $success = false;
+        }
+
+        return $success;
     }
 
     /**

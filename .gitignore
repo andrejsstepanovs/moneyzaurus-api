@@ -1,6 +1,6 @@
 vendor
 tests/unit/coverage
 build
-config/config.local.php
+config/config.local.*
 .idea
 *.phar

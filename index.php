@@ -1,4 +1,5 @@
 <?php
+//require_once '/var/www/lib/auto_prepend_file.php';
 
 define('APP_DEV', (bool)getenv('APP_DEV'));
 
@@ -9,7 +10,12 @@ ini_set('display_errors', intval(APP_DEV));
 require 'vendor/autoload.php';
 
 
-$configData = include __DIR__ . '/config/config.php';
+$configPath = __DIR__ . '/config';
+$configData = include $configPath . '/config.php';
+if (file_exists($configPath . '/config.local.php')) {
+    $localConfig = include $configPath . '/config.local.php';
+    $configData = array_merge($configData, $localConfig);
+}
 
 $config    = new Api\Module\Config();
 $container = new Api\Module\Container();

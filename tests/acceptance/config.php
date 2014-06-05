@@ -6,7 +6,7 @@ return [
     Config::ROUTING               => 'Api\Module\Routing',
     Config::SLIM                  => 'Api\Slim',
     Config::DEVMODE               => true,
-    Config::PASSWORD_DEFAULT_COST => 14,
+    Config::PASSWORD_DEFAULT_COST => 4,
     Config::DATABASE  => [
         Config::DATABASE_ENTITIES   => [
             __DIR__ . '/../src/Entities'
