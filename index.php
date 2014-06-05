@@ -1,5 +1,4 @@
 <?php
-require_once '/var/www/lib/auto_prepend_file.php';
 
 error_reporting(E_ALL);
 
