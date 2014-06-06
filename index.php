@@ -1,4 +1,5 @@
 <?php
+//require_once '/var/www/lib/auto_prepend_file.php';
 
 error_reporting(E_ALL);
 
@@ -26,5 +27,6 @@ try {
     $logger = $container->get(Api\Module\Container::LOGGER);
     $logger->addError($exc);
 
-    header('HTTP/1.1 500 Internal Server Error');
+    echo $exc->getMessage();
+    //header('HTTP/1.1 500 Internal Server Error');
 }
