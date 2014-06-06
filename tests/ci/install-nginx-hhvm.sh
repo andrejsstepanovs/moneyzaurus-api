@@ -1,6 +1,8 @@
 #!/bin/sh
 # https://github.com/facebook/hhvm/wiki/fastcgi
 
+hhvm --version
+
 sudo apt-get install nginx
 
 # Configure apache virtual hosts

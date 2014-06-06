@@ -27,6 +27,5 @@ try {
     $logger = $container->get(Api\Module\Container::LOGGER);
     $logger->addError($exc);
 
-    echo $exc->getMessage();
-    //header('HTTP/1.1 500 Internal Server Error');
+    header('HTTP/1.1 500 Internal Server Error');
 }
