@@ -3,7 +3,7 @@
 
 hhvm --version
 
-#sudo apt-get install nginx
+sudo apt-get install nginx
 
 # Configure apache virtual hosts
 #sudo cp -f tests/ci/nginx.conf /etc/nginx/
