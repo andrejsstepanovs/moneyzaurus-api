@@ -38,7 +38,7 @@ class LoginAbuseTest extends TestCase
      */
     public function testLoginMultipleTimes(array $user)
     {
-        $config            = include __DIR__ . '/../config.php';
+        $config            = $this->getConfig();
         $security          = $config['security'];
         $expectedSleepTime = $security['login_abuse_sleep_time'];
         $maxLoginAttempts  = $security['max_login_attempts'];
