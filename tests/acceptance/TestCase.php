@@ -51,16 +51,9 @@ class TestCase extends PHPUnit_Framework_TestCase
      */
     public function post($url, array $postBody = array())
     {
-        try {
-            $requestUrl = $this->getBaseUrl() . $url;
-            $request = $this->getClient()->post($requestUrl, null, $postBody);
-            $response = $this->getClient()->send($request);
-
-        } catch (\Exception $exc) {
-            $this->tearDown();
-            $this->fail($exc->getMessage());
-            $response = null;
-        }
+        $requestUrl = $this->getBaseUrl() . $url;
+        $request = $this->getClient()->post($requestUrl, null, $postBody);
+        $response = $this->getClient()->send($request);
 
         return $response;
     }
@@ -72,15 +65,9 @@ class TestCase extends PHPUnit_Framework_TestCase
      */
     public function get($url)
     {
-        try {
-            $requestUrl = $this->getBaseUrl() . $url;
-            $request = $this->getClient()->get($requestUrl);
-            $response = $this->getClient()->send($request);
-        } catch (\Exception $exc) {
-            $this->tearDown();
-            $this->fail($exc->getMessage());
-            $response = null;
-        }
+        $requestUrl = $this->getBaseUrl() . $url;
+        $request = $this->getClient()->get($requestUrl);
+        $response = $this->getClient()->send($request);
 
         return $response;
     }
@@ -92,15 +79,9 @@ class TestCase extends PHPUnit_Framework_TestCase
      */
     public function delete($url)
     {
-        try {
-            $requestUrl = $this->getBaseUrl() . $url;
-            $request = $this->getClient()->delete($requestUrl);
-            $response = $this->getClient()->send($request);
-        } catch (\Exception $exc) {
-            $this->tearDown();
-            $this->fail($exc->getMessage());
-            $response = null;
-        }
+        $requestUrl = $this->getBaseUrl() . $url;
+        $request = $this->getClient()->delete($requestUrl);
+        $response = $this->getClient()->send($request);
 
         return $response;
     }
@@ -153,17 +134,55 @@ class TestCase extends PHPUnit_Framework_TestCase
 
         $this->assertTrue($responseData['success']);
         $this->assertNotEmpty($responseData['data']['token']);
+        $this->assertNotEmpty($responseData['data']['expires']);
+        $this->assertNotEmpty($responseData['data']['expires_timestamp']);
         $this->assertEquals($user['id'], $responseData['data']['id']);
 
         return $responseData['data']['token'];
     }
 
-    public function tearDown()
+    /**
+     * @return array
+     */
+    protected function getConfig()
     {
         $configData = unserialize(TEST_CONFIG_DATA);
 
+        return $configData;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getErrorLogFile()
+    {
+        $configData = $this->getConfig();
+
         $errorFile = basename($configData['log']['file']);
         $errorLog = realpath(__DIR__ . '/../../') . '/' . $errorFile;
+
+        return $errorLog;
+    }
+
+    /**
+     * @return int
+     */
+    protected function getTokenIntervalInSeconds()
+    {
+        $config = $this->getConfig();
+
+        $security     = $config['security'];
+        $testInterval = $security['token_interval'];
+
+        $interval = new \DateInterval($testInterval);
+        $seconds = $interval->s;
+
+        return $seconds;
+    }
+
+    public function tearDown()
+    {
+        $errorLog = $this->getErrorLogFile();
 
         if (file_exists($errorLog)) {
             $contents = file_get_contents($errorLog);

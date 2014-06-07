@@ -39,7 +39,14 @@ class Bootstrap
      */
     private function getConfigData()
     {
-        return include $this->configTest;
+        $configData = include $this->configTest;
+
+        // @todo fix this shit
+        $errorFile = $configData['log']['file'];
+        $errorFile = str_replace('/../', '/../../', $errorFile);
+        $configData['log']['file'] = $errorFile;
+
+        return $configData;
     }
 
     public function init()

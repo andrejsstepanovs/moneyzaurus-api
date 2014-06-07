@@ -24,6 +24,7 @@ class LoginControllerTest extends TestCase
         $this->sut->setUserSave($this->mock()->get('Api\Service\User\Save'));
         $this->sut->setCrypt($this->mock()->get('Api\Service\Authorization\Crypt'));
         $this->sut->setToken($this->mock()->get('Api\Service\Authorization\Token'));
+        $this->sut->setLocale($this->mock()->get('Api\Service\Locale'));
         $this->sut->setLoginAbuseSleepTime(0);
         $this->sut->setMaxLoginAttempts(2);
 
@@ -31,6 +32,11 @@ class LoginControllerTest extends TestCase
              ->expects($this->any())
              ->method('getMaxLoginAttempts')
              ->will($this->returnValue(self::MAX_LOGIN_ATTEMPTS));
+
+        $this->mock()->get('Api\Service\Locale')
+             ->expects($this->any())
+             ->method('setUser')
+             ->will($this->returnSelf());
     }
 
     public function testUserNotFoundWillReturnFailure()
@@ -100,6 +106,28 @@ class LoginControllerTest extends TestCase
              ->method('get')
              ->will($this->returnValue($this->mock()->get('Api\Entities\AccessToken')));
 
+        $validUntil = new \DateTime();
+        $this->mock()->get('Api\Entities\AccessToken')
+            ->expects($this->once())
+            ->method('getValidUntil')
+            ->will($this->returnValue($validUntil));
+
+        $formatter = new \IntlDateFormatter(
+            'en_EN',
+            \IntlDateFormatter::MEDIUM,
+            \IntlDateFormatter::MEDIUM
+        );
+
+        $this->mock()->get('Api\Service\Locale')
+             ->expects($this->any())
+             ->method('getDateTimeFormatter')
+             ->will($this->returnValue($formatter));
+
+        $this->mock()->get('Api\Entities\User')
+             ->expects($this->any())
+             ->method('getTimezone')
+             ->will($this->returnValue('Europe/Berlin'));
+
         $this->mock()->get('Api\Entities\User')
              ->expects($this->any())
              ->method('getLoginAttempts')
@@ -117,6 +145,8 @@ class LoginControllerTest extends TestCase
         $this->assertArrayHasKey('id', $response['data']);
         $this->assertArrayHasKey('email', $response['data']);
         $this->assertArrayHasKey('token', $response['data']);
+        $this->assertArrayHasKey('expires', $response['data']);
+        $this->assertArrayHasKey('expires_timestamp', $response['data']);
     }
 
     public function testMaxLoginAttemptsReached()

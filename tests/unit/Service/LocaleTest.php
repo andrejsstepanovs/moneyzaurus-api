@@ -40,6 +40,26 @@ class LocatorTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    public function testSetUser()
+    {
+        $locale   = 'en_EN';
+        $timezone = 'Europe/Berlin';
+
+        $user = $this->mock()->get('Api\Entities\User');
+        $user->expects($this->once())
+             ->method('getLocale')
+             ->will($this->returnValue($locale));
+
+        $user->expects($this->once())
+             ->method('getTimezone')
+             ->will($this->returnValue($timezone));
+
+        $this->sut->setUser($user);
+
+        $this->assertEquals($locale, $this->sut->getLocale());
+        $this->assertEquals($timezone, $this->sut->getTimezone());
+    }
+
     public function testGetDateFormatter()
     {
         $locale   = 'de_DE';

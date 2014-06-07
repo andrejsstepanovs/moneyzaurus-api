@@ -77,4 +77,35 @@ class TimeTest extends TestCase
         $this->assertEquals($timezoneValue, $response->getTimezone()->getName());
         $this->assertEquals($time, $response->format('Y-m-d'));
     }
+
+    public function compareDateTimeProvider()
+    {
+        return array(
+            array(new \DateTime(), new \DateTime(), true),
+            array(new \DateTime('-1 minute'), new \DateTime(), true),
+            array(new \DateTime('-1 hour'), new \DateTime('-1 hour'), true),
+            array(new \DateTime(), new \DateTime('-1 minute'), false),
+            array(new \DateTime(), new \DateTime('-1 second'), false),
+            array(new \DateTime(), new \DateTime('+1 month'), true),
+        );
+    }
+
+    /**
+     * @dataProvider compareDateTimeProvider
+     *
+     * @param \DateTime $dateTimeLess
+     * @param \DateTime $dateTimeMore
+     * @param bool      $expected
+     */
+    public function testCompareDateTime(\DateTime $dateTimeLess, \DateTime $dateTimeMore, $expected)
+    {
+        $this->sut->setTimezone(new \DateTimeZone('Europe/Berlin'));
+        $response = $this->sut->compareDateTime($dateTimeLess, $dateTimeMore);
+
+        $this->assertEquals(
+            $expected,
+            $response,
+            $dateTimeLess->format('Y-m-d H:i:s') . ' < ' . $dateTimeMore->format('Y-m-d H:i:s')
+        );
+    }
 }

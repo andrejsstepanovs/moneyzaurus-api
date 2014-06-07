@@ -192,6 +192,7 @@ class MockContainer extends Pimple
                 'Api\Service\Locale',
                 array(
                     'setLocale',
+                    'setUser',
                     'getDateFormatter',
                     'getDateTimeFormatter',
                     'getFormattedMoney',
@@ -279,7 +280,8 @@ class MockContainer extends Pimple
                 array(
                     'setTimezone',
                     'getMicroTimeDifference',
-                    'getDateTime'
+                    'getDateTime',
+                    'compareDateTime'
                 )
             );
         };
@@ -452,7 +454,11 @@ class MockContainer extends Pimple
                     'setToken',
                     'setUser',
                     'setCreated',
-                    'getUser'
+                    'getUser',
+                    'setUsedAt',
+                    'getUsedAt',
+                    'setValidUntil',
+                    'getValidUntil'
                 )
             );
         };

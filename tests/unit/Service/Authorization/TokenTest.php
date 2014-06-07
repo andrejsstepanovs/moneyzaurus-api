@@ -20,6 +20,13 @@ class TokenTest extends TestCase
         $this->sut = new Token();
         $this->sut->setEntityManager($this->mock()->get('Doctrine\ORM\EntityManager'));
         $this->sut->setAccessToken($this->mock()->get('Api\Entities\AccessToken'));
+        $this->sut->setTime($this->mock()->get('\Api\Service\Time'));
+        $this->sut->setTokenInterval('P1Y');
+
+        $this->mock()->get('\Api\Service\Time')
+            ->expects($this->any())
+            ->method('setTimezone')
+            ->will($this->returnSelf());
     }
 
     public function testGetToken()
@@ -34,6 +41,17 @@ class TokenTest extends TestCase
             ->expects($this->once())
             ->method('setUser')
             ->with($this->isInstanceOf(get_class($this->mock()->get('Api\Entities\User'))))
+            ->will($this->returnSelf());
+
+        $this->mock()->get('Api\Entities\AccessToken')
+            ->expects($this->once())
+            ->method('setUsedAt')
+            ->with($this->equalTo(null))
+            ->will($this->returnSelf());
+
+        $this->mock()->get('Api\Entities\AccessToken')
+            ->expects($this->once())
+            ->method('setValidUntil')
             ->will($this->returnSelf());
 
         $this->mock()->get('Api\Entities\AccessToken')
@@ -67,9 +85,75 @@ class TokenTest extends TestCase
             ->method('getUser')
             ->will($this->returnValue($this->mock()->get('Api\Entities\User')));
 
+        $this->mock()->get('Api\Entities\User')
+            ->expects($this->once())
+            ->method('getTimezone')
+            ->will($this->returnValue('Europe/Berlin'));
+
+        $this->mock()->get('\Api\Service\Time')
+            ->expects($this->once())
+            ->method('compareDateTime')
+            ->will($this->returnValue(true));
+
+        $this->mock()->get('Api\Entities\AccessToken')
+             ->expects($this->once())
+             ->method('getValidUntil')
+             ->will($this->returnValue(new \DateTime()));
+
+        $this->mock()->get('\Api\Service\Time')
+             ->expects($this->once())
+             ->method('getDateTime')
+            ->will($this->returnValue(new \DateTime()));
+
         $response = $this->sut->findUser($token);
 
         $this->assertInstanceOf(get_class($this->mock()->get('Api\Entities\User')), $response);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testTokenExpiredWillThrowException()
+    {
+        $token = 'token1';
+
+        $this->mock()->get('Doctrine\ORM\EntityManager')
+             ->expects($this->once())
+             ->method('getRepository')
+             ->will($this->returnValue($this->mock()->get('Doctrine\ORM\EntityRepository')));
+
+        $this->mock()->get('Doctrine\ORM\EntityRepository')
+             ->expects($this->once())
+             ->method('findOneBy')
+             ->with($this->equalTo(array('token' => $token)))
+             ->will($this->returnValue($this->mock()->get('Api\Entities\AccessToken')));
+
+        $this->mock()->get('Api\Entities\AccessToken')
+             ->expects($this->once())
+             ->method('getUser')
+             ->will($this->returnValue($this->mock()->get('Api\Entities\User')));
+
+        $this->mock()->get('Api\Entities\User')
+             ->expects($this->once())
+             ->method('getTimezone')
+             ->will($this->returnValue('Europe/Berlin'));
+
+        $this->mock()->get('\Api\Service\Time')
+             ->expects($this->once())
+             ->method('compareDateTime')
+             ->will($this->returnValue(false));
+
+        $this->mock()->get('Api\Entities\AccessToken')
+             ->expects($this->once())
+             ->method('getValidUntil')
+             ->will($this->returnValue(new \DateTime()));
+
+        $this->mock()->get('\Api\Service\Time')
+             ->expects($this->once())
+             ->method('getDateTime')
+             ->will($this->returnValue(new \DateTime()));
+
+        $this->sut->findUser($token);
     }
 
     public function testFindUserIfNotExistsWillReturnNull()
@@ -216,4 +300,30 @@ class TokenTest extends TestCase
         $this->assertFalse($response);
     }
 
+    /**
+     * @return array
+     */
+    public function intervalDataProvider()
+    {
+        return array(
+            array(new \DateTime('2010-01-01 00:00:00'), '2011-01-01 00:00:00'),
+            array(new \DateTime('2011-04-01 15:00:00'), '2012-04-01 15:00:00'),
+            array(new \DateTime('2011-04-21 10:05:10'), '2012-04-21 10:05:10'),
+        );
+    }
+
+    /**
+     * @dataProvider intervalDataProvider
+     *
+     * @param \DateTime $dateTime
+     * @param string    $expected
+     */
+    public function testGetInterval($dateTime, $expected)
+    {
+        $response = $this->sut->getInterval($dateTime);
+
+        $formatted = $response->format('Y-m-d H:i:s');
+
+        $this->assertEquals($expected, $formatted);
+    }
 }

@@ -29,6 +29,7 @@ return [
         'file'  => __DIR__ . '/../tmp.error.log'
     ],
     Config::SECURITY => [
+        'token_interval'         => 'PT10S',
         'max_login_attempts'     => 3,
         'login_abuse_sleep_time' => 2
     ]

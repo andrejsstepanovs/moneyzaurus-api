@@ -64,4 +64,19 @@ class Time
         return $stopMicroTime - $startMicroTime;
     }
 
+    /**
+     * @param \DateTime $dateTimeLess
+     * @param \DateTime $dateTimeMore
+     *
+     * @return bool
+     */
+    public function compareDateTime(\DateTime $dateTimeLess, \DateTime $dateTimeMore)
+    {
+        $timezone = $this->getTimezone();
+
+        $dateTimeLess->setTimezone($timezone);
+        $dateTimeMore->setTimezone($timezone);
+
+        return $dateTimeMore >= $dateTimeLess;
+    }
 }

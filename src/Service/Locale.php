@@ -6,6 +6,7 @@ use SebastianBergmann\Money\Currency;
 use SebastianBergmann\Money\Money;
 use SebastianBergmann\Money\IntlFormatter;
 use Api\Service\AccessorTrait;
+use Api\Entities\User;
 
 /**
  * Class Locale
@@ -20,6 +21,19 @@ use Api\Service\AccessorTrait;
 class Locale
 {
     use AccessorTrait;
+
+    /**
+     * @param User $user
+     *
+     * @return $this
+     */
+    public function setUser(User $user)
+    {
+        $this->setLocale($user->getLocale());
+        $this->setTimezone($user->getTimezone());
+
+        return $this;
+    }
 
     /**
      * @return string

@@ -37,6 +37,20 @@ class AccessToken
     private $created;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="`used_at`", type="datetime", nullable=false)
+     */
+    private $usedAt;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="`valid_until`", type="datetime", nullable=false)
+     */
+    private $validUntil;
+
+    /**
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="User")
@@ -84,6 +98,46 @@ class AccessToken
     public function getCreated()
     {
         return $this->created;
+    }
+
+    /**
+     * @param \DateTime $usedAt
+     *
+     * @return $this
+     */
+    public function setUsedAt($usedAt)
+    {
+        $this->usedAt = $usedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUsedAt()
+    {
+        return $this->usedAt;
+    }
+
+    /**
+     * @param \DateTime $validUntil
+     *
+     * @return $this
+     */
+    public function setValidUntil($validUntil)
+    {
+        $this->validUntil = $validUntil;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getValidUntil()
+    {
+        return $this->validUntil;
     }
 
     /**

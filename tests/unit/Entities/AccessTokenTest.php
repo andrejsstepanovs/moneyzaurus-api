@@ -37,6 +37,22 @@ class AccessTokenTest extends TestCase
         $this->assertEquals($value, $response);
     }
 
+    public function testUsedAt()
+    {
+        $value = new \DateTime();
+        $response = $this->sut->setUsedAt($value)->getUsedAt();
+
+        $this->assertEquals($value, $response);
+    }
+
+    public function testValidUntil()
+    {
+        $value = new \DateTime();
+        $response = $this->sut->setValidUntil($value)->getValidUntil();
+
+        $this->assertEquals($value, $response);
+    }
+
     public function testGetUser()
     {
         $value = $this->mock()->get('Api\Entities\User');

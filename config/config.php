@@ -31,6 +31,7 @@ return [
         //'file'  => __DIR__ . '/../error.log'
     ],
     Config::SECURITY => [
+        'token_interval'         => 'P1Y',
         'max_login_attempts'     => 10,
         'login_abuse_sleep_time' => 10
     ]
