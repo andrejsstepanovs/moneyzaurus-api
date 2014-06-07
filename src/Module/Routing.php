@@ -3,7 +3,6 @@
 namespace Api\Module;
 
 use SlimApi\Kernel\Routing as KernelRouting;
-use Api\Middleware\Json as MiddlewareJson;
 use Api\Slim;
 use Slim\Http\Request;
 
@@ -26,7 +25,7 @@ class Routing extends KernelRouting
     {
         $this->getSlim()->add($container->get(Container::MIDDLEWARE_PROCESS_TIME));
         $this->getSlim()->add($container->get(Container::MIDDLEWARE_AUTHORIZATION));
-        $this->getSlim()->add(new MiddlewareJson());
+        $this->getSlim()->add($container->get(Container::MIDDLEWARE_JSON));
 
         return $this;
     }

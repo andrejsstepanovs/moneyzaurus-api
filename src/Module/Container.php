@@ -49,6 +49,7 @@ class Container extends KernelContainer
 
     const MIDDLEWARE_AUTHORIZATION = 'middleware.authorization';
     const MIDDLEWARE_PROCESS_TIME  = 'middleware.processTime';
+    const MIDDLEWARE_JSON          = 'middleware.json';
 
     const LOGGER                   = 'logger';
     const LOGGER_HANDLER           = 'logger.handler';
@@ -513,6 +514,13 @@ class Container extends KernelContainer
 
             return $middleware;
         };
+
+        $this[self::MIDDLEWARE_JSON] = function () {
+            $middleware = new \Api\Middleware\Json();
+
+            return $middleware;
+        };
+
     }
 
     private function initEntityManager()
