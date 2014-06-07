@@ -412,6 +412,7 @@ class Container extends KernelContainer
             $controller->setToken($this->get(self::AUTHORIZATION_TOKEN));
             $controller->setUserData($this->get(self::USER_DATA));
             $controller->setUserSave($this->get(self::USER_SAVE));
+            $controller->setLocale($this->get(self::SERVICE_LOCALE));
 
             $securityConfig = $this->getConfig()->get(Config::SECURITY);
 

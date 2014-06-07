@@ -7,6 +7,7 @@ use Api\Service\Authorization\Crypt as ModuleCrypt;
 use Api\Service\User\Data as UserData;
 use Api\Service\User\Save as UserSave;
 use Api\Service\AccessorTrait;
+use Api\Service\Locale;
 use Api\Entities\User;
 
 /**
@@ -22,9 +23,11 @@ use Api\Entities\User;
  * @method LoginController setToken(Token $token)
  * @method LoginController setMaxLoginAttempts(int)
  * @method LoginController setLoginAbuseSleepTime(int)
+ * @method LoginController setLocale(Locale $locale)
  * @method ModuleCrypt     getCrypt()
  * @method UserData        getUserData()
  * @method UserSave        getUserSave()
+ * @method Locale          getLocale()
  * @method Token           getToken()
  * @method int             getMaxLoginAttempts()
  * @method int             getLoginAbuseSleepTime()
@@ -57,11 +60,17 @@ class LoginController
             $token = $this->getToken()->get($user);
             $loginAttempts = 0;
 
+            $dateTimeFormatter = $this->getLocale()->setUser($user)->getDateTimeFormatter(\IntlDateFormatter::MEDIUM);
+            $validUntil = $token->getValidUntil();
+            $validUntil->setTimezone(new \DateTimeZone($user->getTimezone()));
+
             $response['success'] = true;
             $response['data'] = array(
-                'id'    => $user->getId(),
-                'email' => $user->getEmail(),
-                'token' => $token->getToken()
+                'id'                => $user->getId(),
+                'email'             => $user->getEmail(),
+                'token'             => $token->getToken(),
+                'expires'           => $dateTimeFormatter->format($validUntil),
+                'expires_timestamp' => $validUntil->getTimestamp()
             );
         }
 
