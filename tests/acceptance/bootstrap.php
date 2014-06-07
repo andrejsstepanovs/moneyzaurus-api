@@ -8,8 +8,6 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 
-echo PHP_EOL . PHP_EOL . 'WEB_SERVER_HOST=' . getenv('WEB_SERVER_HOST') . PHP_EOL . PHP_EOL;
-
 // @todo move to server start bash script. set env and use it later on.
 define('WEB_SERVER_HOST', 'localhost');
 define('WEB_SERVER_PORT', '8000');
