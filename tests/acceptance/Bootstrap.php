@@ -140,11 +140,11 @@ class Bootstrap
         $commands = array();
 
         if ($this->isHhVm()) {
-            $commands[] = sprintf(
-                'hhvm --mode server -vServer.Type=fastcgi -vServer.Port=%s' . ' >/dev/null 2>&1 & echo $!',
-                $this->hhvmPort
-            );
-            $commands[] = 'sudo service nginx start';
+//            $commands[] = sprintf(
+//                'hhvm --mode server -vServer.Type=fastcgi -vServer.Port=%s' . ' >/dev/null 2>&1 & echo $!',
+//                $this->hhvmPort
+//            );
+//            $commands[] = 'sudo service nginx start';
         } else {
             $commands[] = sprintf(
                 'php -S %s:%d -t %s' . ' >/dev/null 2>&1 & echo $!',
@@ -177,8 +177,8 @@ class Bootstrap
         }
 
         if ($hhvm) {
-            $this->execute('sudo service nginx stop');
-            $this->deleteFile('www.pid');
+            //$this->execute('sudo service nginx stop');
+            //$this->deleteFile('www.pid');
         }
 
         $this->deleteFile($dbFile);

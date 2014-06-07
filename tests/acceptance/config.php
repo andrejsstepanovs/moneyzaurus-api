@@ -4,7 +4,7 @@ use Api\Module\Config;
 
 return [
     Config::DEVMODE               => true,
-    Config::PASSWORD_DEFAULT_COST => 5,
+    Config::PASSWORD_DEFAULT_COST => 4,
     Config::DATABASE  => [
         Config::DATABASE_ENTITIES   => [
             __DIR__ . '/../src/Entities'
