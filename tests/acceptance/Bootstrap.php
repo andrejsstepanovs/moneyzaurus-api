@@ -81,8 +81,7 @@ class Bootstrap
                 'configData' => $this->getConfigData(),
                 'pids'       => $this->pid,
                 'tmpDbFile'  => $this->tmpDb,
-                'config'     => $this->configOriginal,
-                'hhvm'       => $this->isHhVm()
+                'config'     => $this->configOriginal
             )
         );
 
@@ -139,13 +138,7 @@ class Bootstrap
     {
         $commands = array();
 
-        if ($this->isHhVm()) {
-//            $commands[] = sprintf(
-//                'hhvm --mode server -vServer.Type=fastcgi -vServer.Port=%s' . ' >/dev/null 2>&1 & echo $!',
-//                $this->hhvmPort
-//            );
-//            $commands[] = 'sudo service nginx start';
-        } else {
+        if (!$this->isHhVm()) {
             $commands[] = sprintf(
                 'php -S %s:%d -t %s' . ' >/dev/null 2>&1 & echo $!',
                 $this->host,
@@ -168,17 +161,11 @@ class Bootstrap
         $dbFile         = $params['tmpDbFile'];
         $originalConfig = $params['config'];
         $pids           = $params['pids'];
-        $hhvm           = $params['hhvm'];
 
         foreach ($pids as $pid) {
             if ($pid) {
                 $this->execute('kill ' . $pid);
             }
-        }
-
-        if ($hhvm) {
-            //$this->execute('sudo service nginx stop');
-            //$this->deleteFile('www.pid');
         }
 
         $this->deleteFile($dbFile);

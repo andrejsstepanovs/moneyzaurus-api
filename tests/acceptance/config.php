@@ -3,7 +3,7 @@
 use Api\Module\Config;
 
 return [
-    Config::DEVMODE               => true,
+    Config::DEVMODE               => false,
     Config::PASSWORD_DEFAULT_COST => 4,
     Config::DATABASE  => [
         Config::DATABASE_ENTITIES   => [
