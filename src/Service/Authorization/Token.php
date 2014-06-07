@@ -28,6 +28,9 @@ class Token
     /** Minimal token size */
     const MIN_TOKEN_SIZE = 32;
 
+    /** Token valid time interval */
+    const INTERVAL = 'P1Y';
+
     /**
      * @param string $token
      *
@@ -133,15 +136,30 @@ class Token
     {
         $token = $this->generateToken(strval($user->getId()));
 
+        $currentDateTime = new \DateTime();
         $this->getAccessToken()
             ->setToken($token)
             ->setUser($user)
-            ->setCreated(new \DateTime());
+            ->setCreated($currentDateTime)
+            ->setUsedAt(null)
+            ->setValidUntil($this->getInterval($currentDateTime));
 
         $this->getEntityManager()->persist($this->getAccessToken());
         $this->getEntityManager()->flush();
 
         return $this->getAccessToken();
+    }
+
+    /**
+     * @param \DateTime $dateTime
+     *
+     * @return \DateTime
+     */
+    public function getInterval(\DateTime $dateTime)
+    {
+        $dateTime->add(new \DateInterval(self::INTERVAL));
+
+        return $dateTime;
     }
 
     /**

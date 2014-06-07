@@ -38,6 +38,17 @@ class TokenTest extends TestCase
 
         $this->mock()->get('Api\Entities\AccessToken')
             ->expects($this->once())
+            ->method('setUsedAt')
+            ->with($this->equalTo(null))
+            ->will($this->returnSelf());
+
+        $this->mock()->get('Api\Entities\AccessToken')
+            ->expects($this->once())
+            ->method('setValidUntil')
+            ->will($this->returnSelf());
+
+        $this->mock()->get('Api\Entities\AccessToken')
+            ->expects($this->once())
             ->method('setCreated')
             ->with($this->isInstanceOf('DateTime'))
             ->will($this->returnSelf());
@@ -216,4 +227,30 @@ class TokenTest extends TestCase
         $this->assertFalse($response);
     }
 
+    /**
+     * @return array
+     */
+    public function intervalDataProvider()
+    {
+        return array(
+            array(new \DateTime('2010-01-01 00:00:00'), '2011-01-01 00:00:00'),
+            array(new \DateTime('2011-04-01 15:00:00'), '2012-04-01 15:00:00'),
+            array(new \DateTime('2011-04-21 10:05:10'), '2012-04-21 10:05:10'),
+        );
+    }
+
+    /**
+     * @dataProvider intervalDataProvider
+     *
+     * @param \DateTime $dateTime
+     * @param string    $expected
+     */
+    public function testGetInterval($dateTime, $expected)
+    {
+        $response = $this->sut->getInterval($dateTime);
+
+        $formatted = $response->format('Y-m-d H:i:s');
+
+        $this->assertEquals($expected, $formatted);
+    }
 }

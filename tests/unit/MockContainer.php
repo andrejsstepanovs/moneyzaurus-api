@@ -452,7 +452,11 @@ class MockContainer extends Pimple
                     'setToken',
                     'setUser',
                     'setCreated',
-                    'getUser'
+                    'getUser',
+                    'setUsedAt',
+                    'getUsedAt',
+                    'setValidUntil',
+                    'getValidUntil'
                 )
             );
         };
