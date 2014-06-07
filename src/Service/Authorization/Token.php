@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\EntityManager;
 use Api\Service\AccessorTrait;
 use Api\Service\Time;
+use Api\Service\Exception\TokenExpiredException;
 
 /**
  * Class Token
@@ -62,7 +63,7 @@ class Token
      * @param AccessToken $accessToken
      *
      * @return $this
-     * @throws \InvalidArgumentException
+     * @throws TokenExpiredException
      */
     private function validate(AccessToken $accessToken)
     {
@@ -71,7 +72,7 @@ class Token
         $time    = $this->getTime()->setTimezone($userTimezone);
         $isValid = $time->compareDateTime($time->getDateTime(), $accessToken->getValidUntil());
         if (!$isValid) {
-            throw new \InvalidArgumentException('Token has expired');
+            throw new TokenExpiredException('Token has expired');
         }
 
         return $this;

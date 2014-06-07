@@ -7,6 +7,8 @@ use Api\Service\Acl;
 use Api\Service\Authorization\Token;
 use Api\Entities\User;
 use Api\Service\AccessorTrait;
+use Api\Service\Exception\ResourceDeniedException;
+use Api\Middleware\Json;
 
 /**
  * Class Json
@@ -17,10 +19,12 @@ use Api\Service\AccessorTrait;
  * @method Authorization setConnectedUserIds(array $connectedUserIds)
  * @method Authorization setToken(Token $token)
  * @method Authorization setAcl(Acl $acl)
+ * @method Authorization setJsonMiddleware(Json $acl)
  * @method User|null     getUser()
  * @method array         getConnectedUserIds()
  * @method Token         getToken()
  * @method Acl           getAcl()
+ * @method Json          getJsonMiddleware()
  */
 class Authorization extends Middleware
 {
@@ -117,6 +121,34 @@ class Authorization extends Middleware
 
         $token = $app->request()->get('token');
 
+        try {
+            $this->validate($token);
+
+            $app->config('user', $this->getUser());
+            $app->config('connectedUserIds', $this->getConnectedUserIds());
+
+            $this->getNextMiddleware()->call();
+
+        } catch (\RuntimeException $exc) {
+            $exc->getMessage();
+
+            $data = ['message' => $exc->getMessage()];
+            $app->setData($data);
+
+            $response = $app->response();
+            $response->setStatus(403);
+
+            $this->getJsonMiddleware()->modifyResponse($app, $response);
+        }
+    }
+
+    /**
+     * @param string $token
+     *
+     * @throws ResourceDeniedException
+     */
+    private function validate($token)
+    {
         $role      = $this->findUser($token)->getUserRole();
         $resource  = $this->getResource();
         $privilege = $this->getPrivilege();
@@ -130,12 +162,7 @@ class Authorization extends Middleware
                        . 'is not allowed for role "' . $role . '" '
                        . (empty($token) ? 'without' : 'using') . ' token';
 
-            throw new \RuntimeException($message);
+            throw new ResourceDeniedException($message);
         }
-
-        $app->config('user', $this->getUser());
-        $app->config('connectedUserIds', $this->getConnectedUserIds());
-
-        $this->getNextMiddleware()->call();
     }
 }
