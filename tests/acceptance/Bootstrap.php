@@ -21,21 +21,6 @@ class Bootstrap
     /** @var string */
     private $tmpDb;
 
-    /** @var int[] */
-    private $pid = array();
-
-    /** @var int */
-    private $port;
-
-    /** @var int */
-    private $hhvmPort;
-
-    /** @var string */
-    private $host;
-
-    /** @var string */
-    private $root;
-
     /**
      * @param array $params
      */
@@ -44,10 +29,6 @@ class Bootstrap
         $this->configOriginal = $params['config_original'];
         $this->configTest     = $params['config_test'];
         $this->appDb          = $params['app_db'];
-        $this->port           = $params['port'];
-        $this->host           = $params['host'];
-        $this->root           = realpath($params['root']);
-        $this->hhvmPort       = $params['hhvm_port'];
         $this->tmpDb          = realpath(__DIR__ . '/../../config/') . '/tmp.appdb.sqlite';
 
         define('TEST_CONFIG', serialize($this->getConfigData()));
@@ -61,25 +42,16 @@ class Bootstrap
         return include $this->configTest;
     }
 
-    /**
-     * @return bool
-     */
-    private function isHhVm()
-    {
-        return defined('HHVM_VERSION');
-    }
-
     public function init()
     {
         $this->message('<<< BOOTSTRAP >>>');
 
-        $this->setUp()->start();
+        $this->setUp();
 
         register_shutdown_function(
             array($this, 'tearDown'),
             array(
                 'configData' => $this->getConfigData(),
-                'pids'       => $this->pid,
                 'tmpDbFile'  => $this->tmpDb,
                 'config'     => $this->configOriginal
             )
@@ -113,43 +85,6 @@ class Bootstrap
         return $this;
     }
 
-    public function start()
-    {
-        $commands = $this->getCommands();
-        if (empty($commands)) {
-            return;
-        }
-
-        foreach ($commands as $command) {
-            $output = $this->execute($command);
-            $pid = !empty($output[0]) ? (int)$output[0] : null;
-            if (!$pid) {
-                continue;
-            }
-
-            $this->pid[] = $pid;
-        }
-    }
-
-    /**
-     * @return array
-     */
-    private function getCommands()
-    {
-        $commands = array();
-
-        if (!$this->isHhVm()) {
-            $commands[] = sprintf(
-                'php -S %s:%d -t %s' . ' >/dev/null 2>&1 & echo $!',
-                $this->host,
-                $this->port,
-                $this->root
-            );
-        }
-
-        return $commands;
-    }
-
     /**
      * @param array $params
      */
@@ -160,13 +95,6 @@ class Bootstrap
         $configData     = $params['configData'];
         $dbFile         = $params['tmpDbFile'];
         $originalConfig = $params['config'];
-        $pids           = $params['pids'];
-
-        foreach ($pids as $pid) {
-            if ($pid) {
-                $this->execute('kill ' . $pid);
-            }
-        }
 
         $this->deleteFile($dbFile);
 
@@ -230,20 +158,6 @@ class Bootstrap
         }
 
         return $success;
-    }
-
-    /**
-     * @param string $command
-     *
-     * @return array
-     */
-    private function execute($command)
-    {
-        $output = array();
-        exec($command, $output);
-        $this->message($command);
-
-        return $output;
     }
 
     /**
