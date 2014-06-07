@@ -19,10 +19,12 @@ use Api\Service\Time;
  * @method Token         setAccessToken(AccessToken $accessToken)
  * @method Token         setUser(User $user)
  * @method Token         setTime(Time $time)
+ * @method Token         setTokenInterval($interval)
  * @method EntityManager getEntityManager()
  * @method AccessToken   getAccessToken()
  * @method User          getUser()
  * @method Time          getTime()
+ * @method string        getTokenInterval()
  */
 class Token
 {
@@ -30,9 +32,6 @@ class Token
 
     /** Minimal token size */
     const MIN_TOKEN_SIZE = 32;
-
-    /** Token valid time interval */
-    const INTERVAL = 'P1Y';
 
     /**
      * @param string $token
@@ -184,7 +183,8 @@ class Token
      */
     public function getInterval(\DateTime $dateTime)
     {
-        $dateTime->add(new \DateInterval(self::INTERVAL));
+        $interval = $this->getTokenInterval();
+        $dateTime->add(new \DateInterval($interval));
 
         return $dateTime;
     }

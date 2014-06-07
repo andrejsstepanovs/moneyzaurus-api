@@ -21,6 +21,7 @@ class TokenTest extends TestCase
         $this->sut->setEntityManager($this->mock()->get('Doctrine\ORM\EntityManager'));
         $this->sut->setAccessToken($this->mock()->get('Api\Entities\AccessToken'));
         $this->sut->setTime($this->mock()->get('\Api\Service\Time'));
+        $this->sut->setTokenInterval('P1Y');
 
         $this->mock()->get('\Api\Service\Time')
             ->expects($this->any())

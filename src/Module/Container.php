@@ -282,6 +282,9 @@ class Container extends KernelContainer
             $token->setAccessToken(new \Api\Entities\AccessToken());
             $token->setTime($this->get(self::SERVICE_TIME));
 
+            $securityData = $this->getConfig()->get(Config::SECURITY);
+            $token->setTokenInterval($securityData['token_interval']);
+
             return $token;
         };
     }
