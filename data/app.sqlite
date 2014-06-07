@@ -5,7 +5,9 @@ CREATE TABLE "access_token" (
   "access_token_id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL ,
   "id_user" INTEGER  NOT NULL,
   "token" varchar(40) NOT NULL,
-  "created" datetime NOT NULL
+  "created" datetime NOT NULL,
+  "used_at" datetime DEFAULT NULL,
+  "valid_until" datetime DEFAULT '0000-00-00 00:00:00'
 );
 CREATE TABLE "connection" (
   "connection_id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL ,
@@ -72,6 +74,7 @@ CREATE INDEX "user_email" ON "user" ("email");
 CREATE INDEX "user_role" ON "user" ("role");
 CREATE INDEX "access_token_token" ON "access_token" ("token");
 CREATE INDEX "access_token_id_user" ON "access_token" ("id_user");
+CREATE INDEX "access_token_id_user" ON "access_token" ("valid_until");
 CREATE INDEX "item_name-id_user" ON "item" ("name","id_user");
 CREATE INDEX "item_id_user" ON "item" ("id_user");
 CREATE INDEX "currency_currency" ON "currency" ("currency_id");

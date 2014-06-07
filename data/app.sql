@@ -160,9 +160,12 @@ CREATE TABLE IF NOT EXISTS `access_token` (
  `id_user` int(10) unsigned NOT NULL,
  `token` varchar(100) NOT NULL,
  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ `used_at` timestamp NULL DEFAULT NULL,
+ `valid_until` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
  PRIMARY KEY (`access_token_id`),
  UNIQUE KEY `token` (`token`),
  KEY `id_user` (`id_user`),
+ KEY `valid_until` (`valid_until`),
  CONSTRAINT `access_token_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 
