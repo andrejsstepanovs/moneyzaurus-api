@@ -101,4 +101,12 @@ class UserTest extends TestCase
         $this->assertEquals($value, $response);
     }
 
+    public function testGetLoginAttempts()
+    {
+        $value = 123;
+        $response = $this->sut->setLoginAttempts($value)->getLoginAttempts();
+
+        $this->assertEquals($value, $response);
+    }
+
 }

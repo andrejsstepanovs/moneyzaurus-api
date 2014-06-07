@@ -52,7 +52,8 @@ CREATE TABLE "user" (
   "locale" varchar(5) NOT NULL DEFAULT 'de_DE',
   "timezone" varchar(40) NOT NULL DEFAULT 'Europe/Berlin',
   "language" varchar(5) NOT NULL DEFAULT 'en_US',
-  "state" smallint(5)  DEFAULT NULL
+  "state" smallint(5)  DEFAULT NULL,
+  "login_attempts" INTEGER NOT NULL DEFAULT 0
 );
 CREATE TABLE "user_provider" (
   "user_id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL ,

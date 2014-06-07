@@ -15,7 +15,8 @@
         "sebastian/comparator": "1.0.*@dev",
         "phpunit/phpunit-mock-objects": "2.2.*@dev",
         "phpunit/php-code-coverage": "dev-master",
-        "guzzlehttp/guzzle": "~4.0"
+        "guzzlehttp/guzzle": "~4.0",
+        "monolog/monolog": "1.*"
     },
     "autoload": {
         "psr-4": {

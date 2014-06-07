@@ -411,6 +411,8 @@ class MockContainer extends Pimple
                     'getLanguage',
                     'setState',
                     'getState',
+                    'getLoginAttempts',
+                    'setLoginAttempts',
                 )
             );
         };

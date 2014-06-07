@@ -3,10 +3,8 @@
 use Api\Module\Config;
 
 return [
-    Config::ROUTING               => 'Api\Module\Routing',
-    Config::SLIM                  => 'Api\Slim',
     Config::DEVMODE               => true,
-    Config::PASSWORD_DEFAULT_COST => 14,
+    Config::PASSWORD_DEFAULT_COST => 4,
     Config::DATABASE  => [
         Config::DATABASE_ENTITIES   => [
             __DIR__ . '/../src/Entities'
@@ -26,5 +24,12 @@ return [
         'username' => 'test@email.com',
         'password' => 'password',
         'test'     => true
+    ],
+    Config::LOG => [
+        'file'  => __DIR__ . '/../tmp.error.log'
+    ],
+    Config::SECURITY => [
+        'max_login_attempts'     => 3,
+        'login_abuse_sleep_time' => 2
     ]
 ];

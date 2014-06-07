@@ -89,6 +89,13 @@ class User
     private $language = 'en_US';
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="`login_attempts`", type="integer", nullable=false)
+     */
+    private $loginAttempts = 0;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="`state`", type="smallint", nullable=true)
@@ -295,6 +302,26 @@ class User
     public function getUsername()
     {
         return $this->username;
+    }
+
+    /**
+     * @param int $loginAttempts
+     *
+     * @return $this
+     */
+    public function setLoginAttempts($loginAttempts)
+    {
+        $this->loginAttempts = $loginAttempts;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLoginAttempts()
+    {
+        return $this->loginAttempts;
     }
 
 }

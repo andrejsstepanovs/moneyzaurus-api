@@ -160,6 +160,7 @@ class RegisterController
         $user->setLanguage($language);
         $user->setLocale($locale);
         $user->setDisplayName($displayName);
+        $user->setLoginAttempts(0);
 
         return $user;
     }
