@@ -3,4 +3,4 @@
 
 php --version
 
-php -S localhost:8000 -t ./../../ >/dev/null 2>&1 &
+php -S localhost:8000 -t ./ >/dev/null 2>&1 &
