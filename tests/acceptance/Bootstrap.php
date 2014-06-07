@@ -31,7 +31,7 @@ class Bootstrap
         $this->appDb          = $params['app_db'];
         $this->tmpDb          = realpath(__DIR__ . '/../../config/') . '/tmp.appdb.sqlite';
 
-        define('TEST_CONFIG', serialize($this->getConfigData()));
+        define('TEST_CONFIG_DATA', serialize($this->getConfigData()));
     }
 
     /**
