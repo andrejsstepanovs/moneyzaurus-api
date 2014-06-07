@@ -8,6 +8,7 @@ use Api\Entities\AccessToken;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\EntityManager;
 use Api\Service\AccessorTrait;
+use Api\Service\Time;
 
 /**
  * Class Token
@@ -17,9 +18,11 @@ use Api\Service\AccessorTrait;
  * @method Token         setEntityManager(EntityManager $entityManager)
  * @method Token         setAccessToken(AccessToken $accessToken)
  * @method Token         setUser(User $user)
+ * @method Token         setTime(Time $time)
  * @method EntityManager getEntityManager()
  * @method AccessToken   getAccessToken()
  * @method User          getUser()
+ * @method Time          getTime()
  */
 class Token
 {
@@ -47,8 +50,32 @@ class Token
 
         /** @var User $user */
         $user = $accessToken ? $accessToken->getUser() : null;
+        $this->setUser($user);
 
-        return $this->setUser($user)->getUser();
+        if ($user) {
+            $this->validate($accessToken);
+        }
+
+        return $this->getUser();
+    }
+
+    /**
+     * @param AccessToken $accessToken
+     *
+     * @return $this
+     * @throws \InvalidArgumentException
+     */
+    private function validate(AccessToken $accessToken)
+    {
+        $userTimezone = new \DateTimeZone($this->getUser()->getTimezone());
+
+        $time    = $this->getTime()->setTimezone($userTimezone);
+        $isValid = $time->compareDateTime($time->getDateTime(), $accessToken->getValidUntil());
+        if (!$isValid) {
+            throw new \InvalidArgumentException('Token has expired');
+        }
+
+        return $this;
     }
 
     /**

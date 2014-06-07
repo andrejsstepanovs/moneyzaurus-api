@@ -280,7 +280,8 @@ class MockContainer extends Pimple
                 array(
                     'setTimezone',
                     'getMicroTimeDifference',
-                    'getDateTime'
+                    'getDateTime',
+                    'compareDateTime'
                 )
             );
         };

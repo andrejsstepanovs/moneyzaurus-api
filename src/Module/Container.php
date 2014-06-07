@@ -266,11 +266,13 @@ class Container extends KernelContainer
     {
         $this[self::PASSWORD_CRYPT] = function () {
             $crypt = new PasswordCrypt();
+
             return $crypt->setCost($this->getConfig()->get(Config::PASSWORD_DEFAULT_COST));
         };
 
         $this[self::AUTHORIZATION_CRYPT] = function () {
-            $crypt = new \Api\Service\Authorization\Crypt;
+            $crypt = new \Api\Service\Authorization\Crypt();
+
             return $crypt->setCrypt($this->get(self::PASSWORD_CRYPT));
         };
 
@@ -278,6 +280,8 @@ class Container extends KernelContainer
             $token = new \Api\Service\Authorization\Token;
             $token->setEntityManager($this->get(self::ENTITY_MANAGER));
             $token->setAccessToken(new \Api\Entities\AccessToken());
+            $token->setTime($this->get(self::SERVICE_TIME));
+
             return $token;
         };
     }
@@ -496,12 +500,14 @@ class Container extends KernelContainer
             $middleware = new \Api\Middleware\Authorization();
             $middleware->setAcl($this->get(self::SERVICE_ACL));
             $middleware->setToken($this->get(self::AUTHORIZATION_TOKEN));
+
             return $middleware;
         };
 
         $this[self::MIDDLEWARE_PROCESS_TIME] = function () {
             $middleware = new \Api\Middleware\ProcessTime();
             $middleware->setTime($this->get(self::SERVICE_TIME));
+
             return $middleware;
         };
     }
