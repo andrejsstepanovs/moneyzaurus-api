@@ -25,7 +25,7 @@ class TestCase extends PHPUnit_Framework_TestCase
     protected function getBaseUrl()
     {
         if ($this->baseUrl === null) {
-            $this->baseUrl = 'http://' . WEB_SERVER_HOST . ':' . WEB_SERVER_PORT;
+            $this->baseUrl = 'http://localhost:8000';
         }
 
         return $this->baseUrl;
@@ -160,7 +160,7 @@ class TestCase extends PHPUnit_Framework_TestCase
 
     public function tearDown()
     {
-        $configData = unserialize(TEST_CONFIG);
+        $configData = unserialize(TEST_CONFIG_DATA);
 
         $errorFile = basename($configData['log']['file']);
         $errorLog = realpath(__DIR__ . '/../../') . '/' . $errorFile;
