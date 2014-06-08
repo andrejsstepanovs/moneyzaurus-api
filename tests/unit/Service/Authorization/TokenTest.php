@@ -111,7 +111,7 @@ class TokenTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Api\Service\Exception\TokenExpiredException
      */
     public function testTokenExpiredWillThrowException()
     {

@@ -19,19 +19,23 @@ class AuthorizationTest extends TestCase
     {
         $this->sut = new Authorization();
         $this->sut->setAcl($this->mock()->get('Api\Service\Acl'));
-        $this->sut->setApplication($this->mock()->get('\Slim\Slim'));
+        $this->sut->setApplication($this->mock()->get('\Api\Slim'));
         $this->sut->setNextMiddleware($this->mock()->get('\Slim\Middleware'));
         $this->sut->setToken($this->mock()->get('Api\Service\Authorization\Token'));
+        $this->sut->setJsonMiddleware($this->mock()->get('Api\Middleware\Json'));
 
-        $this->mock()->get('\Slim\Slim')
-            ->expects($this->any())
-            ->method('request')
-            ->will($this->returnValue($this->mock()->get('\Slim\Http\Request')));
+        $this->mock()->get('\Api\Slim')
+             ->expects($this->any())
+             ->method('request')
+             ->will($this->returnValue($this->mock()->get('\Slim\Http\Request')));
+
+        $this->mock()->get('\Api\Slim')
+             ->expects($this->any())
+             ->method('response')
+             ->will($this->returnValue($this->mock()->get('\Slim\Http\Response')));
+
     }
 
-    /**
-     * @expectedException \RuntimeException
-     */
     public function testUserNotFound()
     {
         $token     = 'TOKEN VALUE';
@@ -51,12 +55,18 @@ class AuthorizationTest extends TestCase
             ->method('getPath')
             ->will($this->returnValue($path));
 
+        $this->mock()->get('\Slim\Http\Response')
+            ->expects($this->once())
+            ->method('setStatus')
+            ->with($this->equalTo(403));
+
+        $this->mock()->get('Api\Middleware\Json')
+             ->expects($this->once())
+             ->method('modifyResponse');
+
         $this->sut->call();
     }
 
-    /**
-     * @expectedException \RuntimeException
-     */
     public function testTokenIsNotProvidedAndAccessNotAllowed()
     {
         $token     = null;
@@ -80,6 +90,15 @@ class AuthorizationTest extends TestCase
              ->expects($this->once())
              ->method('isAllowed')
              ->will($this->returnValue(false));
+
+        $this->mock()->get('\Slim\Http\Response')
+             ->expects($this->once())
+             ->method('setStatus')
+             ->with($this->equalTo(403));
+
+        $this->mock()->get('Api\Middleware\Json')
+             ->expects($this->once())
+             ->method('modifyResponse');
 
         $this->sut->call();
     }
@@ -111,9 +130,6 @@ class AuthorizationTest extends TestCase
         $this->sut->call();
     }
 
-    /**
-     * @expectedException \RuntimeException
-     */
     public function testResourceNotAllowed()
     {
         $token = 'TOKEN VALUE';
@@ -138,13 +154,19 @@ class AuthorizationTest extends TestCase
             ->method('isAllowed')
             ->will($this->returnValue(false));
 
+        $this->mock()->get('\Slim\Http\Response')
+             ->expects($this->once())
+             ->method('setStatus')
+             ->with($this->equalTo(403));
+
+        $this->mock()->get('Api\Middleware\Json')
+             ->expects($this->once())
+             ->method('modifyResponse');
+
         $this->sut->call();
     }
 
-    /**
-     * @expectedException \RuntimeException
-     */
-    public function testUserFoundButResouceNotAllowed()
+    public function testUserFoundButResourceNotAllowed()
     {
         $token = 'TOKEN VALUE';
         $resource = 'requestResource';
@@ -185,6 +207,11 @@ class AuthorizationTest extends TestCase
             ->method('isAllowed')
             ->will($this->returnValue(false));
 
+        $this->mock()->get('\Slim\Http\Response')
+             ->expects($this->once())
+             ->method('setStatus')
+             ->with($this->equalTo(403));
+
         $this->sut->call();
     }
 
@@ -212,7 +239,7 @@ class AuthorizationTest extends TestCase
              ->method('isAllowed')
              ->will($this->returnValue(true));
 
-        $this->mock()->get('\Slim\Slim')
+        $this->mock()->get('\Api\Slim')
             ->expects($this->exactly(2))
             ->method('config');
 

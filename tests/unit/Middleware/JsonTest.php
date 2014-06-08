@@ -18,7 +18,7 @@ class JsonTest extends TestCase
     public function setUp()
     {
         $this->sut = new Json();
-        $this->sut->setApplication($this->mock()->get('\Slim\Slim'));
+        $this->sut->setApplication($this->mock()->get('\Api\Slim'));
         $this->sut->setNextMiddleware($this->mock()->get('\Slim\Middleware'));
     }
 
@@ -28,14 +28,14 @@ class JsonTest extends TestCase
             'banana' => 'yellow'
         );
 
-        $this->mock()->get('\Slim\Slim')
+        $this->mock()->get('\Api\Slim')
             ->expects($this->once())
             ->method(
                 'getData'
             )
             ->will($this->returnValue($data));
 
-        $this->mock()->get('\Slim\Slim')
+        $this->mock()->get('\Api\Slim')
             ->expects($this->any())
             ->method('response')
             ->will($this->returnValue($this->mock()->get('\Slim\Http\Response')));

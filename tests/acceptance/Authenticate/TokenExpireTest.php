@@ -39,16 +39,9 @@ class TokenExpireTest extends TestCase
         try {
             $response = $this->get('/user/data?token=' . $token);
             $this->fail('Token should be expired by now.' . print_r($response, true));
-        } catch (\RuntimeException $exc) {
-
-            $config = $this->getConfig();
-            $isDevMode = $config[\SlimApi\Kernel\Config::DEVMODE];
-
-            if (!$isDevMode) {
-                $errorLog = $this->getErrorLogFile();
-                $this->assertFileExists($errorLog);
-                file_put_contents($errorLog, '');
-            }
+        } catch (\Guzzle\Http\Exception\ClientErrorResponseException $exc) {
+            $statusCode = $exc->getResponse()->getStatusCode();
+            $this->assertEquals(403, $statusCode);
         }
     }
 

@@ -130,9 +130,10 @@ class Authorization extends Middleware
             $this->getNextMiddleware()->call();
 
         } catch (\RuntimeException $exc) {
-            $exc->getMessage();
-
-            $data = ['message' => $exc->getMessage()];
+            $data = [
+                'success' => false,
+                'message' => $exc->getMessage()
+            ];
             $app->setData($data);
 
             $response = $app->response();

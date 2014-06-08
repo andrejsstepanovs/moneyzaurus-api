@@ -46,6 +46,17 @@ class MockContainer extends Pimple
         $this->initEntities();
         $this->initServiceTransaction();
         $this->initEmail();
+        $this->initMiddleware();
+    }
+
+    private function initMiddleware()
+    {
+        $this['Api\Middleware\Json'] = function(MockContainer $self) {
+            return $self->buildMock(
+                '\Api\Middleware\Json',
+                array('modifyResponse')
+            );
+        };
     }
 
     private function initEmail()
@@ -318,6 +329,20 @@ class MockContainer extends Pimple
             );
         };
 
+        $this['\Api\Slim'] = function(MockContainer $self) {
+            return $self->buildMock(
+                '\Api\Slim',
+                array(
+                    'request',
+                    'config',
+                    'response',
+                    'getData',
+                    'setData',
+                    'getNextMiddleware',
+                )
+            );
+        };
+
         $this['\Slim\Middleware'] = function(MockContainer $self) {
             return $self->buildMock(
                 '\Slim\Middleware',
@@ -332,7 +357,8 @@ class MockContainer extends Pimple
                 '\Slim\Http\Response',
                 array(
                     'headers',
-                    'setBody'
+                    'setBody',
+                    'setStatus'
                 )
             );
         };
