@@ -14,6 +14,9 @@
         <testsuite name="entities">
             <directory>Entities</directory>
         </testsuite>
+        <testsuite name="slim">
+            <directory>Slim</directory>
+        </testsuite>
     </testsuites>
     <filter>
         <blacklist>
