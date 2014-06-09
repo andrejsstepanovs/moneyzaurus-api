@@ -274,8 +274,10 @@ class MockContainer extends Pimple
             return $self->buildMock(
                 'Api\Service\Authorization\Token',
                 array(
-                    'findUser',
+                    'findAccessToken',
+                    'validateExpired',
                     'getConnectedUsers',
+                    'save',
                     'get',
                     'generateToken',
                     'setUser',
@@ -478,8 +480,9 @@ class MockContainer extends Pimple
                 array(
                     'getToken',
                     'setToken',
-                    'setUser',
                     'setCreated',
+                    'getCreated',
+                    'setUser',
                     'getUser',
                     'setUsedAt',
                     'getUsedAt',

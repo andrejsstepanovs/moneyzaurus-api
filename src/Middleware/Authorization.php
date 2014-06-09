@@ -2,11 +2,13 @@
 
 namespace Api\Middleware;
 
+use Api\Entities\AccessToken;
 use Slim\Middleware;
 use Api\Service\Acl;
 use Api\Service\Authorization\Token;
 use Api\Entities\User;
 use Api\Service\AccessorTrait;
+use Api\Service\Time;
 use Api\Service\Exception\ResourceDeniedException;
 use Api\Middleware\Json;
 
@@ -15,16 +17,14 @@ use Api\Middleware\Json;
  *
  * @package Api\Middleware
  *
- * @method Authorization setUser(User $user = null)
- * @method Authorization setConnectedUserIds(array $connectedUserIds)
  * @method Authorization setToken(Token $token)
  * @method Authorization setAcl(Acl $acl)
  * @method Authorization setJsonMiddleware(Json $acl)
- * @method User|null     getUser()
- * @method array         getConnectedUserIds()
+ * @method Authorization setTime(Time $time)
  * @method Token         getToken()
  * @method Acl           getAcl()
  * @method Json          getJsonMiddleware()
+ * @method Time          getTime()
  */
 class Authorization extends Middleware
 {
@@ -65,53 +65,6 @@ class Authorization extends Middleware
     }
 
     /**
-     * @return string|null
-     */
-    private function getResource()
-    {
-        return $this->getRequestPath()[self::KEY_RESOURCE];
-    }
-
-    /**
-     * @return string|null
-     */
-    private function getPrivilege()
-    {
-        return $this->getRequestPath()[self::KEY_PRIVILEGE];
-    }
-
-    /**
-     * @param string $token
-     *
-     * @return $this
-     */
-    private function findUser($token)
-    {
-        if (!empty($token)) {
-            $user = $this->getToken()->findUser($token);
-            $this->setUser($user);
-
-            $connectedUserIds = $user ? $this->getToken()->getConnectedUsers() : [];
-            $this->setConnectedUserIds($connectedUserIds);
-        } else {
-            $this->setUser(null);
-            $this->setConnectedUserIds(array());
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    private function getUserRole()
-    {
-        $user = $this->getUser();
-
-        return $user ? $user->getRole() : User::ROLE_GUEST;
-    }
-
-    /**
      * Setup json response
      */
     public function call()
@@ -120,12 +73,26 @@ class Authorization extends Middleware
         $app = $this->getApplication();
 
         $token = $app->request()->get('token');
+        $tokenModule = $this->getToken();
 
         try {
-            $this->validate($token);
+            $accessToken = $tokenModule->findAccessToken($token);
+            $user        = $accessToken ? $accessToken->getUser() : null;
 
-            $app->config('user', $this->getUser());
-            $app->config('connectedUserIds', $this->getConnectedUserIds());
+            if ($accessToken) {
+                $tokenModule->validateExpired($accessToken, $user);
+            }
+            $role = $user ? $user->getRole() : User::ROLE_GUEST;
+            $this->validatePrivilege($token, $role);
+
+            if ($accessToken && $user) {
+                $this->updateUsedAt($accessToken, $user);
+            }
+
+            $connectedUserIds = $user ? $tokenModule->getConnectedUsers($user) : [];
+
+            $app->config('user', $user);
+            $app->config('connectedUserIds', $connectedUserIds);
 
             $this->getNextMiddleware()->call();
 
@@ -145,25 +112,47 @@ class Authorization extends Middleware
 
     /**
      * @param string $token
+     * @param string $role
      *
      * @throws ResourceDeniedException
      */
-    private function validate($token)
+    private function validatePrivilege($token, $role)
     {
-        $role      = $this->findUser($token)->getUserRole();
-        $resource  = $this->getResource();
-        $privilege = $this->getPrivilege();
+        $path = $this->getRequestPath();
 
-        $resource = empty($resource) ? Acl::RESOURCE_INDEX : $resource;
+        $privilege = $path[self::KEY_PRIVILEGE];
+        $resource  = $path[self::KEY_RESOURCE];
+        $resource  = empty($resource) ? Acl::RESOURCE_INDEX : $resource;
 
         $allowed = $this->getAcl()->isAllowed($role, $resource, $privilege);
 
         if (!$allowed) {
-            $message = 'Resource "' . $resource . '" with privilege "' . $privilege . '" '
-                       . 'is not allowed for role "' . $role . '" '
-                       . (empty($token) ? 'without' : 'using') . ' token';
+            $message = sprintf(
+                'Resource "%s" with privilege "%s" is not allowed for role "%s" %s token.%s',
+                $resource,
+                $privilege,
+                $role,
+                empty($token) ? 'without' : 'using',
+                !empty($token) ? ' Please check token.' : ''
+            );
 
             throw new ResourceDeniedException($message);
         }
+    }
+
+    /**
+     * @param AccessToken $accessToken
+     *
+     * @return $this
+     */
+    private function updateUsedAt(AccessToken $accessToken, User $user)
+    {
+        $timeZone = new \DateTimeZone($user->getTimezone());
+        $dateTime = $this->getTime()->setTimezone($timeZone)->getDateTime();
+
+        $accessToken->setUsedAt($dateTime);
+        $this->getToken()->save($accessToken);
+
+        return $this;
     }
 }

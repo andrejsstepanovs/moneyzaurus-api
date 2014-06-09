@@ -65,7 +65,7 @@ class TokenTest extends TestCase
         $this->assertInstanceOf('Api\Entities\AccessToken', $token);
     }
 
-    public function testFindUserIfExistsWillReturnUser()
+    public function testFindAccessToken()
     {
         $token = 'token1';
 
@@ -80,58 +80,18 @@ class TokenTest extends TestCase
             ->with($this->equalTo(array('token' => $token)))
             ->will($this->returnValue($this->mock()->get('Api\Entities\AccessToken')));
 
-        $this->mock()->get('Api\Entities\AccessToken')
-            ->expects($this->once())
-            ->method('getUser')
-            ->will($this->returnValue($this->mock()->get('Api\Entities\User')));
+        $response = $this->sut->findAccessToken($token);
 
-        $this->mock()->get('Api\Entities\User')
-            ->expects($this->once())
-            ->method('getTimezone')
-            ->will($this->returnValue('Europe/Berlin'));
-
-        $this->mock()->get('\Api\Service\Time')
-            ->expects($this->once())
-            ->method('compareDateTime')
-            ->will($this->returnValue(true));
-
-        $this->mock()->get('Api\Entities\AccessToken')
-             ->expects($this->once())
-             ->method('getValidUntil')
-             ->will($this->returnValue(new \DateTime()));
-
-        $this->mock()->get('\Api\Service\Time')
-             ->expects($this->once())
-             ->method('getDateTime')
-            ->will($this->returnValue(new \DateTime()));
-
-        $response = $this->sut->findUser($token);
-
-        $this->assertInstanceOf(get_class($this->mock()->get('Api\Entities\User')), $response);
+        $this->assertInstanceOf(get_class($this->mock()->get('Api\Entities\AccessToken')), $response);
     }
 
     /**
      * @expectedException \Api\Service\Exception\TokenExpiredException
      */
-    public function testTokenExpiredWillThrowException()
+    public function testValidateExpired()
     {
-        $token = 'token1';
-
-        $this->mock()->get('Doctrine\ORM\EntityManager')
-             ->expects($this->once())
-             ->method('getRepository')
-             ->will($this->returnValue($this->mock()->get('Doctrine\ORM\EntityRepository')));
-
-        $this->mock()->get('Doctrine\ORM\EntityRepository')
-             ->expects($this->once())
-             ->method('findOneBy')
-             ->with($this->equalTo(array('token' => $token)))
-             ->will($this->returnValue($this->mock()->get('Api\Entities\AccessToken')));
-
-        $this->mock()->get('Api\Entities\AccessToken')
-             ->expects($this->once())
-             ->method('getUser')
-             ->will($this->returnValue($this->mock()->get('Api\Entities\User')));
+        $token = $this->mock()->get('Api\Entities\AccessToken');
+        $user  = $this->mock()->get('Api\Entities\User');
 
         $this->mock()->get('Api\Entities\User')
              ->expects($this->once())
@@ -153,51 +113,40 @@ class TokenTest extends TestCase
              ->method('getDateTime')
              ->will($this->returnValue(new \DateTime()));
 
-        $this->sut->findUser($token);
+        $this->sut->validateExpired($token, $user);
     }
 
-    public function testFindUserIfNotExistsWillReturnNull()
+    public function testValidateExpiredOk()
     {
-        $token = 'token1';
+        $token = $this->mock()->get('Api\Entities\AccessToken');
+        $user  = $this->mock()->get('Api\Entities\User');
 
-        $this->mock()->get('Doctrine\ORM\EntityManager')
+        $this->mock()->get('Api\Entities\User')
              ->expects($this->once())
-             ->method('getRepository')
-             ->will($this->returnValue($this->mock()->get('Doctrine\ORM\EntityRepository')));
+             ->method('getTimezone')
+             ->will($this->returnValue('Europe/Berlin'));
 
-        $this->mock()->get('Doctrine\ORM\EntityRepository')
+        $this->mock()->get('\Api\Service\Time')
              ->expects($this->once())
-             ->method('findOneBy')
-             ->with($this->equalTo(array('token' => $token)))
-             ->will($this->returnValue(null));
+             ->method('compareDateTime')
+             ->will($this->returnValue(true));
 
-        $response = $this->sut->findUser($token);
+        $this->mock()->get('Api\Entities\AccessToken')
+             ->expects($this->once())
+             ->method('getValidUntil')
+             ->will($this->returnValue(new \DateTime()));
 
-        $this->assertNull($response);
+        $this->mock()->get('\Api\Service\Time')
+             ->expects($this->once())
+             ->method('getDateTime')
+             ->will($this->returnValue(new \DateTime()));
+
+        $response = $this->sut->validateExpired($token, $user);
+
+        $this->assertInstanceOf(get_class($this->sut), $response);
     }
 
-    public function testGetConnectedUsersIfUserNotFoundWillReturnArray()
-    {
-        $token = 'TOKEN';
-
-        $this->mock()->get('Doctrine\ORM\EntityManager')
-             ->expects($this->once())
-             ->method('getRepository')
-             ->will($this->returnValue($this->mock()->get('Doctrine\ORM\EntityRepository')));
-
-        $this->mock()->get('Doctrine\ORM\EntityRepository')
-             ->expects($this->once())
-             ->method('findOneBy')
-             ->with($this->equalTo(array('token' => $token)))
-             ->will($this->returnValue(null));
-
-        $this->sut->findUser($token);
-
-        $response = $this->sut->getConnectedUsers();
-        $this->assertEquals($response, array());
-    }
-
-    public function testGetConnectedUsersA()
+    public function testGetConnectedUsers()
     {
         $this->mock()->get('Api\Entities\User')
             ->expects($this->at(0))
@@ -225,8 +174,7 @@ class TokenTest extends TestCase
             ->method('getParent')
             ->will($this->returnValue($this->mock()->get('Api\Entities\User')));
 
-        $this->sut->setUser($this->mock()->get('Api\Entities\User'));
-        $response = $this->sut->getConnectedUsers();
+        $response = $this->sut->getConnectedUsers($this->mock()->get('Api\Entities\User'));
 
         $this->assertEquals(array(2), $response);
     }
@@ -325,5 +273,37 @@ class TokenTest extends TestCase
         $formatted = $response->format('Y-m-d H:i:s');
 
         $this->assertEquals($expected, $formatted);
+    }
+
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testSaveWillThrowExceptionRollbackWillBeTriggered()
+    {
+        $this->mock()
+             ->get('Doctrine\ORM\EntityManager')
+             ->expects($this->once())
+             ->method('commit')
+             ->will($this->throwException(new \RuntimeException('TEST')));
+
+        $this->mock()
+             ->get('Doctrine\ORM\EntityManager')
+             ->expects($this->once())
+             ->method('rollback');
+
+        $this->sut->save($this->mock()->get('Api\Entities\AccessToken'));
+    }
+
+    public function testSaveSuccessfullyWillReturnUserEntity()
+    {
+        $this->mock()
+             ->get('Doctrine\ORM\EntityManager')
+             ->expects($this->never())
+             ->method('rollback');
+
+        $response = $this->sut->save($this->mock()->get('Api\Entities\AccessToken'));
+
+        $this->assertInstanceOf(get_class($this->mock()->get('Api\Entities\AccessToken')), $response);
     }
 }
