@@ -37,37 +37,28 @@ class Token
     /**
      * @param string $token
      *
-     * @return User
+     * @return null|AccessToken
      */
-    public function findUser($token)
+    public function findAccessToken($token)
     {
         $criteria = array('token' => $token);
 
         /** @var \Doctrine\ORM\EntityRepository $user */
         $accessTokenRepository = $this->getEntityManager()->getRepository('Api\Entities\AccessToken');
         /** @var AccessToken $accessToken */
-        $accessToken = $accessTokenRepository->findOneBy($criteria);
-
-        /** @var User $user */
-        $user = $accessToken ? $accessToken->getUser() : null;
-        $this->setUser($user);
-
-        if ($user) {
-            $this->validate($accessToken);
-        }
-
-        return $this->getUser();
+        return $accessTokenRepository->findOneBy($criteria);
     }
 
     /**
      * @param AccessToken $accessToken
+     * @param User        $user
      *
      * @return $this
      * @throws TokenExpiredException
      */
-    private function validate(AccessToken $accessToken)
+    public function validateExpired(AccessToken $accessToken, User $user)
     {
-        $userTimezone = new \DateTimeZone($this->getUser()->getTimezone());
+        $userTimezone = new \DateTimeZone($user->getTimezone());
 
         $time    = $this->getTime()->setTimezone($userTimezone);
         $isValid = $time->compareDateTime($time->getDateTime(), $accessToken->getValidUntil());
@@ -132,10 +123,9 @@ class Token
     /**
      * @return array
      */
-    public function getConnectedUsers()
+    public function getConnectedUsers(User $user)
     {
-        $parentsIds = array();
-        $user = $this->getUser();
+        $parentsIds = [];
         if ($user) {
             /** @var \Doctrine\ORM\EntityRepository $connectionRepository */
             $connectionRepository = $this->getEntityManager()->getRepository('Api\Entities\Connection');
