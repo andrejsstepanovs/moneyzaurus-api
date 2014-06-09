@@ -22,6 +22,7 @@ class AuthorizationTest extends TestCase
         $this->sut->setApplication($this->mock()->get('\Api\Slim'));
         $this->sut->setNextMiddleware($this->mock()->get('\Slim\Middleware'));
         $this->sut->setToken($this->mock()->get('Api\Service\Authorization\Token'));
+        $this->sut->setTime($this->mock()->get('\Api\Service\Time'));
         $this->sut->setJsonMiddleware($this->mock()->get('Api\Middleware\Json'));
 
         $this->mock()->get('\Api\Slim')
@@ -34,6 +35,15 @@ class AuthorizationTest extends TestCase
              ->method('response')
              ->will($this->returnValue($this->mock()->get('\Slim\Http\Response')));
 
+        $this->mock()->get('\Api\Service\Time')
+             ->expects($this->any())
+             ->method('setTimezone')
+             ->will($this->returnSelf());
+
+        $this->mock()->get('\Api\Service\Time')
+             ->expects($this->any())
+             ->method('getDateTime')
+             ->will($this->returnValue(new \DateTime()));
     }
 
     public function testTokenIsNotProvidedAndAccessNotAllowed()
@@ -258,6 +268,11 @@ class AuthorizationTest extends TestCase
              ->expects($this->once())
              ->method('getRole')
              ->will($this->returnValue($role));
+
+        $this->mock()->get('Api\Entities\User')
+             ->expects($this->once())
+             ->method('getTimezone')
+             ->will($this->returnValue('Europe/Berlin'));
 
         $this->mock()->get('Api\Service\Acl')
              ->expects($this->once())

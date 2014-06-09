@@ -2,11 +2,13 @@
 
 namespace Api\Middleware;
 
+use Api\Entities\AccessToken;
 use Slim\Middleware;
 use Api\Service\Acl;
 use Api\Service\Authorization\Token;
 use Api\Entities\User;
 use Api\Service\AccessorTrait;
+use Api\Service\Time;
 use Api\Service\Exception\ResourceDeniedException;
 use Api\Middleware\Json;
 
@@ -18,9 +20,11 @@ use Api\Middleware\Json;
  * @method Authorization setToken(Token $token)
  * @method Authorization setAcl(Acl $acl)
  * @method Authorization setJsonMiddleware(Json $acl)
+ * @method Authorization setTime(Time $time)
  * @method Token         getToken()
  * @method Acl           getAcl()
  * @method Json          getJsonMiddleware()
+ * @method Time          getTime()
  */
 class Authorization extends Middleware
 {
@@ -81,6 +85,10 @@ class Authorization extends Middleware
             $role = $user ? $user->getRole() : User::ROLE_GUEST;
             $this->validatePrivilege($token, $role);
 
+            if ($accessToken && $user) {
+                $this->updateUsedAt($accessToken, $user);
+            }
+
             $connectedUserIds = $user ? $tokenModule->getConnectedUsers($user) : [];
 
             $app->config('user', $user);
@@ -130,5 +138,21 @@ class Authorization extends Middleware
 
             throw new ResourceDeniedException($message);
         }
+    }
+
+    /**
+     * @param AccessToken $accessToken
+     *
+     * @return $this
+     */
+    private function updateUsedAt(AccessToken $accessToken, User $user)
+    {
+        $timeZone = new \DateTimeZone($user->getTimezone());
+        $dateTime = $this->getTime()->setTimezone($timeZone)->getDateTime();
+
+        $accessToken->setUsedAt($dateTime);
+        $this->getToken()->save($accessToken);
+
+        return $this;
     }
 }

@@ -191,4 +191,28 @@ class Token
 
         return $prefix . substr(str_shuffle($characters), 0, self::MIN_TOKEN_SIZE);
     }
+
+    /**
+     * @param AccessToken $accessToken
+     *
+     * @return AccessToken
+     * @throws \Exception
+     */
+    public function save(AccessToken $accessToken) {
+        try {
+            $entityManager = $this->getEntityManager();
+
+            $entityManager->beginTransaction();
+            $entityManager->persist($accessToken);
+            $entityManager->flush($accessToken);
+
+            $this->getEntityManager()->commit();
+        } catch (\Exception $exc) {
+            $this->getEntityManager()->rollback();
+
+            throw $exc;
+        }
+
+        return $accessToken;
+    }
 }

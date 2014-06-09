@@ -116,6 +116,36 @@ class TokenTest extends TestCase
         $this->sut->validateExpired($token, $user);
     }
 
+    public function testValidateExpiredOk()
+    {
+        $token = $this->mock()->get('Api\Entities\AccessToken');
+        $user  = $this->mock()->get('Api\Entities\User');
+
+        $this->mock()->get('Api\Entities\User')
+             ->expects($this->once())
+             ->method('getTimezone')
+             ->will($this->returnValue('Europe/Berlin'));
+
+        $this->mock()->get('\Api\Service\Time')
+             ->expects($this->once())
+             ->method('compareDateTime')
+             ->will($this->returnValue(true));
+
+        $this->mock()->get('Api\Entities\AccessToken')
+             ->expects($this->once())
+             ->method('getValidUntil')
+             ->will($this->returnValue(new \DateTime()));
+
+        $this->mock()->get('\Api\Service\Time')
+             ->expects($this->once())
+             ->method('getDateTime')
+             ->will($this->returnValue(new \DateTime()));
+
+        $response = $this->sut->validateExpired($token, $user);
+
+        $this->assertInstanceOf(get_class($this->sut), $response);
+    }
+
     public function testGetConnectedUsers()
     {
         $this->mock()->get('Api\Entities\User')
@@ -243,5 +273,37 @@ class TokenTest extends TestCase
         $formatted = $response->format('Y-m-d H:i:s');
 
         $this->assertEquals($expected, $formatted);
+    }
+
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testSaveWillThrowExceptionRollbackWillBeTriggered()
+    {
+        $this->mock()
+             ->get('Doctrine\ORM\EntityManager')
+             ->expects($this->once())
+             ->method('commit')
+             ->will($this->throwException(new \RuntimeException('TEST')));
+
+        $this->mock()
+             ->get('Doctrine\ORM\EntityManager')
+             ->expects($this->once())
+             ->method('rollback');
+
+        $this->sut->save($this->mock()->get('Api\Entities\AccessToken'));
+    }
+
+    public function testSaveSuccessfullyWillReturnUserEntity()
+    {
+        $this->mock()
+             ->get('Doctrine\ORM\EntityManager')
+             ->expects($this->never())
+             ->method('rollback');
+
+        $response = $this->sut->save($this->mock()->get('Api\Entities\AccessToken'));
+
+        $this->assertInstanceOf(get_class($this->mock()->get('Api\Entities\AccessToken')), $response);
     }
 }

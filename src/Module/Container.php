@@ -504,6 +504,7 @@ class Container extends KernelContainer
             $middleware = new \Api\Middleware\Authorization();
             $middleware->setAcl($this->get(self::SERVICE_ACL));
             $middleware->setToken($this->get(self::AUTHORIZATION_TOKEN));
+            $middleware->setTime($this->get(self::SERVICE_TIME));
             $middleware->setJsonMiddleware($this->get(self::MIDDLEWARE_JSON));
 
             return $middleware;

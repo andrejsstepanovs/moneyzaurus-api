@@ -277,6 +277,7 @@ class MockContainer extends Pimple
                     'findAccessToken',
                     'validateExpired',
                     'getConnectedUsers',
+                    'save',
                     'get',
                     'generateToken',
                     'setUser',
