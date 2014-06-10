@@ -1,11 +1,16 @@
 # DOCKER-VERSION 0.3.4
 
+# sudo docker run -d wormhit/moneyzaurus-api
+# sudo docker ps
+# sudo docker inspect XXXX | grep IPAddress
+# sudo docker run -i -t wormhit/moneyzaurus-api /bin/bash
+
 FROM       ubuntu:14.04
 
 MAINTAINER Andrejs Stepanovs
 
 RUN     apt-get update
-RUN     apt-get install -y wget curl php5-fpm php5 php5-cli php5-curl php5-sqlite php5-intl git sqlite3 nginx
+RUN     apt-get install -y vim wget curl php5-fpm php5 php5-cli php5-curl php5-sqlite php5-intl git sqlite3 nginx
 
 RUN     git clone https://github.com/wormhit/moneyzaurus-api.git /var/www
 RUN     php /var/www/composer.phar install --working-dir /var/www
@@ -16,4 +21,4 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
 EXPOSE  80
 
-CMD     service php5-fpm start && nginx
+CMD     service php5-fpm start && service nginx start
