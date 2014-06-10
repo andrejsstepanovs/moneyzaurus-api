@@ -1,5 +1,9 @@
 {
+    "name": "wormhit/moneyzaurus-api",
+    "type": "library",
+    "description": "",
     "require": {
+        "php": ">=5.5",
         "wormhit/slim-api": "dev-master",
         "doctrine/orm": "2.5.*@dev",
         "doctrine/dbal": "2.5.*@dev",
