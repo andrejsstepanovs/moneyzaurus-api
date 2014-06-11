@@ -1,24 +1,32 @@
 # DOCKER-VERSION 0.3.4
 
+# sudo docker build -t wormhit/moneyzaurus-api .
+# sudo docker pull wormhit/moneyzaurus-api
 # sudo docker run -d wormhit/moneyzaurus-api
 # sudo docker ps
 # sudo docker inspect XXXX | grep IPAddress
 # sudo docker run -i -t wormhit/moneyzaurus-api /bin/bash
+# sudo systemctl stop docker
 
-FROM       ubuntu:14.04
+# sudo docker pull wormhit/moneyzaurus-api
+# sudo docker run -d wormhit/moneyzaurus-api
 
-MAINTAINER Andrejs Stepanovs
+FROM ubuntu:14.04
 
-RUN     apt-get update
-RUN     apt-get install -y vim wget curl php5-fpm php5 php5-cli php5-curl php5-sqlite php5-intl git sqlite3 nginx
+MAINTAINER Andrejs Stepanovs <andrejsstepanovs@gmail.com>
 
-RUN     git clone https://github.com/wormhit/moneyzaurus-api.git /var/www
-RUN     php /var/www/composer.phar install --working-dir /var/www
+RUN apt-get update
+RUN apt-get install -y git php5-fpm php5 php5-cli php5-curl php5-sqlite php5-intl nginx vim wget curl sqlite3
 
-RUN wget -O /etc/nginx/sites-available/default https://gist.github.com/darron/6159214/raw/30a60885df6f677bfe6f2ff46078629a8913d0bc/gistfile1.txt
-RUN echo "cgi.fix_pathinfo = 0;" >> /etc/php5/fpm/php.ini
-RUN echo "daemon off;" >> /etc/nginx/nginx.conf
+RUN git clone https://github.com/wormhit/moneyzaurus-api.git /var/www -b docker
+
+RUN php /var/www/composer.phar install --working-dir /var/www
+
+RUN cp /var/www/data/nginx.conf /etc/nginx/nginx.conf
+
+RUN echo "service php5-fpm start && service nginx start" > /root/start.sh
+RUN chmod 755 /root/start.sh
 
 EXPOSE  80
 
-CMD     service php5-fpm start && service nginx start
+CMD /root/start.sh

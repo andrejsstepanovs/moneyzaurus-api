@@ -24,5 +24,15 @@ Import db structure:
 
 ```mysql -u root < data/app.sql```
 
+Using docker
+
+```
+sudo docker pull wormhit/moneyzaurus-api
+sudo docker run -d wormhit/moneyzaurus-api
+sudo docker ps
+sudo docker inspect XXXX | grep IPAddress
+```
+
+
 [1]: https://github.com/wormhit/moneyzaurus
 [2]: https://github.com/wormhit/slim-api
