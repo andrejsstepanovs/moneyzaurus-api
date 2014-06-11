@@ -20,13 +20,10 @@ RUN apt-get install -y git php5-fpm php5 php5-cli php5-curl php5-sqlite php5-int
 
 RUN git clone https://github.com/wormhit/moneyzaurus-api.git /var/www -b docker
 
-RUN php /var/www/composer.phar install --working-dir /var/www
+RUN /usr/bin/php /var/www/composer.phar install --working-dir /var/www
 
 RUN cp /var/www/data/nginx.conf /etc/nginx/nginx.conf
 
-RUN echo "service php5-fpm start && service nginx start" > /root/start.sh
-RUN chmod 755 /root/start.sh
-
 EXPOSE  80
 
-CMD /root/start.sh
+CMD service php5-fpm start && service nginx start
