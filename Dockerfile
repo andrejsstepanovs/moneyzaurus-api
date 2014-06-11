@@ -23,6 +23,7 @@ RUN git clone https://github.com/wormhit/moneyzaurus-api.git /var/www -b docker
 RUN /usr/bin/php /var/www/composer.phar install --working-dir /var/www
 
 RUN cp /var/www/data/nginx.conf /etc/nginx/nginx.conf
+RUN chown www-data:www-data /var/www/data -R
 
 EXPOSE  80
 
