@@ -13,7 +13,7 @@ return [
         ],
         Config::DATABASE_CONNECTION => [
             'driver'   => 'pdo_sqlite',
-            'path'     => __DIR__ . '/../appdb.sqlite',
+            'path'     => __DIR__ . '/../data/appdb.sqlite',
             'user'     => 'root',
             'password' => 'root',
             'memory'   => false
