@@ -23,9 +23,9 @@ class Routing extends KernelRouting
      */
     private function initSlim(Container $container)
     {
-        $this->getSlim()->add($container->get(Container::MIDDLEWARE_HEADERS));
         $this->getSlim()->add($container->get(Container::MIDDLEWARE_PROCESS_TIME));
         $this->getSlim()->add($container->get(Container::MIDDLEWARE_AUTHORIZATION));
+        $this->getSlim()->add($container->get(Container::MIDDLEWARE_HEADERS));
         $this->getSlim()->add($container->get(Container::MIDDLEWARE_JSON));
 
         return $this;
@@ -221,7 +221,7 @@ class Routing extends KernelRouting
                 $slim->setData($response);
             }
         )
-        ->via(Request::METHOD_POST);
+        ->via(Request::METHOD_POST, Request::METHOD_PUT);
 
         $slim->map(
             '/distinct/groups',

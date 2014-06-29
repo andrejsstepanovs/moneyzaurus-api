@@ -71,8 +71,13 @@ class Authorization extends Middleware
     {
         /** @var \Api\Slim $app */
         $app = $this->getApplication();
+        $request = $app->request();
 
-        $token = $app->request()->get('token');
+        $token = $request->get('token');
+        if (empty($token)) {
+            $token = $request->post('token');
+        }
+
         $tokenModule = $this->getToken();
 
         try {
