@@ -139,6 +139,17 @@ class Token
             foreach ($connections as $connection) {
                 $parentsIds[] = $connection->getParent()->getId();
             }
+
+            $criteria = array(
+                'parent' => $user->getId(),
+                'state'  => Connection::STATE_ACCEPTED
+            );
+            $connections = $connectionRepository->findBy($criteria);
+
+            /** @var Connection $connection */
+            foreach ($connections as $connection) {
+                $parentsIds[] = $connection->getUser()->getId();
+            }
         }
 
         return $parentsIds;
