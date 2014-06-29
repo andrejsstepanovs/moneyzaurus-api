@@ -98,6 +98,9 @@ class Data
 
         $dql .= ' ORDER BY t.id DESC';
 
+        if ($offset && !$limit) {
+            $limit = 1;
+        }
         $transactions = $this->fetchResults($dql, $parameters, $limit, $offset);
 
         return $transactions;
