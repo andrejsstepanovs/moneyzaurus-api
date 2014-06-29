@@ -167,7 +167,7 @@ CREATE TABLE IF NOT EXISTS `access_token` (
  KEY `id_user` (`id_user`),
  KEY `valid_until` (`valid_until`),
  CONSTRAINT `access_token_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Constraints for dumped tables
