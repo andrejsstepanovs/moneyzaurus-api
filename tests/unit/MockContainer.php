@@ -379,6 +379,7 @@ class MockContainer extends Pimple
                 '\Slim\Http\Request',
                 array(
                     'get',
+                    'post',
                     'getPath'
                 )
             );

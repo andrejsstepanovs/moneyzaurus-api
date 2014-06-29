@@ -127,10 +127,12 @@ class Token
     {
         $parentsIds = [];
         if ($user) {
+            $userId = $user->getId();
+
             /** @var \Doctrine\ORM\EntityRepository $connectionRepository */
             $connectionRepository = $this->getEntityManager()->getRepository('Api\Entities\Connection');
             $criteria = array(
-                'user'  => $user->getId(),
+                'user'  => $userId,
                 'state' => Connection::STATE_ACCEPTED
             );
             $connections = $connectionRepository->findBy($criteria);
@@ -141,14 +143,16 @@ class Token
             }
 
             $criteria = array(
-                'parent' => $user->getId(),
+                'parent' => $userId,
                 'state'  => Connection::STATE_ACCEPTED
             );
             $connections = $connectionRepository->findBy($criteria);
 
-            /** @var Connection $connection */
-            foreach ($connections as $connection) {
-                $parentsIds[] = $connection->getUser()->getId();
+            if ($connections) {
+                /** @var Connection $connection */
+                foreach ($connections as $connection) {
+                    $parentsIds[] = $connection->getUser()->getId();
+                }
             }
         }
 

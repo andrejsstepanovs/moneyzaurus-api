@@ -62,6 +62,12 @@ class AuthorizationTest extends TestCase
 
         $this->mock()->get('\Slim\Http\Request')
              ->expects($this->once())
+             ->method('post')
+             ->with($this->equalTo('token'))
+             ->will($this->returnValue($token));
+
+        $this->mock()->get('\Slim\Http\Request')
+             ->expects($this->once())
              ->method('getPath')
              ->will($this->returnValue($path));
 
@@ -93,6 +99,12 @@ class AuthorizationTest extends TestCase
         $this->mock()->get('\Slim\Http\Request')
              ->expects($this->once())
              ->method('get')
+             ->with($this->equalTo('token'))
+             ->will($this->returnValue($token));
+
+        $this->mock()->get('\Slim\Http\Request')
+             ->expects($this->once())
+             ->method('post')
              ->with($this->equalTo('token'))
              ->will($this->returnValue($token));
 
