@@ -23,10 +23,10 @@ class Routing extends KernelRouting
      */
     private function initSlim(Container $container)
     {
+        $this->getSlim()->add($container->get(Container::MIDDLEWARE_HEADERS));
         $this->getSlim()->add($container->get(Container::MIDDLEWARE_PROCESS_TIME));
         $this->getSlim()->add($container->get(Container::MIDDLEWARE_AUTHORIZATION));
         $this->getSlim()->add($container->get(Container::MIDDLEWARE_JSON));
-        $this->getSlim()->add($container->get(Container::MIDDLEWARE_ORIGIN));
 
         return $this;
     }
@@ -70,14 +70,6 @@ class Routing extends KernelRouting
              }
         )
         ->via(Request::METHOD_GET);
-
-        $slim->map(
-             '/',
-             function() {
-
-             }
-        )
-        ->via(Request::METHOD_OPTIONS);
 
         $slim->map(
              '/authenticate/login',

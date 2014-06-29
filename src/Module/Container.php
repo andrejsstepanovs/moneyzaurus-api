@@ -50,7 +50,7 @@ class Container extends KernelContainer
     const MIDDLEWARE_AUTHORIZATION = 'middleware.authorization';
     const MIDDLEWARE_PROCESS_TIME  = 'middleware.processTime';
     const MIDDLEWARE_JSON          = 'middleware.json';
-    const MIDDLEWARE_ORIGIN        = 'middleware.origin';
+    const MIDDLEWARE_HEADERS       = 'middleware.headers';
 
     const LOGGER                   = 'logger';
     const LOGGER_HANDLER           = 'logger.handler';
@@ -524,8 +524,8 @@ class Container extends KernelContainer
             return $middleware;
         };
 
-        $this[self::MIDDLEWARE_ORIGIN] = function () {
-            $middleware = new \Api\Middleware\Origin();
+        $this[self::MIDDLEWARE_HEADERS] = function () {
+            $middleware = new \Api\Middleware\Headers();
 
             return $middleware;
         };
