@@ -91,6 +91,10 @@ class DataTest extends TestCase
         $user   = $this->mock()->get('Api\Entities\User');
         $locale = $this->mock()->get('Api\Service\Locale');
 
+        $user->expects($this->any())
+             ->method('getEmail')
+             ->will($this->returnValue('test@email.com'));
+
         $locale->expects($this->any())
                ->method('setTimezone')
                ->will($this->returnSelf());
@@ -113,8 +117,8 @@ class DataTest extends TestCase
 
         $connection = $this->mock()->get('Api\Entities\Connection');
         $connection->expects($this->once())->method('getParent')->will($this->returnValue($user));
+        $connection->expects($this->once())->method('getUser')->will($this->returnValue($user));
         $connection->expects($this->once())->method('getDateCreated')->will($this->returnValue($dateTime));
-
 
         $connectins = array($connection);
         $response = $this->sut->normalizeResults($user, $connectins);
@@ -123,7 +127,8 @@ class DataTest extends TestCase
              array(
                  array(
                     'id'                => null,
-                    'email'             => null,
+                    'email'             => 'test@email.com',
+                    'parent'            => 'test@email.com',
                     'state'             => null,
                     'created'           => '2014-01-01',
                     'created_full'      => '2014-01-01',
@@ -176,6 +181,29 @@ class DataTest extends TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
+    public function testGetInvitedUserWithParentConnectionAreTheSame()
+    {
+        $email = 'email@email.com';
+
+        $this->mock()->get('\Egulias\EmailValidator\EmailValidator')
+             ->expects($this->once())
+             ->method('isValid')
+             ->will($this->returnValue(true));
+
+        $this->mock()->get('Api\Service\User\Data')
+             ->expects($this->once())
+             ->method('findUser')
+             ->will($this->returnValue($this->mock()->get('Api\Entities\User')));
+
+        $user = $this->mock()->get('Api\Entities\User');
+        $user->expects($this->any())->method('getId')->will($this->returnValue(1));
+
+        $this->sut->getInvitedUser($email, $user);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
     public function testGetInvitedUserWithParentConnectionAlreadyExists()
     {
         $email = 'email@email.com';
@@ -196,6 +224,8 @@ class DataTest extends TestCase
             ->will($this->returnValue($this->mock()->get('Api\Entities\Connection')));
 
         $user = $this->mock()->get('Api\Entities\User');
+        $user->expects($this->at(0))->method('getId')->will($this->returnValue(1));
+        $user->expects($this->at(1))->method('getId')->will($this->returnValue(2));
 
         $this->sut->getInvitedUser($email, $user);
     }
@@ -228,6 +258,8 @@ class DataTest extends TestCase
             ->will($this->returnValue($this->mock()->get('Api\Entities\Connection')));
 
         $user = $this->mock()->get('Api\Entities\User');
+        $user->expects($this->at(0))->method('getId')->will($this->returnValue(1));
+        $user->expects($this->at(1))->method('getId')->will($this->returnValue(2));
 
         $this->sut->getInvitedUser($email, $user);
     }
@@ -247,6 +279,8 @@ class DataTest extends TestCase
             ->will($this->returnValue($this->mock()->get('Api\Entities\User')));
 
         $user = $this->mock()->get('Api\Entities\User');
+        $user->expects($this->at(0))->method('getId')->will($this->returnValue(1));
+        $user->expects($this->at(1))->method('getId')->will($this->returnValue(2));
 
         $response = $this->sut->getInvitedUser($email, $user);
 

@@ -77,6 +77,10 @@ class Data
             throw new \RuntimeException('User not found');
         }
 
+        if ($user->getId() == $currentUser->getId()) {
+            throw new \InvalidArgumentException('You cannot invite yourself');
+        }
+
         $criteria = array('parent' => $user, 'user' => $currentUser);
         $connection = $this->getConnectionRepository()->findOneBy($criteria);
         if ($connection !== null) {
@@ -111,6 +115,7 @@ class Data
             $data[] = array(
                 'id'                => $connection->getId(),
                 'email'             => $connection->getParent()->getEmail(),
+                'parent'            => $connection->getUser()->getEmail(),
                 'state'             => $connection->getState(),
                 'created'           => $locale->getDateTimeFormatter()->format($dateCreated->getTimestamp()),
                 'created_full'      => $locale->getDateTimeFormatter(\IntlDateFormatter::FULL)
