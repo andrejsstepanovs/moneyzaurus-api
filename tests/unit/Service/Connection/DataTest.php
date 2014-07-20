@@ -146,7 +146,9 @@ class DataTest extends TestCase
             ->method('isValid')
             ->will($this->returnValue(false));
 
-        $this->sut->getInvitedUser($email);
+        $user = $this->mock()->get('Api\Entities\User');
+
+        $this->sut->getInvitedUser($email, $user);
     }
 
     /**
@@ -166,7 +168,9 @@ class DataTest extends TestCase
             ->method('findUser')
             ->will($this->returnValue(null));
 
-        $this->sut->getInvitedUser($email);
+        $user = $this->mock()->get('Api\Entities\User');
+
+        $this->sut->getInvitedUser($email, $user);
     }
 
     /**
@@ -191,7 +195,9 @@ class DataTest extends TestCase
             ->method('findOneBy')
             ->will($this->returnValue($this->mock()->get('Api\Entities\Connection')));
 
-        $this->sut->getInvitedUser($email);
+        $user = $this->mock()->get('Api\Entities\User');
+
+        $this->sut->getInvitedUser($email, $user);
     }
 
     /**
@@ -221,7 +227,9 @@ class DataTest extends TestCase
             ->method('findOneBy')
             ->will($this->returnValue($this->mock()->get('Api\Entities\Connection')));
 
-        $this->sut->getInvitedUser($email);
+        $user = $this->mock()->get('Api\Entities\User');
+
+        $this->sut->getInvitedUser($email, $user);
     }
 
     public function testGetInvitedUserWillReturnUser()
@@ -238,7 +246,9 @@ class DataTest extends TestCase
             ->method('findUser')
             ->will($this->returnValue($this->mock()->get('Api\Entities\User')));
 
-        $response = $this->sut->getInvitedUser($email);
+        $user = $this->mock()->get('Api\Entities\User');
+
+        $response = $this->sut->getInvitedUser($email, $user);
 
         $this->assertInstanceOf(get_class($this->mock()->get('Api\Entities\User')), $response);
     }

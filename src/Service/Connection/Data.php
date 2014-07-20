@@ -59,12 +59,13 @@ class Data
 
     /**
      * @param string $email
+     * @param User   $currentUser
      *
      * @return User
      * @throws \InvalidArgumentException
      * @throws \RuntimeException
      */
-    public function getInvitedUser($email)
+    public function getInvitedUser($email, User $currentUser)
     {
         $isValidEmail = $this->getEmailValidator()->isValid($email);
         if (!$isValidEmail) {
@@ -76,16 +77,16 @@ class Data
             throw new \RuntimeException('User not found');
         }
 
-        $criteria = array('parent' => $user);
+        $criteria = array('parent' => $user, 'user' => $currentUser);
         $connection = $this->getConnectionRepository()->findOneBy($criteria);
         if ($connection !== null) {
             throw new \InvalidArgumentException('User is already invited');
         }
 
-        $criteria = array('user' => $user);
+        $criteria = array('user' => $user, 'parent' => $currentUser);
         $connection = $this->getConnectionRepository()->findOneBy($criteria);
         if ($connection !== null) {
-            throw new \InvalidArgumentException('You are already have invitation from this user');
+            throw new \InvalidArgumentException('You already have invitation from this user');
         }
 
         return $user;

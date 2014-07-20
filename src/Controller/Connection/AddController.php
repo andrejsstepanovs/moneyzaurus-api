@@ -42,7 +42,7 @@ class AddController
         );
 
         try {
-            $invitedUser = $this->getConnectionData()->getInvitedUser($email);
+            $invitedUser = $this->getConnectionData()->getInvitedUser($email, $user);
 
             $connection = $this->getConnection()
                 ->setUser($user)
