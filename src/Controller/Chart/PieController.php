@@ -57,7 +57,9 @@ class PieController
 
             $chartPie       = $this->getChartPie();
             $data           = $chartPie->getData($userIds, $currency, $dateFrom, $dateTill);
-            $normalizedData = $chartPie->normalizeResults($data, $user, $currency);
+            $percentData    = $chartPie->addPercent($data);
+            $sortedData     = $chartPie->sortByPercent($percentData);
+            $normalizedData = $chartPie->normalizeResults($sortedData, $user, $currency);
 
             $response['count'] = count($normalizedData);
             $response['data']  = $normalizedData;

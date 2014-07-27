@@ -101,4 +101,46 @@ class PieTest extends TestCase
 
         $this->assertEquals($expected, $result);
     }
+
+    /**
+     * @return array
+     */
+    public function sortByPercentDataProvider()
+    {
+        return include __DIR__ . '/fixtures/sort_by_precent.php';
+    }
+
+    /**
+     * @dataProvider sortByPercentDataProvider
+     *
+     * @param array $data
+     * @param array $expected
+     */
+    public function testSortByPercent(array $data, array $expected)
+    {
+        $response = $this->sut->sortByPercent($data);
+
+        $this->assertEquals($expected, $response);
+    }
+
+    /**
+     * @return array
+     */
+    public function addPercentDataProvider()
+    {
+        return include __DIR__ . '/fixtures/add_percent.php';
+    }
+
+    /**
+     * @dataProvider addPercentDataProvider
+     *
+     * @param array $data
+     * @param array $expected
+     */
+    public function testAddPercent(array $data, array $expected)
+    {
+        $response = $this->sut->addPercent($data);
+
+        $this->assertEquals($expected, $response);
+    }
 }

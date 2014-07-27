@@ -102,6 +102,44 @@ class Pie
     }
 
     /**
+     * @param array $data
+     *
+     * @return array
+     */
+    public function addPercent(array $data)
+    {
+        $column = array_column($data, 'amount');
+        $total = array_sum($column);
+
+        foreach ($data as &$row) {
+            $row['percent'] = $row['amount'] / $total * 100;
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param array $data
+     *
+     * @return array
+     */
+    public function sortByPercent(array $data)
+    {
+        usort($data, function($rowA, $rowB) {
+            $valueA = $rowA['percent'];
+            $valueB = $rowB['percent'];
+
+            if ($valueA == $valueB) {
+                return 0;
+            }
+
+            return $valueA < $valueB ? 1 : -1;
+        });
+
+        return $data;
+    }
+
+    /**
      * @param array $groups
      *
      * @return array
