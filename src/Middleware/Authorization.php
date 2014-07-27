@@ -116,7 +116,7 @@ class Authorization extends Middleware
         AccessToken $accessToken = null,
         User $user = null
     ) {
-        if ($accessToken) {
+        if ($accessToken && $user) {
             $tokenModule->validateExpired($accessToken, $user);
         }
 
