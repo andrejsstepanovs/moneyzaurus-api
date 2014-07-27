@@ -31,6 +31,16 @@ class DataTest extends TestCase
              ->method('getResult')
              ->will($this->returnValue($expectedResponse));
 
+        $this->mock()->get('Doctrine\ORM\AbstractQuery')
+             ->expects($this->any())
+             ->method('setMaxResults')
+             ->with($this->equalTo(1));
+
+        $this->mock()->get('Doctrine\ORM\AbstractQuery')
+             ->expects($this->any())
+             ->method('setFirstResult')
+             ->with($this->equalTo(3));
+
         $this->mock()->get('Doctrine\ORM\EntityManager')
              ->expects($this->once())
              ->method('createQuery')
@@ -59,8 +69,8 @@ class DataTest extends TestCase
              ->will($this->returnValue($this->mock()->get('Doctrine\ORM\AbstractQuery')));
 
         $userIds = array();
-        $offset = 1;
-        $limit = 1;
+        $offset = 3;
+        $limit = null;
         $dateFrom = new \DateTime('2099-01-01');
         $dateTill = new \DateTime('2099-01-01');
         $item = 'item';
@@ -137,18 +147,6 @@ class DataTest extends TestCase
         $response = $this->sut->find($transactionId);
 
         $this->assertInstanceOf(get_class($this->mock()->get('Api\Entities\Transaction')), $response);
-    }
-
-    /**
-     * @return \IntlDateFormatter
-     */
-    private function getIntlDateFormatterStub()
-    {
-        return new \IntlDateFormatter(
-            'Europe/Berlin',
-            \IntlDateFormatter::SHORT,
-            \IntlDateFormatter::NONE
-        );
     }
 
     /**
