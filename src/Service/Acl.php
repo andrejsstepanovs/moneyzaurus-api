@@ -21,6 +21,7 @@ class Acl
     const RESOURCE_PREDICT      = 'predict';
     const RESOURCE_USER         = 'user';
     const RESOURCE_CONNECTION   = 'connection';
+    const RESOURCE_CHART        = 'chart';
 
     /** @var ZendAcl */
     private $acl;
@@ -76,6 +77,7 @@ class Acl
         $this->getAcl()->addResource(new Resource(self::RESOURCE_PREDICT));
         $this->getAcl()->addResource(new Resource(self::RESOURCE_USER));
         $this->getAcl()->addResource(new Resource(self::RESOURCE_CONNECTION));
+        $this->getAcl()->addResource(new Resource(self::RESOURCE_CHART));
 
         return $this;
     }
@@ -97,6 +99,7 @@ class Acl
         $this->getAcl()->allow(User::ROLE_USER, self::RESOURCE_USER);
         $this->getAcl()->deny(User::ROLE_USER, self::RESOURCE_USER, array('register'));
         $this->getAcl()->allow(User::ROLE_USER, self::RESOURCE_CONNECTION);
+        $this->getAcl()->allow(User::ROLE_USER, self::RESOURCE_CHART);
 
         $this->getAcl()->deny(User::ROLE_ADMIN, self::RESOURCE_AUTHENTICATE, array('login', 'password-recovery'));
         $this->getAcl()->deny(User::ROLE_ADMIN, self::RESOURCE_USER, array('register'));

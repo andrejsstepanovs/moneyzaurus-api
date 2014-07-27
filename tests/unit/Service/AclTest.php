@@ -64,6 +64,8 @@ class AclTest extends TestCase
             array(User::ROLE_GUEST, Acl::RESOURCE_CONNECTION, 'add', false),
             array(User::ROLE_GUEST, Acl::RESOURCE_CONNECTION, 'accept', false),
             array(User::ROLE_GUEST, Acl::RESOURCE_CONNECTION, 'reject', false),
+            array(User::ROLE_GUEST, Acl::RESOURCE_CHART, null, false),
+            array(User::ROLE_GUEST, Acl::RESOURCE_CHART, 'pie', false),
 
             array(User::ROLE_USER, Acl::RESOURCE_INDEX, null, true),
             array(User::ROLE_USER, Acl::RESOURCE_AUTHENTICATE, 'login', false),
@@ -85,6 +87,9 @@ class AclTest extends TestCase
             array(User::ROLE_USER, Acl::RESOURCE_CONNECTION, 'add', true),
             array(User::ROLE_USER, Acl::RESOURCE_CONNECTION, 'accept', true),
             array(User::ROLE_USER, Acl::RESOURCE_CONNECTION, 'reject', true),
+            array(User::ROLE_USER, Acl::RESOURCE_CONNECTION, 'reject', true),
+            array(User::ROLE_USER, Acl::RESOURCE_CHART, null, true),
+            array(User::ROLE_USER, Acl::RESOURCE_CHART, 'pie', true),
 
             array(User::ROLE_ADMIN, Acl::RESOURCE_INDEX, null, true),
             array(User::ROLE_ADMIN, Acl::RESOURCE_AUTHENTICATE, 'login', false),
@@ -107,6 +112,8 @@ class AclTest extends TestCase
             array(User::ROLE_ADMIN, Acl::RESOURCE_CONNECTION, 'add', true),
             array(User::ROLE_ADMIN, Acl::RESOURCE_CONNECTION, 'accept', true),
             array(User::ROLE_ADMIN, Acl::RESOURCE_CONNECTION, 'reject', true),
+            array(User::ROLE_ADMIN, Acl::RESOURCE_CHART, null, true),
+            array(User::ROLE_ADMIN, Acl::RESOURCE_CHART, 'pie', true),
         );
     }
 

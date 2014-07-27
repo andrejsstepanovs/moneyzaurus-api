@@ -361,6 +361,24 @@ class Routing extends KernelRouting
         )
         ->via(Request::METHOD_POST);
 
+
+        $slim->map(
+             '/chart/pie',
+             function() use ($container, $slim) {
+                 /** @var \Api\Controller\Chart\PieController $controller */
+                 $controller = $container->get('controller.chart.pie');
+                 $response = $controller->getResponse(
+                     $slim->config('user'),
+                     $slim->config('connectedUserIds'),
+                     $slim->request()->get('currency'),
+                     $slim->request()->get('from'),
+                     $slim->request()->get('till')
+                 );
+                 $slim->setData($response);
+             }
+        )
+        ->via(Request::METHOD_GET);
+
         return $this;
     }
 

@@ -385,6 +385,16 @@ class MockContainer extends Pimple
             );
         };
 
+        $this['Api\Service\Chart\Pie'] = function(MockContainer $self) {
+            return $self->buildMock(
+                'Api\Service\Chart\Pie',
+                array(
+                    'getData',
+                    'normalizeResults'
+                )
+            );
+        };
+
         $this['Api\Service\Acl'] = function(MockContainer $self) {
             return $self->buildMock(
                 'Api\Service\Acl',
