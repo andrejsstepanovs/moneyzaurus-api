@@ -3,6 +3,7 @@
 namespace Api\Middleware;
 
 use Api\Entities\AccessToken;
+use Slim\Http\Request;
 use Slim\Middleware;
 use Api\Service\Acl;
 use Api\Service\Authorization\Token;
@@ -71,30 +72,16 @@ class Authorization extends Middleware
     {
         /** @var \Api\Slim $app */
         $app = $this->getApplication();
-        $request = $app->request();
 
-        $token = $request->get('token');
-        if (empty($token)) {
-            $token = $request->post('token');
-        }
-
+        $tokenValue  = $this->getTokenValue($app->request());
         $tokenModule = $this->getToken();
 
         try {
-            $accessToken = $tokenModule->findAccessToken($token);
-            $user        = $accessToken ? $accessToken->getUser() : null;
+            $accessTokenEntity = $tokenModule->findAccessToken($tokenValue);
+            $user = $this->getUser($accessTokenEntity);
 
-            if ($accessToken) {
-                $tokenModule->validateExpired($accessToken, $user);
-            }
-            $role = $user ? $user->getRole() : User::ROLE_GUEST;
-            $this->validatePrivilege($token, $role);
-
-            if ($accessToken && $user) {
-                $this->updateUsedAt($accessToken, $user);
-            }
-
-            $connectedUserIds = $user ? $tokenModule->getConnectedUsers($user) : [];
+            $this->validateAccessToken($tokenValue, $tokenModule, $accessTokenEntity, $user);
+            $connectedUserIds = $this->getConnectedUserIds($tokenModule, $user);
 
             $app->config('user', $user);
             $app->config('connectedUserIds', $connectedUserIds);
@@ -113,6 +100,70 @@ class Authorization extends Middleware
 
             $this->getJsonMiddleware()->modifyResponse($app, $response);
         }
+    }
+
+    /**
+     * @param string           $tokenValue
+     * @param Token            $tokenModule
+     * @param AccessToken|null $accessToken
+     * @param User|null        $user
+     *
+     * @return $this
+     */
+    private function validateAccessToken(
+        $tokenValue,
+        Token $tokenModule,
+        AccessToken $accessToken = null,
+        User $user = null
+    ) {
+        if ($accessToken) {
+            $tokenModule->validateExpired($accessToken, $user);
+        }
+
+        $role = $user ? $user->getRole() : User::ROLE_GUEST;
+        $this->validatePrivilege($tokenValue, $role);
+
+        if ($accessToken && $user) {
+            $this->updateUsedAt($accessToken, $user);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return string|null
+     */
+    private function getTokenValue(Request $request)
+    {
+        $token = $request->get('token');
+        if (empty($token)) {
+            $token = $request->post('token');
+        }
+
+        return $token;
+    }
+
+    /**
+     * @param AccessToken|null $accessToken
+     *
+     * @return User|null
+     */
+    private function getUser(AccessToken $accessToken = null)
+    {
+        return $accessToken ? $accessToken->getUser() : null;
+    }
+
+    /**
+     * @param Token $tokenModule
+     * @param User  $user
+     *
+     * @return array
+     */
+    private function getConnectedUserIds(Token $tokenModule, User $user = null)
+    {
+        return $user ? $tokenModule->getConnectedUsers($user) : [];
     }
 
     /**
