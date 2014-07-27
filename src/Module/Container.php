@@ -28,6 +28,8 @@ class Container extends KernelContainer
     const TRANSACTION_MONEY        = 'transaction.money';
     const TRANSACTION_DATE         = 'transaction.date';
 
+    const CHART_PIE                = 'chart.pie';
+
     const USER_DATA                = 'user.data';
     const USER_SAVE                = 'user.save';
 
@@ -73,6 +75,7 @@ class Container extends KernelContainer
         $this->initServiceMain();
         $this->initServiceUser();
         $this->initServiceConnection();
+        $this->initServiceChart();
         $this->initServiceTransaction();
         $this->initServiceAuthoreization();
         $this->initServicePredict();
@@ -217,6 +220,21 @@ class Container extends KernelContainer
 
     }
 
+    private function initServiceChart()
+    {
+        $this[self::CHART_PIE] = function () {
+            $entityManager = $this->get(self::ENTITY_MANAGER);
+            $pie = new \Api\Service\Chart\Pie();
+            $pie->setEntityManager($entityManager);
+            $pie->setLocale($this->get(self::SERVICE_LOCALE));
+            $pie->setTransactionEntity(
+                $entityManager->getRepository('Api\Entities\Transaction')
+            );
+
+            return $pie;
+        };
+    }
+
     private function initServiceTransaction()
     {
         $this[self::TRANSACTION_VALIDATE] = function () {
@@ -303,6 +321,7 @@ class Container extends KernelContainer
         $this->initControllerDistinct();
         $this->initControllerPredict();
         $this->initControllerUser();
+        $this->initControllerChart();
     }
 
     private function initControllerUser()
@@ -494,6 +513,17 @@ class Container extends KernelContainer
             $controller->setData($this->get(self::TRANSACTION_DATA));
             $controller->setRemove($this->get(self::TRANSACTION_REMOVE));
             $controller->setValidate($this->get(self::TRANSACTION_VALIDATE));
+
+            return $controller;
+        };
+    }
+
+    private function initControllerChart()
+    {
+        $this['controller.chart.pie'] = function () {
+            $controller = new \Api\Controller\Chart\PieController();
+            $controller->setChartPie($this->get(self::CHART_PIE));
+            $controller->setDate($this->get(self::TRANSACTION_DATE));
 
             return $controller;
         };
