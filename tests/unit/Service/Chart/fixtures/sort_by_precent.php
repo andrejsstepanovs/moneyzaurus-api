@@ -23,12 +23,12 @@ return array(
     ),
     array(
         array(
-            array('percent' => 0.4, 'test' => 1),
+            array('percent' => 0.41, 'test' => 1),
             array('percent' => 0.4, 'test' => 2),
         ),
         array(
+            array('percent' => 0.41, 'test' => 1),
             array('percent' => 0.4, 'test' => 2),
-            array('percent' => 0.4, 'test' => 1),
         )
     ),
     array(

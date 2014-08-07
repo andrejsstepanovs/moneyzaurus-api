@@ -17,7 +17,7 @@
         "egulias/email-validator": "1.0.x-dev",
         "satooshi/php-coveralls": "~0.6",
         "sebastian/comparator": "1.0.*@dev",
-        "phpunit/phpunit-mock-objects": "2.2.*@dev",
+        "phpunit/phpunit-mock-objects": "2.*@dev",
         "phpunit/php-code-coverage": "dev-master",
         "guzzlehttp/guzzle": "~4.0",
         "monolog/monolog": "1.*"
