@@ -48,6 +48,8 @@ class ListController
         $dateFrom = !empty($from) ? $this->getDate()->getDateTime($user, $from) : null;
         $dateTill = !empty($till) ? $this->getDate()->getDateTime($user, $till) : null;
 
+        $limit = $limit === null ? 100 : $limit;
+
         $transactions = $this->getData()->getTransactionsList(
             $userIds,
             $offset,
