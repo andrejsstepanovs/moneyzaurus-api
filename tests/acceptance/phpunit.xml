@@ -8,6 +8,7 @@
             <directory>Authenticate</directory>
             <directory>Connection</directory>
             <directory>Transactions</directory>
+            <directory>Chart</directory>
             <directory>Distinct</directory>
             <directory>Predict</directory>
         </testsuite>

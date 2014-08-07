@@ -130,7 +130,7 @@ class Pie
             $valueB = $rowB['percent'];
 
             if ($valueA == $valueB) {
-                return 0;
+                return strcasecmp($rowA['groupName'], $rowB['groupName']);
             }
 
             return $valueA < $valueB ? 1 : -1;
