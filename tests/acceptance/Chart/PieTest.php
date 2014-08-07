@@ -104,7 +104,7 @@ class PieTest extends CreateTest
              [
                  [
                     'amount'    => '4000',
-                    'groupId'   => 1,
+                    'groupId'   => 13,
                     'groupName' => 'food',
                     'percent'   => 50,
                     'price'     => '40.00',
@@ -112,7 +112,7 @@ class PieTest extends CreateTest
                  ],
                  [
                      'amount'    => 4000,
-                     'groupId'   => 2,
+                     'groupId'   => 14,
                      'groupName' => 'fruit',
                      'percent'   => 50,
                      'price'     => 40.00,
@@ -152,7 +152,7 @@ class PieTest extends CreateTest
              [
                  [
                      'amount'    => 4000,
-                     'groupId'   => 2,
+                     'groupId'   => 14,
                      'groupName' => 'fruit',
                      'percent'   => 80,
                      'price'     => 40.00,
@@ -160,7 +160,7 @@ class PieTest extends CreateTest
                  ],
                  [
                      'amount'    => 1000,
-                     'groupId'   => 1,
+                     'groupId'   => 13,
                      'groupName' => 'food',
                      'percent'   => 20,
                      'price'     => 10.00,
@@ -200,7 +200,7 @@ class PieTest extends CreateTest
              [
                  [
                      'amount'    => 3000,
-                     'groupId'   => 1,
+                     'groupId'   => 13,
                      'groupName' => 'food',
                      'percent'   => 100,
                      'price'     => 30.00,

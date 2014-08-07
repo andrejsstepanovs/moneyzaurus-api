@@ -23,12 +23,12 @@ return array(
     ),
     array(
         array(
-            array('percent' => 0.4, 'test' => 1, 'group' => 'apple'),
-            array('percent' => 0.4, 'test' => 2, 'group' => 'apricot'),
+            array('percent' => 0.4, 'test' => 1, 'groupName' => 'apple'),
+            array('percent' => 0.4, 'test' => 2, 'groupName' => 'apricot'),
         ),
         array(
-            array('percent' => 0.4, 'test' => 1, 'group' => 'apple'),
-            array('percent' => 0.4, 'test' => 2, 'group' => 'apricot'),
+            array('percent' => 0.4, 'test' => 1, 'groupName' => 'apple'),
+            array('percent' => 0.4, 'test' => 2, 'groupName' => 'apricot'),
         )
     ),
     array(
