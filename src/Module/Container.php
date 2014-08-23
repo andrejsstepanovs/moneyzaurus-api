@@ -77,7 +77,7 @@ class Container extends KernelContainer
         $this->initServiceConnection();
         $this->initServiceChart();
         $this->initServiceTransaction();
-        $this->initServiceAuthoreization();
+        $this->initServiceAuthorization();
         $this->initServicePredict();
         $this->initServiceEmail();
     }
@@ -282,7 +282,7 @@ class Container extends KernelContainer
         };
     }
 
-    private function initServiceAuthoreization()
+    private function initServiceAuthorization()
     {
         $this[self::PASSWORD_CRYPT] = function () {
             $crypt = new PasswordCrypt();
