@@ -26,13 +26,14 @@ class ListController
      */
     public function getResponse(User $user, $parent)
     {
+        $connectionData = $this->getConnectionData();
         if ($parent) {
-            $connections = $this->getConnectionData()->findByParent($user);
+            $connections = $connectionData->findByParent($user);
         } else {
-            $connections = $this->getConnectionData()->findByUser($user);
+            $connections = $connectionData->findByUser($user);
         }
 
-        $connectedUsers = $this->getConnectionData()->normalizeResults($user, $connections);
+        $connectedUsers = $connectionData->normalizeResults($user, $connections);
 
         $response = array(
             'success' => true,
