@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "eadf37907b5f5a0ed09c5245ec0325b5",
+    "hash": "4695327604719784f4fae2da7a77c08d",
     "packages": [
         {
             "name": "adlawson/timezone",
@@ -2269,7 +2269,7 @@
         },
         {
             "name": "wormhit/slim-api",
-            "version": "dev-master",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wormhit/slim-api.git",
@@ -2551,7 +2551,6 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "wormhit/slim-api": 20,
         "doctrine/orm": 20,
         "doctrine/dbal": 20,
         "phpunit/phpunit": 20,
