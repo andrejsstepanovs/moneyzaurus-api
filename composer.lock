@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "bbf966c9b4f667c7684ed6a8581d4041",
+    "hash": "eadf37907b5f5a0ed09c5245ec0325b5",
     "packages": [
         {
             "name": "adlawson/timezone",
@@ -350,12 +350,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "14f730fb2e02df2c1daf8df09057b6771d5c226a"
+                "reference": "60a19586699e9e6ab734c810103ae4294f2ab77f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/14f730fb2e02df2c1daf8df09057b6771d5c226a",
-                "reference": "14f730fb2e02df2c1daf8df09057b6771d5c226a",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/60a19586699e9e6ab734c810103ae4294f2ab77f",
+                "reference": "60a19586699e9e6ab734c810103ae4294f2ab77f",
                 "shasum": ""
             },
             "require": {
@@ -413,7 +413,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2014-08-22 07:42:27"
+            "time": "2014-08-29 07:25:11"
         },
         {
             "name": "doctrine/inflector",
@@ -481,16 +481,16 @@
         },
         {
             "name": "doctrine/instantiator",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/instantiator.git",
-                "reference": "bbb57e04abb15f4a4eb3778158f01280bbb982cd"
+                "reference": "26404e0c90565b614ee76b988b9bc8790d77f590"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/bbb57e04abb15f4a4eb3778158f01280bbb982cd",
-                "reference": "bbb57e04abb15f4a4eb3778158f01280bbb982cd",
+                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/26404e0c90565b614ee76b988b9bc8790d77f590",
+                "reference": "26404e0c90565b614ee76b988b9bc8790d77f590",
                 "shasum": ""
             },
             "require": {
@@ -531,7 +531,7 @@
                 "constructor",
                 "instantiate"
             ],
-            "time": "2014-08-14 14:51:48"
+            "time": "2014-08-25 15:09:25"
         },
         {
             "name": "doctrine/lexer",
@@ -591,17 +591,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/doctrine2.git",
-                "reference": "65f8357b46cf247405ca4bb5bf348e0ffc67854b"
+                "reference": "d9b43dc6492b163fc46f40c0555e2a7015ef5b68"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/65f8357b46cf247405ca4bb5bf348e0ffc67854b",
-                "reference": "65f8357b46cf247405ca4bb5bf348e0ffc67854b",
+                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/d9b43dc6492b163fc46f40c0555e2a7015ef5b68",
+                "reference": "d9b43dc6492b163fc46f40c0555e2a7015ef5b68",
                 "shasum": ""
             },
             "require": {
                 "doctrine/collections": "~1.2",
                 "doctrine/dbal": ">=2.5-dev,<2.6-dev",
+                "doctrine/instantiator": "~1.0.1",
                 "ext-pdo": "*",
                 "php": ">=5.3.2",
                 "symfony/console": "2.*"
@@ -657,7 +658,7 @@
                 "database",
                 "orm"
             ],
-            "time": "2014-08-22 12:00:20"
+            "time": "2014-08-30 02:22:47"
         },
         {
             "name": "egulias/email-validator",
@@ -988,119 +989,6 @@
             "time": "2014-06-04 16:30:04"
         },
         {
-            "name": "ocramius/instantiator",
-            "version": "1.1.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Ocramius/Instantiator.git",
-                "reference": "a7abbb5fc9df6e7126af741dd6c140d1a7369435"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Ocramius/Instantiator/zipball/a7abbb5fc9df6e7126af741dd6c140d1a7369435",
-                "reference": "a7abbb5fc9df6e7126af741dd6c140d1a7369435",
-                "shasum": ""
-            },
-            "require": {
-                "ocramius/lazy-map": "1.0.*",
-                "php": "~5.3"
-            },
-            "require-dev": {
-                "athletic/athletic": "~0.1.8",
-                "ext-pdo": "*",
-                "ext-phar": "*",
-                "phpunit/phpunit": "~4.0",
-                "squizlabs/php_codesniffer": "2.0.*@ALPHA"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Instantiator\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Marco Pivetta",
-                    "email": "ocramius@gmail.com",
-                    "homepage": "http://ocramius.github.com/"
-                }
-            ],
-            "description": "A small, lightweight utility to instantiate objects in PHP without invoking their constructors",
-            "homepage": "https://github.com/Ocramius/Instantiator",
-            "keywords": [
-                "constructor",
-                "instantiate"
-            ],
-            "time": "2014-08-14 15:10:55"
-        },
-        {
-            "name": "ocramius/lazy-map",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Ocramius/LazyMap.git",
-                "reference": "7fe3d347f5e618bcea7d39345ff83f3651d8b752"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Ocramius/LazyMap/zipball/7fe3d347f5e618bcea7d39345ff83f3651d8b752",
-                "reference": "7fe3d347f5e618bcea7d39345ff83f3651d8b752",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3"
-            },
-            "require-dev": {
-                "athletic/athletic": "~0.1.6",
-                "phpmd/phpmd": "1.5.*",
-                "phpunit/phpunit": ">=3.7",
-                "satooshi/php-coveralls": "~0.6",
-                "squizlabs/php_codesniffer": "1.4.*"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "LazyMap\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Marco Pivetta",
-                    "email": "ocramius@gmail.com",
-                    "homepage": "http://ocramius.github.com/",
-                    "role": "Developer"
-                }
-            ],
-            "description": "A library that provides lazy instantiation logic for a map of objects",
-            "homepage": "https://github.com/Ocramius/LazyMap",
-            "keywords": [
-                "lazy",
-                "lazy instantiation",
-                "lazy loading",
-                "map",
-                "service location"
-            ],
-            "time": "2013-11-09 22:30:54"
-        },
-        {
             "name": "phpunit/php-code-coverage",
             "version": "dev-master",
             "source": {
@@ -1351,12 +1239,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "5cc03b0dc34070ac8238f7a86eec97509bb8b2b6"
+                "reference": "8cd304a80bf10563f667e413438b0bb1c85579e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/5cc03b0dc34070ac8238f7a86eec97509bb8b2b6",
-                "reference": "5cc03b0dc34070ac8238f7a86eec97509bb8b2b6",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/8cd304a80bf10563f667e413438b0bb1c85579e3",
+                "reference": "8cd304a80bf10563f667e413438b0bb1c85579e3",
                 "shasum": ""
             },
             "require": {
@@ -1413,7 +1301,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-08-19 04:57:13"
+            "time": "2014-08-30 07:28:42"
         },
         {
             "name": "phpunit/phpunit-mock-objects",

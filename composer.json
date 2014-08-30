@@ -2,6 +2,8 @@
     "name": "wormhit/moneyzaurus-api",
     "type": "library",
     "description": "Expense planning system",
+    "keywords": ["planning", "expense", "budget", "money"],
+    "license": "proprietary",
     "require": {
         "php": ">=5.5",
         "wormhit/slim-api": "dev-master",
