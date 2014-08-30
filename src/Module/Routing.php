@@ -244,7 +244,9 @@ class Routing extends KernelRouting
                 $controller = $container->get('controller.distinct.items');
                 $response = $controller->getResponse(
                     $slim->config('user'),
-                    $slim->config('connectedUserIds')
+                    $slim->config('connectedUserIds'),
+                    $slim->request()->get('from'),
+                    $slim->request()->get('count')
                 );
                 $slim->setData($response);
             }

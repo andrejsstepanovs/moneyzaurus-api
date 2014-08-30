@@ -28,6 +28,8 @@ class Container extends KernelContainer
     const TRANSACTION_MONEY        = 'transaction.money';
     const TRANSACTION_DATE         = 'transaction.date';
 
+    const ITEMS_DATA               = 'items.data';
+
     const CHART_PIE                = 'chart.pie';
 
     const USER_DATA                = 'user.data';
@@ -77,6 +79,7 @@ class Container extends KernelContainer
         $this->initServiceConnection();
         $this->initServiceChart();
         $this->initServiceTransaction();
+        $this->initServiceItems();
         $this->initServiceAuthorization();
         $this->initServicePredict();
         $this->initServiceEmail();
@@ -282,6 +285,17 @@ class Container extends KernelContainer
         };
     }
 
+    private function initServiceItems()
+    {
+        $this[self::ITEMS_DATA] = function () {
+            $entityManager = $this->get(self::ENTITY_MANAGER);
+            $data = new \Api\Service\Items\Data();
+            $data->setEntityManager($entityManager);
+
+            return $data;
+        };
+    }
+
     private function initServiceAuthorization()
     {
         $this[self::PASSWORD_CRYPT] = function () {
@@ -386,9 +400,7 @@ class Container extends KernelContainer
 
         $this['controller.distinct.items'] = function () {
             $controller = new \Api\Controller\Distinct\ItemsController();
-            $controller->setItemRepository(
-                $this->get(self::ENTITY_MANAGER)->getRepository('Api\Entities\Item')
-            );
+            $controller->setItemsData($this->get(self::ITEMS_DATA));
 
             return $controller;
         };

@@ -3,17 +3,16 @@
 namespace Api\Controller\Distinct;
 
 use Api\Entities\User;
-use Api\Entities\Item;
-use Doctrine\ORM\EntityRepository;
 use Api\Service\AccessorTrait;
+use Api\Service\Items\Data as ItemsData;
 
 /**
  * Class GroupsController
  *
  * @package Api\Controller\Distinct
  *
- * @method ItemsController  setItemRepository(EntityRepository $item)
- * @method EntityRepository getItemRepository()
+ * @method ItemsController  setItemsData(ItemsData $item)
+ * @method ItemsData        getItemsData()
  */
 class ItemsController
 {
@@ -22,13 +21,20 @@ class ItemsController
     /**
      * @param User   $user
      * @param array  $connectedUserIds
+     * @param string $dateFrom
+     * @param int    $count
      *
      * @return array
      */
-    public function getResponse(User $user, array $connectedUserIds)
+    public function getResponse(User $user, array $connectedUserIds, $dateFrom, $count)
     {
+        if ($dateFrom) {
+            $timeZone = new \DateTimeZone($user->getTimezone());
+            $dateFrom = new \DateTime($dateFrom, $timeZone);
+        }
+
         $userIds = array_merge(array($user->getId()), $connectedUserIds);
-        $items = $this->getItems($userIds);
+        $items   = $this->getItems($userIds, $count, $dateFrom);
 
         $response = array(
             'success' => true,
@@ -40,23 +46,20 @@ class ItemsController
     }
 
     /**
-     * @param array $userIds
+     * @param array          $userIds
+     * @param int            $count
+     * @param \DateTime|null $dateFrom
      *
      * @return array
      */
-    private function getItems(array $userIds)
+    private function getItems($userIds, $count, $dateFrom = null)
     {
-        $criteria = array('user' => $userIds);
-        $orderBy = array('name' => 'ASC');
+        $items = $this->getItemsData()->getItems($userIds, $dateFrom);
 
-        /** @var Item[] $items */
-        $items = $this->getItemRepository()->findBy($criteria, $orderBy);
-
-        $data = array();
-        foreach ($items as $item) {
-            $data[$item->getName()] = null;
+        if ($count) {
+            $items = array_slice($items, 0, $count);
         }
 
-        return array_keys($data);
+        return $items;
     }
 }

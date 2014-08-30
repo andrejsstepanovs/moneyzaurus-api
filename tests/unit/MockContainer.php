@@ -80,6 +80,13 @@ class MockContainer extends Pimple
 
     public function initServiceTransaction()
     {
+        $this['Api\Service\Items\Data'] = function(MockContainer $self) {
+            return $self->buildMock(
+                'Api\Service\Items\Data',
+                array('getItems')
+            );
+        };
+
         $this['Api\Service\Connection\Save'] = function(MockContainer $self) {
             return $self->buildMock(
                 'Api\Service\Connection\Save',

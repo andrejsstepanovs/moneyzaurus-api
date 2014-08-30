@@ -4,7 +4,6 @@ namespace Tests\Controller\Distinct;
 
 use Api\Controller\Distinct\ItemsController;
 use Tests\TestCase;
-use Api\Entities\Item;
 
 /**
  * Class ItemsControllerTest
@@ -19,25 +18,7 @@ class ItemsControllerTest extends TestCase
     public function setUp()
     {
         $this->sut = new ItemsController();
-        $this->sut->setItemRepository($this->mock()->get('Doctrine\ORM\EntityRepository'));
-    }
-
-    /**
-     * @return Item|\PHPUnit_Framework_MockObject_MockObject
-     */
-    private function getItemMock($name)
-    {
-        $itemMock = $this
-            ->getMockBuilder('Api\Entities\Item')
-            ->setMethods(array('getName'))
-            ->getMock();
-
-        $itemMock
-            ->expects($this->any())
-            ->method('getName')
-            ->will($this->returnValue($name));
-
-        return $itemMock;
+        $this->sut->setItemsData($this->mock()->get('Api\Service\Items\Data'));
     }
 
     /**
@@ -48,6 +29,7 @@ class ItemsControllerTest extends TestCase
         return array(
             array(
                 array('Apple'),
+                null,
                 array(
                     'success' => true,
                     'count'   => 1,
@@ -56,6 +38,7 @@ class ItemsControllerTest extends TestCase
             ),
             array(
                 array(),
+                '2014-12-01',
                 array(
                     'success' => true,
                     'count'   => 0,
@@ -64,6 +47,7 @@ class ItemsControllerTest extends TestCase
             ),
             array(
                 array(''),
+                '2014-01-01',
                 array(
                     'success' => true,
                     'count'   => 1,
@@ -72,6 +56,7 @@ class ItemsControllerTest extends TestCase
             ),
             array(
                 array('apple', 'banana', 'orange'),
+                null,
                 array(
                     'success' => true,
                     'count'   => 3,
@@ -79,7 +64,8 @@ class ItemsControllerTest extends TestCase
                 )
             ),
             array(
-                array('apple', 'banana', 'apple', 'banana'),
+                array('apple', 'banana'),
+                null,
                 array(
                     'success' => true,
                     'count'   => 2,
@@ -92,12 +78,15 @@ class ItemsControllerTest extends TestCase
     /**
      * @dataProvider dataProvider
      *
-     * @param array $names
-     * @param array $expected
+     * @param array     $names
+     * @param \DateTime $dateFrom
+     * @param array     $expected
      */
-    public function testResponseWillReturnExpected(array $names, array $expected)
+    public function testResponseWillReturnExpected(array $names, $dateFrom, array $expected)
     {
-        $userId = 123;
+        $count    = 100;
+        $userId   = 123;
+        $timeZone = 'Europe/Berlin';
         $connectedUserIds = array(456);
 
         $this->mock()->get('Api\Entities\User')
@@ -105,18 +94,36 @@ class ItemsControllerTest extends TestCase
             ->method('getId')
             ->will($this->returnValue($userId));
 
+        $this->mock()->get('Api\Entities\User')
+            ->expects($this->any())
+            ->method('getTimezone')
+            ->will($this->returnValue($timeZone));
+
         $results = array();
         foreach ($names as $name) {
-            $results[] = $this->getItemMock($name);
+            $results[] = $name;
         }
 
-        $this->mock()->get('Doctrine\ORM\EntityRepository')
+        $dateFromObj = null;
+        if ($dateFrom) {
+            $dateFromObj = new \DateTime($dateFrom, new \DateTimeZone($timeZone));
+        }
+
+        $this->mock()->get('Api\Service\Items\Data')
             ->expects($this->once())
-            ->method('findBy')
-            ->with($this->equalTo(array('user' => array(123, 456))))
+            ->method('getItems')
+            ->with(
+                $this->equalTo(array(123, 456)),
+                $this->equalTo($dateFromObj)
+            )
             ->will($this->returnValue($results));
 
-        $response = $this->sut->getResponse($this->mock()->get('Api\Entities\User'), $connectedUserIds);
+        $response = $this->sut->getResponse(
+            $this->mock()->get('Api\Entities\User'),
+            $connectedUserIds,
+            $dateFrom,
+            $count
+        );
 
         $this->assertTrue(is_array($response));
         $this->assertEquals($expected, $response);
