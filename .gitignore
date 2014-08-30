@@ -2,5 +2,4 @@ vendor
 tests/unit/coverage
 build
 config/config.local.*
-.idea
 *.phar
