@@ -35,7 +35,14 @@ class Crypt
      */
     public function verify($password, $securePass)
     {
-        return $this->getCrypt()->verify($password, $securePass);
+        $success = $this->getCrypt()->verify($password, $securePass);
+
+        // backwards compatible md5 password validation
+        if (!$success) {
+            $success = md5($password) == $securePass;
+        }
+
+        return $success;
     }
 
     /**
