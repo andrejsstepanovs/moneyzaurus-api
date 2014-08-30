@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4695327604719784f4fae2da7a77c08d",
+    "hash": "60b56097a98fb3c122196bd82142edeb",
     "packages": [
         {
             "name": "adlawson/timezone",
