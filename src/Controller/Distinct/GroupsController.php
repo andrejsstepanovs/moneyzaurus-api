@@ -3,32 +3,40 @@
 namespace Api\Controller\Distinct;
 
 use Api\Entities\User;
-use Api\Entities\Group;
-use Doctrine\ORM\EntityRepository;
 use Api\Service\AccessorTrait;
+use Api\Entities\Group;
+use Api\Service\Groups\Data as GroupsData;
 
 /**
  * Class GroupsController
  *
  * @package Api\Controller\Distinct
  *
- * @method GroupsController setGroupRepository(EntityRepository $group)
- * @method EntityRepository getGroupRepository()
+ * @method GroupsController setGroupsData(GroupsData $group)
+ * @method GroupsData       getGroupsData()
  */
 class GroupsController
 {
     use AccessorTrait;
 
     /**
-     * @param User  $user
-     * @param array $connectedUserIds
+     * @param User   $user
+     * @param array  $connectedUserIds
+     * @param string $dateFrom
+     * @param int    $count
      *
      * @return array
      */
-    public function getResponse(User $user, array $connectedUserIds)
+    public function getResponse(User $user, array $connectedUserIds, $dateFrom, $count)
     {
         $userIds = array_merge(array($user->getId()), $connectedUserIds);
-        $groups = $this->getGroups($userIds);
+
+        if ($dateFrom) {
+            $timeZone = new \DateTimeZone($user->getTimezone());
+            $dateFrom = new \DateTime($dateFrom, $timeZone);
+        }
+
+        $groups = $this->getGroups($userIds, $count, $dateFrom);
 
         $response = array(
             'success' => true,
@@ -40,23 +48,21 @@ class GroupsController
     }
 
     /**
-     * @param array $userIds
+     * @param array          $userIds
+     * @param int            $count
+     * @param \DateTime|null $dateFrom
      *
      * @return array
      */
-    private function getGroups(array $userIds)
+    private function getGroups(array $userIds, $count, \DateTime $dateFrom = null)
     {
-        $criteria = array('user' => $userIds);
-        $orderBy = array('name' => 'ASC');
-
         /** @var Group[] $groups */
-        $groups = $this->getGroupRepository()->findBy($criteria, $orderBy);
+        $groups = $this->getGroupsData()->getGroups($userIds, $dateFrom);
 
-        $data = array();
-        foreach ($groups as $group) {
-            $data[$group->getName()] = null;
+        if ($count) {
+            $groups = array_slice($groups, 0, $count);
         }
 
-        return array_keys($data);
+        return $groups;
     }
 }

@@ -29,6 +29,7 @@ class Container extends KernelContainer
     const TRANSACTION_DATE         = 'transaction.date';
 
     const ITEMS_DATA               = 'items.data';
+    const GROUPS_DATA              = 'groups.data';
 
     const CHART_PIE                = 'chart.pie';
 
@@ -80,6 +81,7 @@ class Container extends KernelContainer
         $this->initServiceChart();
         $this->initServiceTransaction();
         $this->initServiceItems();
+        $this->initServiceGroups();
         $this->initServiceAuthorization();
         $this->initServicePredict();
         $this->initServiceEmail();
@@ -296,6 +298,17 @@ class Container extends KernelContainer
         };
     }
 
+    private function initServiceGroups()
+    {
+        $this[self::GROUPS_DATA] = function () {
+            $entityManager = $this->get(self::ENTITY_MANAGER);
+            $data = new \Api\Service\Groups\Data();
+            $data->setEntityManager($entityManager);
+
+            return $data;
+        };
+    }
+
     private function initServiceAuthorization()
     {
         $this[self::PASSWORD_CRYPT] = function () {
@@ -391,9 +404,7 @@ class Container extends KernelContainer
     {
         $this['controller.distinct.groups'] = function () {
             $controller = new \Api\Controller\Distinct\GroupsController();
-            $controller->setGroupRepository(
-                $this->get(self::ENTITY_MANAGER)->getRepository('Api\Entities\Group')
-            );
+            $controller->setGroupsData($this->get(self::GROUPS_DATA));
 
             return $controller;
         };
