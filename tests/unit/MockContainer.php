@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use Pimple;
+use Pimple\Container as Pimple;
 use PHPUnit_Framework_TestCase;
 
 /**

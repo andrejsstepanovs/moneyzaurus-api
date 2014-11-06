@@ -2,7 +2,8 @@
 
 namespace Api\Service;
 
-use Pimple;
+use Pimple\Container as Pimple;
+
 
 /**
  * Class AccessorTrait
