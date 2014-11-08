@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "45c722837aba59e0bb0b04e898b146e9",
+    "hash": "55de526acfe611d8be4da80475639d2a",
     "packages": [
         {
             "name": "adlawson/timezone",
@@ -341,12 +341,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "6458b0bd6e62817e961a9611959a67b5f8622b59"
+                "reference": "a2e87c57a9843f07e8e6d6e57fe0fff965c0f4ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/6458b0bd6e62817e961a9611959a67b5f8622b59",
-                "reference": "6458b0bd6e62817e961a9611959a67b5f8622b59",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/a2e87c57a9843f07e8e6d6e57fe0fff965c0f4ac",
+                "reference": "a2e87c57a9843f07e8e6d6e57fe0fff965c0f4ac",
                 "shasum": ""
             },
             "require": {
@@ -404,7 +404,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2014-11-05 14:17:28"
+            "time": "2014-11-08 06:30:07"
         },
         {
             "name": "doctrine/inflector",
@@ -799,12 +799,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "6c72627de1d66832e4270e36e56acdb0d1d8f282"
+                "reference": "d0581b6b4beb84eccc810219b85942db76ab4a33"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/6c72627de1d66832e4270e36e56acdb0d1d8f282",
-                "reference": "6c72627de1d66832e4270e36e56acdb0d1d8f282",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/d0581b6b4beb84eccc810219b85942db76ab4a33",
+                "reference": "d0581b6b4beb84eccc810219b85942db76ab4a33",
                 "shasum": ""
             },
             "require": {
@@ -849,7 +849,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2014-11-04 07:09:15"
+            "time": "2014-11-08 21:55:50"
         },
         {
             "name": "guzzlehttp/ringphp",
@@ -2874,7 +2874,8 @@
     "platform": {
         "php": ">=5.5",
         "ext-sqlite3": "*",
-        "ext-mysql": "*"
+        "ext-mysql": "*",
+        "ext-intl": "*"
     },
     "platform-dev": []
 }

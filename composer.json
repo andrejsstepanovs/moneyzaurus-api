@@ -8,6 +8,7 @@
         "php": ">=5.5",
         "ext-sqlite3": "*",
         "ext-mysql": "*",
+        "ext-intl": "*",
         "wormhit/slim-api": "dev-master",
         "doctrine/orm": "2.*@dev",
         "doctrine/dbal": "2.*@dev",
