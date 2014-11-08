@@ -11,7 +11,7 @@ $configPath = __DIR__ . '/config';
 $configData = include $configPath . '/config.php';
 if (file_exists($configPath . '/config.local.php')) {
     $localConfig = include $configPath . '/config.local.php';
-    $configData = array_merge($configData, $localConfig);
+    $configData = array_replace_recursive($configData, $localConfig);
 }
 
 $config    = new Api\Module\Config();
