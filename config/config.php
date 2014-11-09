@@ -2,6 +2,7 @@
 
 use Api\Module\Config;
 
+
 return [
     Config::ROUTING               => 'Api\Module\Routing',
     Config::SLIM                  => 'Api\Slim',
@@ -12,11 +13,12 @@ return [
             __DIR__ . '/../src/Entities'
         ],
         Config::DATABASE_CONNECTION => [
-            'driver'   => 'pdo_sqlite',
-            'path'     => __DIR__ . '/../data/appdb.sqlite',
-            'user'     => 'root',
-            'password' => 'root',
-            'memory'   => false
+            'driver'   => 'pdo_mysql',
+            'port'     => getenv('DB_PORT_3306_TCP_PORT'),
+            'host'     => getenv('DB_PORT_3306_TCP_ADDR'),
+            'user'     => getenv('DB_ENV_MYSQL_ROOT_USER'),
+            'password' => getenv('DB_ENV_MYSQL_ROOT_PASSWORD'),
+            'dbname'   => getenv('DB_ENV_MYSQL_DATABASE'),
         ]
     ],
     Config::EMAIL => [
