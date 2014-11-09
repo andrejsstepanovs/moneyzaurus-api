@@ -22,12 +22,12 @@ return [
         ]
     ],
     Config::EMAIL => [
-        'host'     => 'localhost',
-        'port'     => 123,
-        'security' => 'ssl',
-        'username' => 'test@email.com',
-        'password' => 'password',
-        'test'     => true
+        'host'     => getenv('EMAIL_GATEWAY_HOST'),
+        'port'     => getenv('EMAIL_GATEWAY_PORT'),
+        'security' => getenv('EMAIL_GATEWAY_SECURITY'), // ssl
+        'username' => getenv('EMAIL_GATEWAY_USERNAME'),
+        'password' => getenv('EMAIL_GATEWAY_PASSWORD'),
+        'test'     => !(bool)getenv('EMAIL_GATEWAY_TEST'),
     ],
     Config::LOG => [
         //'file'  => __DIR__ . '/../error.log'
