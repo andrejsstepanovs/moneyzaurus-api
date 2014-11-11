@@ -49,7 +49,6 @@ class Json extends Middleware
         $json        = $jsonService->encode($data);
 
         if ($json !== false) {
-            $json = JsonParser::prettyPrint($json, ['indent' => ' ']);
             $response->setBody($json);
         } else {
             $response->setBody('Failed to parse to json. Error: ' . $jsonService->getJsonErrorMessage());

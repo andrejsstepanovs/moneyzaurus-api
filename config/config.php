@@ -16,10 +16,11 @@ return [
         Config::DATABASE_CONNECTION => [
             'driver'   => 'pdo_mysql',
             'port'     => $config->env('DB_PORT_3306_TCP_PORT', 3306),
-            'host'     => $config->env('DB_PORT_3306_TCP_ADDR', '172.17.0.2'),
+            'host'     => $config->env('DB_PORT_3306_TCP_ADDR', '127.0.0.1'),
             'user'     => $config->env('DB_ENV_MYSQL_ROOT_USER', 'root'),
             'password' => $config->env('DB_ENV_MYSQL_ROOT_PASSWORD', 'root'),
             'dbname'   => $config->env('DB_ENV_MYSQL_DATABASE', 'app'),
+            'charset'  => 'utf8'
         ]
     ],
     Config::EMAIL => [
