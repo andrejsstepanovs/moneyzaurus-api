@@ -5,14 +5,22 @@ namespace Api\Middleware;
 use Slim\Middleware;
 use Slim\Http\Response;
 use Api\Slim;
+use Api\Service\Json as JsonService;
+use Api\Service\AccessorTrait;
+
 
 /**
  * Class Json
  *
  * @package Api\Middleware
+ *
+ * @method Authorization setJsonService(JsonService $jsonService)
+ * @method JsonService   getJsonService()
  */
 class Json extends Middleware
 {
+    use AccessorTrait;
+
     /**
      * Setup json response
      */
@@ -35,6 +43,17 @@ class Json extends Middleware
     public function modifyResponse(Slim $app, Response $response)
     {
         $response->headers()->set('Content-Type', 'application/json; charset=utf-8');
-        $response->setBody(json_encode($app->getData(), JSON_UNESCAPED_UNICODE));
+
+        $jsonService = $this->getJsonService();
+        $data        = $app->getData();
+        $json        = $jsonService->encode($data);
+
+        if ($json !== false) {
+            $json = JsonParser::prettyPrint($json, ['indent' => ' ']);
+            $response->setBody($json);
+        } else {
+            $response->setBody('Failed to parse to json. Error: ' . $jsonService->getJsonErrorMessage());
+        }
     }
+
 }

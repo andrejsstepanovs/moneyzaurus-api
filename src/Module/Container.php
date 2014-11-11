@@ -17,6 +17,7 @@ class Container extends KernelContainer
     const PASSWORD_CRYPT           = 'password.crypt';
 
     const SERVICE_TIME             = 'service.time';
+    const SERVICE_JSON             = 'service.json';
     const SERVICE_LOCALE           = 'service.locale';
     const SERVICE_ACL              = 'service.acl';
 
@@ -93,6 +94,12 @@ class Container extends KernelContainer
             $time = new \Api\Service\Time();
 
             return $time;
+        };
+
+        $this[self::SERVICE_JSON] = function () {
+            $json = new \Api\Service\Json();
+
+            return $json;
         };
 
         $this[self::SERVICE_LOCALE] = function () {
@@ -573,6 +580,7 @@ class Container extends KernelContainer
 
         $this[self::MIDDLEWARE_JSON] = function () {
             $middleware = new \Api\Middleware\Json();
+            $middleware->setJsonService($this->get(self::SERVICE_JSON));
 
             return $middleware;
         };
