@@ -313,6 +313,17 @@ class MockContainer extends Pimple
             );
         };
 
+        $this['\Api\Service\Json'] = function(MockContainer $self) {
+            return $self->buildMock(
+                '\Api\Service\Json',
+                array(
+                    'encode',
+                    'decode',
+                    'getJsonErrorMessage'
+                )
+            );
+        };
+
         $this['Api\Service\Predict\Group'] = function(MockContainer $self) {
             return $self->buildMock(
                 'Api\Service\Predict\Group',

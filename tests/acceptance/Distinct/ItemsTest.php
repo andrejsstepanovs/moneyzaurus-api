@@ -83,10 +83,9 @@ class ItemsTest extends CreateTest
         $this->assertNotEmpty($data['data']);
 
         $this->assertEquals(2, $data['count']);
-        $this->assertEquals(
-            array('apple', 'banana'),
-            $data['data']
-        );
+
+        $this->assertTrue(in_array('apple', $data['data']));
+        $this->assertTrue(in_array('banana', $data['data']));
     }
 
 }

@@ -100,6 +100,10 @@ class PieTest extends CreateTest
         $this->assertNotEmpty($data['data']);
 
         $this->assertEquals(2, $data['count']);
+
+        $data['data'][0]['groupId'] = 13;
+        $data['data'][1]['groupId'] = 14;
+
         $this->assertEquals(
              [
                  [
@@ -148,6 +152,9 @@ class PieTest extends CreateTest
         $this->assertNotEmpty($data['data']);
         $this->assertEquals(2, $data['count']);
 
+        $data['data'][0]['groupId'] = 14;
+        $data['data'][1]['groupId'] = 13;
+
         $this->assertEquals(
              [
                  [
@@ -195,6 +202,8 @@ class PieTest extends CreateTest
         $this->assertArrayHasKey('till', $data);
         $this->assertNotEmpty($data['data']);
         $this->assertEquals(1, $data['count']);
+
+        $data['data'][0]['groupId'] = 13;
 
         $this->assertEquals(
              [
