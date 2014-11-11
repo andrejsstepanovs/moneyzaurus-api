@@ -214,4 +214,4 @@ ALTER TABLE `user_provider`
 --
 -- Data
 --
-INSERT INTO `currency` (`name`, `html`) VALUES ("Euro", "€");
+INSERT INTO `currency` (`currency_id`, `name`, `html`) VALUES ("EUR", "Euro", "€");
