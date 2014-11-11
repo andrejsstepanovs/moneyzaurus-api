@@ -25,7 +25,7 @@ class Config extends KernelConfig
      *
      * @return string
      */
-    public static function env($key, $default = null)
+    public function env($key, $default = null)
     {
     	$value = getenv($key);
 
