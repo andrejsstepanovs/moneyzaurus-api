@@ -27,8 +27,12 @@ RUN echo "autostart = true" >> /etc/supervisor/conf.d/supervisord.conf
 ADD ./data/nginx.conf /etc/nginx/sites-enabled/default
 ADD ./ /var/www/
 
-RUN /usr/bin/php /var/www/composer.phar install --working-dir /var/www
+RUN /usr/bin/php /var/www/composer.phar install --working-dir /var/www/
 RUN /var/www/vendor/bin/phpunit -c /var/www/tests/unit/phpunit.xml
+
+RUN /var/www/tests/ci/start-php.sh
+RUN /var/www/vendor/bin/phpunit -c /var/www/tests/acceptance/phpunit.xml
+
 
 EXPOSE 80 9000
 

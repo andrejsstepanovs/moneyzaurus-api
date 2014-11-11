@@ -14,7 +14,7 @@ Install
 php composer.phar install
 docker build -t moneyzaurus-api .
 docker run --name moneyzaurus-mysql -p 127.0.0.1:3306:3306 --env-file ./env mysql
-docker run --name moneyzaurus-api -p 127.0.0.1:80:80 --env-file ./env -v "$(pwd)":/var/www/html/ --link moneyzaurus-mysql:db moneyzaurus-api
+docker run --name moneyzaurus-api -d -p 127.0.0.1:80:80 --env-file ./env -v "$(pwd)":/var/www/html/ --link moneyzaurus-mysql:db moneyzaurus-api
 ```
 
 API Docs
