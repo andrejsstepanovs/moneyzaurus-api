@@ -85,6 +85,7 @@ class FetchConnectedTest extends CreateTest
     {
         $response = $this->get('/user/data?token=' . $token);
         $data = (array)$response->json();
+        $this->assertArrayHasKey('success', $data, print_r($data, true));
         $this->assertTrue($data['success']);
         return $data['data']['email'];
     }
@@ -99,6 +100,7 @@ class FetchConnectedTest extends CreateTest
     {
         $response = $this->post('/connection/add?token=' . $friendToken, ['email' => $parentEmail]);
         $data = (array)$response->json();
+        $this->assertArrayHasKey('success', $data, print_r($data, true));
         $this->assertTrue($data['success']);
 
         return $data['data']['id'];
@@ -112,6 +114,7 @@ class FetchConnectedTest extends CreateTest
         $response = $this->get('/transactions/list?token=' . $friendToken);
         $data = (array)$response->json();
 
+        $this->assertArrayHasKey('success', $data, print_r($data, true));
         $this->assertTrue($data['success']);
         $this->assertEquals(0, $data['count']);
         $this->assertEmpty($data['data']);
@@ -126,6 +129,8 @@ class FetchConnectedTest extends CreateTest
     {
         $response = $this->get('/transactions/list?token=' . $token);
         $data = (array)$response->json();
+
+        $this->assertArrayHasKey('success', $data, print_r($data, true) . ' token=' . $token);
         $this->assertTrue($data['success']);
         $this->assertNotEmpty($data['data']);
 
@@ -141,6 +146,7 @@ class FetchConnectedTest extends CreateTest
         foreach ($transactionList as $transaction) {
             $response = $this->get('/transactions/id/' . $transaction['id'] . '?token=' . $friendToken);
             $data = (array)$response->json();
+            $this->assertArrayHasKey('success', $data, print_r($data, true));
             $this->assertFalse($data['success']);
         }
     }
@@ -155,6 +161,7 @@ class FetchConnectedTest extends CreateTest
             $post = ['item' => 'TEST'];
             $response = $this->post('/transactions/update/' . $transaction['id'] . '?token=' . $friendToken, $post);
             $data = (array)$response->json();
+            $this->assertArrayHasKey('success', $data, print_r($data, true));
             $this->assertFalse($data['success']);
         }
     }
@@ -168,6 +175,7 @@ class FetchConnectedTest extends CreateTest
         foreach ($transactionList as $transaction) {
             $response = $this->delete('/transactions/remove/' . $transaction['id'] . '?token=' . $friendToken);
             $data = (array)$response->json();
+            $this->assertArrayHasKey('success', $data, print_r($data, true));
             $this->assertFalse($data['success']);
         }
     }
@@ -180,6 +188,7 @@ class FetchConnectedTest extends CreateTest
     {
         $response = $this->post('/connection/accept/ ' . (int)$connectionId . '?token=' . $token);
         $data = (array)$response->json();
+        $this->assertArrayHasKey('success', $data, print_r($data, true));
         $this->assertTrue($data['success']);
     }
 
@@ -191,6 +200,7 @@ class FetchConnectedTest extends CreateTest
         $response = $this->get('/transactions/list?token=' . $friendToken);
         $data = (array)$response->json();
 
+        $this->assertArrayHasKey('success', $data, print_r($data, true));
         $this->assertTrue($data['success']);
         $this->assertGreaterThan(0, $data['count']);
         $this->assertNotEmpty($data['data']);
@@ -205,6 +215,7 @@ class FetchConnectedTest extends CreateTest
         foreach ($transactionList as $transaction) {
             $response = $this->get('/transactions/id/' . $transaction['id'] . '?token=' . $friendToken);
             $data = (array)$response->json();
+            $this->assertArrayHasKey('success', $data, print_r($data, true));
             $this->assertTrue($data['success']);
         }
     }
@@ -219,6 +230,7 @@ class FetchConnectedTest extends CreateTest
             $post = ['item' => 'TEST'];
             $response = $this->post('/transactions/update/' . $transaction['id'] . '?token=' . $friendToken, $post);
             $data = (array)$response->json();
+            $this->assertArrayHasKey('success', $data, print_r($data, true));
             $this->assertTrue($data['success']);
         }
     }
@@ -232,6 +244,7 @@ class FetchConnectedTest extends CreateTest
         foreach ($transactionList as $transaction) {
             $response = $this->delete('/transactions/remove/' . $transaction['id'] . '?token=' . $friendToken);
             $data = (array)$response->json();
+            $this->assertArrayHasKey('success', $data, print_r($data, true));
             $this->assertTrue($data['success']);
         }
     }

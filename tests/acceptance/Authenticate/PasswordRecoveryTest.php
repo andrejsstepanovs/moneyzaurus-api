@@ -33,7 +33,7 @@ class PasswordRecoveryTest extends TestCase
         $response = $this->post('/authenticate/password-recovery', $post);
         $data = (array)$response->json();
 
-        $this->assertTrue($data['success']);
+        $this->assertTrue($data['success'], print_r($data, true));
     }
 
     public function testPasswordRecoveryForUnknownUser()
@@ -45,6 +45,6 @@ class PasswordRecoveryTest extends TestCase
         $response = $this->post('/authenticate/password-recovery', $post);
         $data = (array)$response->json();
 
-        $this->assertFalse($data['success']);
+        $this->assertFalse($data['success'], print_r($data, true));
     }
 }

@@ -111,11 +111,11 @@ class PieTest extends CreateTest
                     'money'     => '€40.00'
                  ],
                  [
-                     'amount'    => 4000,
+                     'amount'    => '4000',
                      'groupId'   => 14,
                      'groupName' => 'fruit',
                      'percent'   => 50,
-                     'price'     => 40.00,
+                     'price'     => '40.00',
                      'money'     => '€40.00'
                  ]
              ],
@@ -151,19 +151,19 @@ class PieTest extends CreateTest
         $this->assertEquals(
              [
                  [
-                     'amount'    => 4000,
+                     'amount'    => '4000',
                      'groupId'   => 14,
                      'groupName' => 'fruit',
                      'percent'   => 80,
-                     'price'     => 40.00,
+                     'price'     => '40.00',
                      'money'     => '€40.00'
                  ],
                  [
-                     'amount'    => 1000,
+                     'amount'    => '1000',
                      'groupId'   => 13,
                      'groupName' => 'food',
                      'percent'   => 20,
-                     'price'     => 10.00,
+                     'price'     => '10.00',
                      'money'     => '€10.00'
                  ]
              ],
@@ -199,11 +199,11 @@ class PieTest extends CreateTest
         $this->assertEquals(
              [
                  [
-                     'amount'    => 3000,
+                     'amount'    => '3000',
                      'groupId'   => 13,
                      'groupName' => 'food',
                      'percent'   => 100,
-                     'price'     => 30.00,
+                     'price'     => '30.00',
                      'money'     => '€30.00'
                  ]
              ],
