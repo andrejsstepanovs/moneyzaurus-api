@@ -14,11 +14,11 @@ return [
         ],
         Config::DATABASE_CONNECTION => [
             'driver'   => 'pdo_mysql',
-            'port'     => getenv('DB_PORT_3306_TCP_PORT'),
-            'host'     => getenv('DB_PORT_3306_TCP_ADDR'),
-            'user'     => getenv('DB_ENV_MYSQL_ROOT_USER'),
-            'password' => getenv('DB_ENV_MYSQL_ROOT_PASSWORD'),
-            'dbname'   => getenv('DB_ENV_MYSQL_DATABASE'),
+            'port'     => Config::env('DB_PORT_3306_TCP_PORT', 3306),
+            'host'     => Config::env('DB_PORT_3306_TCP_ADDR', '127.0.0.1'),
+            'user'     => Config::env('DB_ENV_MYSQL_ROOT_USER', 'root'),
+            'password' => Config::env('DB_ENV_MYSQL_ROOT_PASSWORD', 'root'),
+            'dbname'   => Config::env('DB_ENV_MYSQL_DATABASE', 'app'),
         ]
     ],
     Config::EMAIL => [

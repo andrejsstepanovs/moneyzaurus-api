@@ -18,4 +18,21 @@ class Config extends KernelConfig
     const EMAIL                 = 'email';
     const SECURITY              = 'security';
     const LOG                   = 'log';
+
+    /**
+     * @param string $key
+     * @param string $default
+     *
+     * @return string
+     */
+    public static function env($key, $default = null)
+    {
+    	$value = getenv($key);
+
+    	if (empty($value) && !empty($default)) {
+    		return $default;
+    	}
+
+    	return $value;
+    }
 }
