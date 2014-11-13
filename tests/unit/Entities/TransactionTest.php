@@ -2,7 +2,6 @@
 
 namespace Tests\Entities;
 
-
 use Api\Entities\Transaction;
 use Tests\TestCase;
 
@@ -84,5 +83,4 @@ class TransactionTest extends TestCase
 
         $this->assertEquals($value, $response);
     }
-
 }

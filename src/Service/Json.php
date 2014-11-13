@@ -2,7 +2,6 @@
 
 namespace Api\Service;
 
-
 /**
  * Class Locale
  *

@@ -241,5 +241,4 @@ class Transaction
     {
         return $this->id;
     }
-
 }

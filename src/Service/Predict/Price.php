@@ -88,7 +88,7 @@ class Price
         }
 
         $dql .= ' GROUP BY t.price';
-        $dql .= ' HAVING usedCount >= ' . (int)$usedCount;
+        $dql .= ' HAVING usedCount >= ' . (int) $usedCount;
         $dql .= ' ORDER BY usedCount DESC';
 
         return $this->fetchResults($dql, $parameters, $limit);
@@ -109,5 +109,4 @@ class Price
 
         return $query->getResult();
     }
-
 }

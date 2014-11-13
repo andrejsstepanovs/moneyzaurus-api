@@ -27,12 +27,12 @@ class Config extends KernelConfig
      */
     public function env($key, $default = null)
     {
-    	$value = getenv($key);
+        $value = getenv($key);
 
-    	if (empty($value) && !empty($default)) {
-    		return $default;
-    	}
+        if (empty($value) && !empty($default)) {
+            return $default;
+        }
 
-    	return $value;
+        return $value;
     }
 }

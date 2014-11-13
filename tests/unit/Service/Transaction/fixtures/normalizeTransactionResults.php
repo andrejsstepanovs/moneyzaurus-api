@@ -21,7 +21,7 @@ return array(
                 'itemId'          => 9876,
                 'groupName'       => 'food',
                 'groupId'         => 7654,
-            )
+            ),
         ),
         array(
             array(
@@ -45,8 +45,8 @@ return array(
                 'date'            => '2029-12-25',
                 'created'         => '2029-12-25 23:59:10',
                 'price'           => 123.45,
-                'money'           => '€ 123,45'
-            )
-        )
-    )
+                'money'           => '€ 123,45',
+            ),
+        ),
+    ),
 );

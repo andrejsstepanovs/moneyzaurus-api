@@ -2,7 +2,6 @@
 
 namespace Tests\Entities;
 
-
 use Api\Entities\Group;
 use Tests\TestCase;
 
@@ -52,5 +51,4 @@ class GroupTest extends TestCase
 
         $this->assertEquals($value, $response);
     }
-
 }

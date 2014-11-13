@@ -63,5 +63,4 @@ class ListControllerTest extends TestCase
         $this->assertEquals(0, $response['count']);
         $this->assertEquals($data, $response['data']);
     }
-
 }

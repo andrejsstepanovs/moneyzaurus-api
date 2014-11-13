@@ -17,7 +17,7 @@ class IndexTest extends TestCase
 
         $this->assertContains('json', strval($response->getHeader('content-type')));
 
-        $responseData = (array)$response->json();
+        $responseData = (array) $response->json();
 
         $this->assertNotEmpty($responseData);
         $this->assertArrayHasKey('version', $responseData);

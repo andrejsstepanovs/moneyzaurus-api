@@ -124,5 +124,4 @@ class Group
     {
         return $this->name;
     }
-
 }

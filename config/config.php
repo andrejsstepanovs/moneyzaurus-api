@@ -2,7 +2,7 @@
 
 use Api\Module\Config;
 
-$config = new Config;
+$config = new Config();
 
 return [
     Config::ROUTING               => 'Api\Module\Routing',
@@ -11,7 +11,7 @@ return [
     Config::PASSWORD_DEFAULT_COST => 14, // 4
     Config::DATABASE  => [
         Config::DATABASE_ENTITIES   => [
-            __DIR__ . '/../src/Entities'
+            __DIR__.'/../src/Entities',
         ],
         Config::DATABASE_CONNECTION => [
             'driver'   => 'pdo_mysql',
@@ -20,8 +20,8 @@ return [
             'user'     => $config->env('DB_ENV_MYSQL_ROOT_USER', 'root'),
             'password' => $config->env('DB_ENV_MYSQL_ROOT_PASSWORD', 'root'),
             'dbname'   => $config->env('DB_ENV_MYSQL_DATABASE', 'app'),
-            'charset'  => 'utf8'
-        ]
+            'charset'  => 'utf8',
+        ],
     ],
     Config::EMAIL => [
         'host'     => $config->env('EMAIL_GATEWAY_HOST', 'localhost'),
@@ -29,7 +29,7 @@ return [
         'security' => $config->env('EMAIL_GATEWAY_SECURITY', 'ssl'),
         'username' => $config->env('EMAIL_GATEWAY_USERNAME', 'test@email.com'),
         'password' => $config->env('EMAIL_GATEWAY_PASSWORD', 'password'),
-        'test'     => (bool)$config->env('EMAIL_GATEWAY_TEST', true),
+        'test'     => (bool) $config->env('EMAIL_GATEWAY_TEST', true),
     ],
     Config::LOG => [
         //'file'  => __DIR__ . '/../error.log'
@@ -37,6 +37,6 @@ return [
     Config::SECURITY => [
         'token_interval'         => 'P1Y', // PT10S
         'max_login_attempts'     => 10,    // 3
-        'login_abuse_sleep_time' => 10     // 4
+        'login_abuse_sleep_time' => 10,    // 4
     ]
 ];

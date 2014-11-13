@@ -2,7 +2,6 @@
 
 namespace AcceptanceTests\Transactions;
 
-
 /**
  * Class FailCreateTest
  *
@@ -42,7 +41,7 @@ class FailCreateTest extends CreateTest
                     'group'    => 'Group Name',
                     'price'    => '12',
                     'currency' => 'UNKNOWN',
-                    'date'     => date('Y-m-d')
+                    'date'     => date('Y-m-d'),
                 ),
             ),
             array(
@@ -51,7 +50,7 @@ class FailCreateTest extends CreateTest
                     'group'    => 'food',
                     'price'    => '12.34',
                     'currency' => 'EUR',
-                    'date'     => 'WRONG'
+                    'date'     => 'WRONG',
                 ),
             ),
             array(
@@ -60,7 +59,7 @@ class FailCreateTest extends CreateTest
                     'group'    => 'food',
                     'price'    => 'WRONG PRICE',
                     'currency' => 'EUR',
-                    'date'     => date('Y-m-d')
+                    'date'     => date('Y-m-d'),
                 ),
             ),
             array(
@@ -69,7 +68,7 @@ class FailCreateTest extends CreateTest
                     'group'    => 'Group',
                     'price'    => '999',
                     'currency' => 'EUR',
-                    'date'     => date('Y-m-d')
+                    'date'     => date('Y-m-d'),
                 ),
             ),
             array(
@@ -78,7 +77,7 @@ class FailCreateTest extends CreateTest
                     'group'    => '',
                     'price'    => '123',
                     'currency' => 'EUR',
-                    'date'     => date('Y-m-d')
+                    'date'     => date('Y-m-d'),
                 ),
             ),
             array(
@@ -87,7 +86,7 @@ class FailCreateTest extends CreateTest
                     'group'    => 'Group',
                     'price'    => '',
                     'currency' => 'EUR',
-                    'date'     => date('Y-m-d')
+                    'date'     => date('Y-m-d'),
                 ),
             ),
         );
@@ -102,7 +101,7 @@ class FailCreateTest extends CreateTest
     public function testFailCreate(array $post, $token)
     {
         $response = $this->post('/transactions/add?token=' . $token, $post);
-        $data = (array)$response->json();
+        $data = (array) $response->json();
 
         $this->assertFalse($data['success']);
         $this->assertArrayHasKey('message', $data);

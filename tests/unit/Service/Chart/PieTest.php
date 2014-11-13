@@ -36,11 +36,11 @@ class PieTest extends TestCase
              ->method('createQuery')
              ->with(
              $this->callback(
-                  function($dql) {
+                  function ($dql) {
                       $searchWords = array(
                           't.date >= :dateFrom',
                           't.date <= :dateTill',
-                          't.currency = :currency'
+                          't.currency = :currency',
                       );
                       $matches = 0;
 
@@ -75,15 +75,15 @@ class PieTest extends TestCase
     {
         $data     = array(
             array(
-                'amount' => 12345
-            )
+                'amount' => 12345,
+            ),
         );
         $expected = array(
             array(
                 'amount' => 12345,
                 'price'  => 123.45,
-                'money'  => '€ 123,45'
-            )
+                'money'  => '€ 123,45',
+            ),
         );
         $currency = 'EUR';
 

@@ -43,7 +43,7 @@ class ItemsTest extends CreateTest
                     'group'    => 'food',
                     'price'    => '1.00',
                     'currency' => 'EUR',
-                    'date'     => '2000-01-01'
+                    'date'     => '2000-01-01',
                 ),
             ),
             array(
@@ -52,7 +52,7 @@ class ItemsTest extends CreateTest
                     'group'    => 'food',
                     'price'    => '0.5',
                     'currency' => 'EUR',
-                    'date'     => date('Y-m-d')
+                    'date'     => date('Y-m-d'),
                 ),
             ),
         );
@@ -76,7 +76,7 @@ class ItemsTest extends CreateTest
     public function testItems($token)
     {
         $response = $this->get('/distinct/items?token=' . $token);
-        $data = (array)$response->json();
+        $data = (array) $response->json();
 
         $this->assertTrue($data['success']);
         $this->assertArrayHasKey('count', $data);
@@ -87,5 +87,4 @@ class ItemsTest extends CreateTest
         $this->assertTrue(in_array('apple', $data['data']));
         $this->assertTrue(in_array('banana', $data['data']));
     }
-
 }

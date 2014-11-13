@@ -26,7 +26,7 @@ class DataController
             'language' => $user->getLanguage(),
             'locale'   => $user->getLocale(),
             'timezone' => $user->getTimezone(),
-            'state'    => $user->getState()
+            'state'    => $user->getState(),
         );
 
         $data = array(

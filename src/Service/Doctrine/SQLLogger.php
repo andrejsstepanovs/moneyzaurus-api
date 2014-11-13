@@ -22,7 +22,6 @@ class SQLLogger implements LoggerInterface
      */
     public function startQuery($sql, array $params = null, array $types = null)
     {
-
     }
 
     /**
@@ -32,6 +31,5 @@ class SQLLogger implements LoggerInterface
      */
     public function stopQuery()
     {
-
     }
 }

@@ -39,12 +39,12 @@ class PriceTest extends TestCase
             ->method('createQuery')
             ->with(
                 $this->callback(
-                    function($dql) {
+                    function ($dql) {
                         $searchWords = array(
                             't.date >= :dateFrom',
                             'i.name LIKE :item',
                             'g.name LIKE :group',
-                            't.user IN (:userIds)'
+                            't.user IN (:userIds)',
                         );
                         $matches = 0;
 
@@ -64,5 +64,4 @@ class PriceTest extends TestCase
 
         $this->assertEquals($expectedResponse, $response);
     }
-
 }

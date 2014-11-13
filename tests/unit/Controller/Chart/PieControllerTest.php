@@ -58,8 +58,8 @@ class PieControllerTest extends TestCase
             array(
                 'amount'    => 100,
                 'groupId'   => 1,
-                'groupName' => 'group'
-            )
+                'groupName' => 'group',
+            ),
         );
 
         $normalizedData = array(
@@ -68,8 +68,8 @@ class PieControllerTest extends TestCase
                 'groupId'   => 1,
                 'groupName' => 'group',
                 'price'     => 1.00,
-                'money'     => '€1.00'
-            )
+                'money'     => '€1.00',
+            ),
         );
 
         $this->mock()->get('Api\Service\Chart\Pie')

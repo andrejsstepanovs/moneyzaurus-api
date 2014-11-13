@@ -30,10 +30,9 @@ class LogoutController
         $success = $this->getToken()->remove($user, $token);
 
         $response = array(
-            'success' => $success
+            'success' => $success,
         );
 
         return $response;
     }
-
 }

@@ -38,10 +38,9 @@ class ListController
         $response = array(
             'success' => true,
             'count'   => count($connectedUsers),
-            'data'    => $connectedUsers
+            'data'    => $connectedUsers,
         );
 
         return $response;
     }
-
 }

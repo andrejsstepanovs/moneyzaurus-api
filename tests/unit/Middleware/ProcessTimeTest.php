@@ -29,7 +29,7 @@ class ProcessTimeTest extends TestCase
         $expected = array(
             'apple'     => 'red',
             'timestamp' => '1388534400',
-            'process'   => 'TimeDifference'
+            'process'   => 'TimeDifference',
         );
 
         $this->mock()->get('\Slim\Slim')
@@ -76,7 +76,7 @@ class ProcessTimeTest extends TestCase
         $data = null;
         $expected = array(
             'timestamp' => '1388534400',
-            'process'   => 'TimeDifference'
+            'process'   => 'TimeDifference',
         );
 
         $this->mock()->get('\Slim\Slim')
@@ -124,7 +124,7 @@ class ProcessTimeTest extends TestCase
         $expected = array(
             'apple'     => 'red',
             'timestamp' => '1388534400',
-            'process'   => 'TimeDifference'
+            'process'   => 'TimeDifference',
         );
 
         $this->mock()->get('\Slim\Slim')

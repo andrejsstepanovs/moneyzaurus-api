@@ -47,5 +47,4 @@ class RemoveController
 
         return $response;
     }
-
 }

@@ -39,11 +39,11 @@ class ConnectionTest extends TestCase
     public function testAddNotExistingUser($token)
     {
         $post = array(
-            'email' => 'unknown_email@email.com'
+            'email' => 'unknown_email@email.com',
         );
 
         $response = $this->post('/connection/add?token=' . $token, $post);
-        $data = (array)$response->json();
+        $data = (array) $response->json();
 
         $this->assertFalse($data['success']);
         $this->assertArrayHasKey('message', $data);
@@ -57,16 +57,15 @@ class ConnectionTest extends TestCase
     public function testAddWrongEmail($token)
     {
         $post = array(
-            'email' => 'unknown_email'
+            'email' => 'unknown_email',
         );
 
         $response = $this->post('/connection/add?token=' . $token, $post);
-        $data = (array)$response->json();
+        $data = (array) $response->json();
 
         $this->assertFalse($data['success']);
         $this->assertArrayHasKey('message', $data);
     }
-
 
     /**
      * @depends testLogin
@@ -80,11 +79,11 @@ class ConnectionTest extends TestCase
         $friend = $this->registerNewUser();
 
         $post = array(
-            'email' => $friend['email']
+            'email' => $friend['email'],
         );
 
         $response = $this->post('/connection/add?token=' . $token, $post);
-        $data = (array)$response->json();
+        $data = (array) $response->json();
 
         $this->assertTrue($data['success']);
         $this->assertArrayHasKey('data', $data);
@@ -104,7 +103,7 @@ class ConnectionTest extends TestCase
     public function testListUser($token)
     {
         $response = $this->get('/connection/list?token=' . $token);
-        $data = (array)$response->json();
+        $data = (array) $response->json();
 
         $this->assertTrue($data['success']);
         $this->assertArrayHasKey('count', $data);
@@ -127,7 +126,7 @@ class ConnectionTest extends TestCase
         foreach ($listData as $list) {
             $id = $list['id'];
             $response = $this->post('/connection/accept/ ' . $id . '?token=' . $token);
-            $data = (array)$response->json();
+            $data = (array) $response->json();
 
             $this->assertFalse($data['success']);
             $this->assertNotEmpty($data['message']);
@@ -145,8 +144,8 @@ class ConnectionTest extends TestCase
     {
         foreach ($listData as $list) {
             $id = $list['id'];
-            $response = $this->post('/connection/reject/ ' . $id . '?token=' . $token);
-            $data = (array)$response->json();
+            $response = $this->post('/connection/reject/' . $id . '?token=' . $token);
+            $data = (array) $response->json();
 
             $this->assertFalse($data['success']);
             $this->assertNotEmpty($data['message']);
@@ -165,7 +164,7 @@ class ConnectionTest extends TestCase
         $token = $this->testLogin($friend);
 
         $response = $this->get('/connection/list?token=' . $token . '&parent=1');
-        $data = (array)$response->json();
+        $data = (array) $response->json();
 
         $this->assertTrue($data['success']);
         $this->assertArrayHasKey('count', $data);
@@ -188,8 +187,8 @@ class ConnectionTest extends TestCase
 
         foreach ($listData as $list) {
             $id = $list['id'];
-            $response = $this->post('/connection/accept/ ' . $id . '?token=' . $token);
-            $data = (array)$response->json();
+            $response = $this->post('/connection/accept/' . $id . '?token=' . $token);
+            $data = (array) $response->json();
 
             $this->assertTrue($data['success']);
         }
@@ -209,7 +208,7 @@ class ConnectionTest extends TestCase
         foreach ($listData as $list) {
             $id = $list['id'];
             $response = $this->post('/connection/accept/ ' . $id . '?token=' . $token);
-            $data = (array)$response->json();
+            $data = (array) $response->json();
 
             $this->assertFalse($data['success']);
             $this->assertNotEmpty($data['message']);
@@ -229,8 +228,8 @@ class ConnectionTest extends TestCase
 
         foreach ($listData as $list) {
             $id = $list['id'];
-            $response = $this->post('/connection/reject/ ' . $id . '?token=' . $token);
-            $data = (array)$response->json();
+            $response = $this->post('/connection/reject/' . $id . '?token=' . $token);
+            $data = (array) $response->json();
 
             $this->assertTrue($data['success']);
         }
@@ -249,12 +248,11 @@ class ConnectionTest extends TestCase
 
         foreach ($listData as $list) {
             $id = $list['id'];
-            $response = $this->post('/connection/reject/ ' . $id . '?token=' . $token);
-            $data = (array)$response->json();
+            $response = $this->post('/connection/reject/' . $id . '?token=' . $token);
+            $data = (array) $response->json();
 
             $this->assertFalse($data['success']);
             $this->assertNotEmpty($data['message']);
         }
     }
-
 }

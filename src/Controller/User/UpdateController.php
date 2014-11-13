@@ -52,7 +52,6 @@ class UpdateController
             );
 
             $this->getUser()->saveUser($user);
-
         } catch (\Exception $exc) {
             $data['success'] = false;
             $data['message'] = $exc->getMessage();

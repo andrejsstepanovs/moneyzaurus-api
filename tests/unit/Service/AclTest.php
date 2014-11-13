@@ -130,5 +130,4 @@ class AclTest extends TestCase
         $allowed = $this->sut->isAllowed($userRole, $resource, $privilege);
         $this->assertEquals($expected, $allowed);
     }
-
 }

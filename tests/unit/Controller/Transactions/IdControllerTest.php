@@ -95,7 +95,6 @@ class IdControllerTest extends TestCase
              ->method('normalizeResults')
              ->will($this->returnValue(array(array('apple' => 'red'))));
 
-
         $response = $this->sut->getResponse($this->mock()->get('Api\Entities\User'), $connectedUserIds, $transactionId);
 
         $this->assertTrue($response['success']);
@@ -103,11 +102,10 @@ class IdControllerTest extends TestCase
             array(
                 'success' => true,
                 'data' => array(
-                    'apple' => 'red'
-                )
+                    'apple' => 'red',
+                ),
             ),
             $response
         );
     }
-
 }

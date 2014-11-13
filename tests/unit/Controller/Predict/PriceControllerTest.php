@@ -31,7 +31,7 @@ class PriceControllerTest extends TestCase
                     'success' => true,
                     'count'   => 0,
                     'data'    => array(),
-                )
+                ),
             ),
             array(
                 array('test'),
@@ -39,7 +39,7 @@ class PriceControllerTest extends TestCase
                     'success' => true,
                     'count'   => 1,
                     'data'    => array('test'),
-                )
+                ),
             ),
             array(
                 array('apple', 'banana'),
@@ -47,7 +47,7 @@ class PriceControllerTest extends TestCase
                     'success' => true,
                     'count'   => 2,
                     'data'    => array('apple', 'banana'),
-                )
+                ),
             ),
         );
     }
@@ -100,10 +100,9 @@ class PriceControllerTest extends TestCase
 
         $expected = array(
             'success' => false,
-            'message' => 'TEST'
+            'message' => 'TEST',
         );
 
         $this->assertEquals($expected, $response);
     }
-
 }

@@ -41,7 +41,7 @@ class RemoveTest extends CreateTest
                     'group'    => 'food',
                     'price'    => '1.00',
                     'currency' => 'EUR',
-                    'date'     => '2000-01-01'
+                    'date'     => '2000-01-01',
                 ),
             ),
             array(
@@ -50,7 +50,7 @@ class RemoveTest extends CreateTest
                     'group'    => 'food',
                     'price'    => '0.5',
                     'currency' => 'EUR',
-                    'date'     => date('Y-m-d')
+                    'date'     => date('Y-m-d'),
                 ),
             ),
         );
@@ -74,7 +74,7 @@ class RemoveTest extends CreateTest
     public function testGetTransactionList($token)
     {
         $response = $this->get('/transactions/list?token=' . $token);
-        $data = (array)$response->json();
+        $data = (array) $response->json();
 
         $this->assertTrue($data['success']);
         $this->assertNotEmpty($data['data']);
@@ -93,7 +93,7 @@ class RemoveTest extends CreateTest
     {
         foreach ($transactionList as $transaction) {
             $response = $this->delete('/transactions/remove/' . $transaction['id'] . '?token=' . $token);
-            $data = (array)$response->json();
+            $data = (array) $response->json();
 
             $this->assertTrue($data['success']);
         }
@@ -112,7 +112,7 @@ class RemoveTest extends CreateTest
         $unknownId = max($ids) + 1;
 
         $response = $this->delete('/transactions/remove/' . $unknownId . '?token=' . $token);
-        $data = (array)$response->json();
+        $data = (array) $response->json();
 
         $this->assertFalse($data['success']);
     }
@@ -131,7 +131,7 @@ class RemoveTest extends CreateTest
 
         if ($unknownId > 0) {
             $response = $this->delete('/transactions/remove/' . $unknownId . '?token=' . $token);
-            $data = (array)$response->json();
+            $data = (array) $response->json();
 
             $this->assertFalse($data['success']);
         }

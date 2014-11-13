@@ -36,13 +36,12 @@ class Remove
             $entityManager->flush();
 
             $entityManager->commit();
-
         } catch (\Exception $exc) {
             $entityManager->rollback();
+
             return false;
         }
 
         return true;
     }
-
 }

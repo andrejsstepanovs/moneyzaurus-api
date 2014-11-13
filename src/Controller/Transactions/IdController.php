@@ -2,11 +2,10 @@
 
 namespace Api\Controller\Transactions;
 
-use Api\Service\Locale;
+
 use Api\Service\Transaction\Money;
 use Api\Service\Transaction\Validate;
 use Api\Service\Transaction\Data as TransactionData;
-use Api\Entities\Transaction;
 use Api\Entities\User;
 use Api\Service\AccessorTrait;
 
@@ -36,12 +35,11 @@ class IdController
     public function getResponse(User $user, array $connectedUserIds, $id)
     {
         $data = array(
-            'success' => false
+            'success' => false,
         );
 
         $entity = $this->getData()->find($id);
         if ($entity && $this->getValidate()->isAllowed($user, $connectedUserIds, $entity)) {
-
             $dataService     = $this->getData();
             $transactionData = $dataService->toArray($entity);
 

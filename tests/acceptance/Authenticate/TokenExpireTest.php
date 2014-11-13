@@ -30,7 +30,7 @@ class TokenExpireTest extends TestCase
         $this->assertNotEmpty($token);
 
         $response = $this->get('/user/data?token=' . $token);
-        $data = (array)$response->json();
+        $data = (array) $response->json();
         $this->assertTrue($data['success']);
 
         $seconds = $this->getTokenIntervalInSeconds();
@@ -44,5 +44,4 @@ class TokenExpireTest extends TestCase
             $this->assertEquals(403, $statusCode);
         }
     }
-
 }

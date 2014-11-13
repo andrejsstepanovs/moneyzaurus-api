@@ -27,7 +27,7 @@ class TestTransport extends \Swift_SmtpTransport
     {
         $description = $message->getDescription();
         if (!is_null($description)) {
-            return (int)$description;
+            return (int) $description;
         }
 
         return 1;

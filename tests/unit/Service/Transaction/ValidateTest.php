@@ -18,7 +18,7 @@ class ValidateTest extends TestCase
 
     public function setUp()
     {
-        $this->sut = new Validate;
+        $this->sut = new Validate();
     }
 
     /**
@@ -88,5 +88,4 @@ class ValidateTest extends TestCase
 
         $this->assertEquals($expected, $result);
     }
-
 }

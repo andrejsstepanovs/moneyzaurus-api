@@ -9,5 +9,4 @@ namespace Api\Service\Exception;
  */
 class ResourceDeniedException extends \RuntimeException
 {
-
 }

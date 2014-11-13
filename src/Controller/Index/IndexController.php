@@ -15,7 +15,7 @@ class IndexController
     public function getResponse()
     {
         $data = array(
-            'version' => 'V1'
+            'version' => 'V1',
         );
 
         return $data;

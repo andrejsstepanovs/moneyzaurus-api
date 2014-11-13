@@ -2,7 +2,6 @@
 
 namespace Tests\Service;
 
-use PHPUnit_Framework_TestCase;
 use Api\Service\Locale;
 use Tests\TestCase;
 
@@ -11,7 +10,7 @@ use Tests\TestCase;
  *
  * @package Tests\Service
  */
-class LocatorTest extends TestCase
+class LocaleTest extends TestCase
 {
     /** @var Locale */
     private $sut;
@@ -242,5 +241,4 @@ class LocatorTest extends TestCase
 
         $this->assertEquals($expected, $response);
     }
-
 }

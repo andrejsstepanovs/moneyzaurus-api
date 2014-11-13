@@ -11,7 +11,7 @@ return array(
             array('amount' => 50, 'percent' => 50),
             array('amount' => 10, 'percent' => 10),
             array('amount' => 40, 'percent' => 40),
-        )
+        ),
     ),
     array(
         array(
@@ -25,7 +25,7 @@ return array(
             array('amount' => 10, 'percent' => 10),
             array('amount' => 30, 'percent' => 30),
             array('amount' => 10, 'percent' => 10),
-        )
+        ),
     ),
     array(
         array(
@@ -37,6 +37,6 @@ return array(
             array('amount' => 10, 'percent' => 10),
             array('amount' => 11, 'percent' => 11),
             array('amount' => 79, 'percent' => 79),
-        )
+        ),
     ),
 );

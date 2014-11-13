@@ -60,7 +60,7 @@ class Bootstrap
             array(
                 'configData' => $this->getConfigData(),
                 'tmpDbFile'  => $this->tmpDb,
-                'config'     => $this->configOriginal
+                'config'     => $this->configOriginal,
             )
         );
 
@@ -121,7 +121,7 @@ class Bootstrap
         if (file_exists($file)) {
             $file    = realpath($file);
             $success = unlink($file);
-            $this->message('rm ' . $file . ' > ' . (int)$success);
+            $this->message('rm ' . $file . ' > ' . (int) $success);
         } else {
             $this->message($file . ' missing for rm');
         }
@@ -138,7 +138,7 @@ class Bootstrap
         if (file_exists($file)) {
             $file    = realpath($file);
             $success = rename($file, $destination);
-            $this->message('mv ' . $file . ' ' . $destination . ' > ' . (int)$success);
+            $this->message('mv ' . $file . ' ' . $destination . ' > ' . (int) $success);
         } else {
             $this->message($file . ' missing for cp');
             $success = false;
@@ -158,7 +158,7 @@ class Bootstrap
         if (file_exists($file)) {
             $file    = realpath($file);
             $success = copy($file, $destination);
-            $this->message('cp ' . $file . ' ' . $destination . ' > ' . (int)$success);
+            $this->message('cp ' . $file . ' ' . $destination . ' > ' . (int) $success);
         } else {
             $this->message($file . ' missing for cp');
             $success = false;

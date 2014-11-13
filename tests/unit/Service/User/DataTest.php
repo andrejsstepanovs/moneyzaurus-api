@@ -43,5 +43,4 @@ class DataTest extends TestCase
 
         $this->assertInstanceOf(get_class($this->mock()->get('Api\Entities\User')), $response);
     }
-
 }

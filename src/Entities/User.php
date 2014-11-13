@@ -323,5 +323,4 @@ class User
     {
         return $this->loginAttempts;
     }
-
 }

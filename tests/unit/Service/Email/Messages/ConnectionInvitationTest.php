@@ -2,7 +2,6 @@
 
 namespace Tests\Service\Email\Messages;
 
-
 use Api\Service\Email\Messages\ConnectionInvitation;
 use Tests\TestCase;
 
@@ -47,5 +46,4 @@ class ConnectionInvitationTest extends TestCase
 
         $this->assertInstanceOf('\Swift_Message', $response);
     }
-
 }

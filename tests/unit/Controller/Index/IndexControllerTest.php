@@ -34,5 +34,4 @@ class IndexControllerTest extends PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('version', $response);
         $this->assertNotEmpty($response['version']);
     }
-
 }

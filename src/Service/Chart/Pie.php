@@ -125,7 +125,7 @@ class Pie
      */
     public function sortByPercent(array $data)
     {
-        usort($data, function($rowA, $rowB) {
+        usort($data, function ($rowA, $rowB) {
             $valueA = $rowA['percent'];
             $valueB = $rowB['percent'];
 
@@ -158,7 +158,7 @@ class Pie
                         ->getLocale()
                         ->setLocale($userLocale)
                         ->setTimezone($userTimezone)
-                        ->getFormattedMoney($currency, (int)$value);
+                        ->getFormattedMoney($currency, (int) $value);
                 }
             }
         }

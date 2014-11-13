@@ -5,7 +5,6 @@ namespace Tests\Service\Transaction;
 use Api\Service\Transaction\Remove;
 use Tests\TestCase;
 
-
 /**
  * Class RemoveTest
  *
@@ -18,7 +17,7 @@ class RemoveTest extends TestCase
 
     public function setUp()
     {
-        $this->sut = new Remove;
+        $this->sut = new Remove();
         $this->sut->setEntityManager($this->mock()->get('Doctrine\ORM\EntityManager'));
     }
 
@@ -61,5 +60,4 @@ class RemoveTest extends TestCase
 
         $this->assertFalse($response);
     }
-
 }

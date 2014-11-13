@@ -40,11 +40,11 @@ class RegisterAndLoginTest extends TestCase
     {
         $postData = array(
             'username' => $user['email'],
-            'password' => 'wrong password'
+            'password' => 'wrong password',
         );
 
         $response = $this->post('/authenticate/login', $postData);
-        $data = (array)$response->json();
+        $data = (array) $response->json();
 
         $this->assertFalse($data['success']);
     }
@@ -58,11 +58,11 @@ class RegisterAndLoginTest extends TestCase
     {
         $postData = array(
             'username' => 'unknown@email.com',
-            'password' => $user['password']
+            'password' => $user['password'],
         );
 
         $response = $this->post('/authenticate/login', $postData);
-        $data = (array)$response->json();
+        $data = (array) $response->json();
 
         $this->assertFalse($data['success']);
     }
@@ -77,7 +77,7 @@ class RegisterAndLoginTest extends TestCase
     public function testGetUserData($token, array $user)
     {
         $response = $this->get('/user/data?token=' . $token);
-        $data = (array)$response->json();
+        $data = (array) $response->json();
 
         $this->assertTrue($data['success']);
         $this->assertNotEmpty($data['data']);
@@ -101,16 +101,16 @@ class RegisterAndLoginTest extends TestCase
             'name'     => $name,
             'locale'   => $locale,
             'language' => $language,
-            'timezone' => $timezone
+            'timezone' => $timezone,
         );
 
         $response = $this->post('/user/update?token=' . $token, $post);
 
-        $data = (array)$response->json();
+        $data = (array) $response->json();
         $this->assertTrue($data['success']);
 
         $response = $this->get('/user/data?token=' . $token);
-        $data = (array)$response->json();
+        $data = (array) $response->json();
 
         $this->assertEquals($name, $data['data']['name']);
         $this->assertEquals($language, $data['data']['language']);
@@ -126,7 +126,7 @@ class RegisterAndLoginTest extends TestCase
     public function testLogout($token)
     {
         $response = $this->get('/authenticate/logout?token=' . $token);
-        $data = (array)$response->json();
+        $data = (array) $response->json();
 
         $this->assertTrue($data['success']);
     }

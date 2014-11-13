@@ -32,5 +32,4 @@ class Money
     {
         return sprintf('%0.2f', $amount / 100);
     }
-
 }

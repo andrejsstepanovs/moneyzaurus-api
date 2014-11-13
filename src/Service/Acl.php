@@ -134,6 +134,6 @@ class Acl
     {
         $this->initialize();
 
-        return (bool)$this->getAcl()->isAllowed($role, $resource, $privilege);
+        return (bool) $this->getAcl()->isAllowed($role, $resource, $privilege);
     }
 }

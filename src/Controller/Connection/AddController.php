@@ -38,7 +38,7 @@ class AddController
     public function getResponse(User $user, $email)
     {
         $response = array(
-            'success' => false
+            'success' => false,
         );
 
         try {
@@ -57,7 +57,6 @@ class AddController
                 $response['data'] = ['id' => $connection->getId()];
                 $response['success'] = true;
             }
-
         } catch (\InvalidArgumentException $exc) {
             $response['message'] = $exc->getMessage();
         } catch (\RuntimeException $exc) {
@@ -66,5 +65,4 @@ class AddController
 
         return $response;
     }
-
 }

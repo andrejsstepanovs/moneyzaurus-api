@@ -65,8 +65,8 @@ class ListControllerTest extends TestCase
         $this->assertEquals(
             array(
                 array(
-                    'apple' => 'banana'
-                )
+                    'apple' => 'banana',
+                ),
             ),
             $response['data']
         );
@@ -116,12 +116,10 @@ class ListControllerTest extends TestCase
         $this->assertEquals(
             array(
                 array(
-                    'apple' => 'banana'
-                )
+                    'apple' => 'banana',
+                ),
             ),
             $response['data']
         );
     }
-
 }
-

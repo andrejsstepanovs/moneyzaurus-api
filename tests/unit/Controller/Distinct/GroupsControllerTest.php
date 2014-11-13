@@ -33,8 +33,8 @@ class GroupsControllerTest extends TestCase
                 array(
                     'success' => true,
                     'count'   => 1,
-                    'data' => array('Apple')
-                )
+                    'data' => array('Apple'),
+                ),
             ),
             array(
                 array(),
@@ -42,8 +42,8 @@ class GroupsControllerTest extends TestCase
                 array(
                     'success' => true,
                     'count'   => 0,
-                    'data' => array()
-                )
+                    'data' => array(),
+                ),
             ),
             array(
                 array(''),
@@ -51,8 +51,8 @@ class GroupsControllerTest extends TestCase
                 array(
                     'success' => true,
                     'count'   => 1,
-                    'data' => array('')
-                )
+                    'data' => array(''),
+                ),
             ),
             array(
                 array('apple', 'banana', 'orange'),
@@ -60,8 +60,8 @@ class GroupsControllerTest extends TestCase
                 array(
                     'success' => true,
                     'count'   => 3,
-                    'data' => array('apple', 'banana', 'orange')
-                )
+                    'data' => array('apple', 'banana', 'orange'),
+                ),
             ),
             array(
                 array('apple', 'banana'),
@@ -69,8 +69,8 @@ class GroupsControllerTest extends TestCase
                 array(
                     'success' => true,
                     'count'   => 2,
-                    'data' => array('apple', 'banana')
-                )
+                    'data' => array('apple', 'banana'),
+                ),
             ),
         );
     }
@@ -128,5 +128,4 @@ class GroupsControllerTest extends TestCase
         $this->assertTrue(is_array($response));
         $this->assertEquals($expected, $response);
     }
-
 }

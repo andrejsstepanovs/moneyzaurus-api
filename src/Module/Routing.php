@@ -47,9 +47,8 @@ class Routing extends KernelRouting
         ini_set('display_errors', intval($devMode));
         $slim->config('debug', $devMode);
 
-
         set_error_handler(
-            function($errno, $errstr) {
+            function ($errno, $errstr) {
                 throw new \RuntimeException($errstr);
             },
             E_ALL
@@ -63,7 +62,7 @@ class Routing extends KernelRouting
 
         $slim->map(
              '/',
-             function() use ($container, $slim) {
+             function () use ($container, $slim) {
                  /** @var \Api\Controller\Index\IndexController $controller */
                  $controller = $container->get('controller.index.index');
                  $slim->setData($controller->getResponse());
@@ -73,7 +72,7 @@ class Routing extends KernelRouting
 
         $slim->map(
              '/authenticate/login',
-             function() use ($container, $slim) {
+             function () use ($container, $slim) {
                  $username = $slim->request()->post('username');
                  $password = $slim->request()->post('password');
 
@@ -86,7 +85,7 @@ class Routing extends KernelRouting
 
         $slim->map(
              '/user/register',
-             function() use ($container, $slim) {
+             function () use ($container, $slim) {
                  $request = $slim->request();
 
                  /** @var \Api\Controller\User\RegisterController $controller */
@@ -107,7 +106,7 @@ class Routing extends KernelRouting
 
         $slim->map(
              '/authenticate/logout',
-             function() use ($container, $slim) {
+             function () use ($container, $slim) {
                  /** @var \Api\Controller\Authenticate\LogoutController $controller */
                  $controller = $container->get('controller.authenticate.logout');
                  $response = $controller->getResponse(
@@ -121,7 +120,7 @@ class Routing extends KernelRouting
 
         $slim->map(
              '/authenticate/password-recovery',
-             function() use ($container, $slim) {
+             function () use ($container, $slim) {
                  $username = $slim->request()->post('username');
 
                  /** @var \Api\Controller\Authenticate\PasswordRecoveryController $controller */
@@ -134,7 +133,7 @@ class Routing extends KernelRouting
 
         $slim->map(
              '/transactions/id/:id',
-             function($id) use ($container, $slim) {
+             function ($id) use ($container, $slim) {
                  /** @var \Api\Controller\Transactions\IdController $controller */
                  $controller = $container->get('controller.transactions.id');
                  $response = $controller->getResponse(
@@ -149,7 +148,7 @@ class Routing extends KernelRouting
 
         $slim->map(
              '/transactions/remove/:id',
-             function($id) use ($container, $slim) {
+             function ($id) use ($container, $slim) {
                  /** @var \Api\Controller\Transactions\RemoveController $controller */
                  $controller = $container->get('controller.transactions.remove');
                  $response = $controller->getResponse(
@@ -164,7 +163,7 @@ class Routing extends KernelRouting
 
         $slim->map(
              '/transactions/update/:id',
-             function($id) use ($container, $slim) {
+             function ($id) use ($container, $slim) {
                  /** @var \Api\Controller\Transactions\UpdateController $controller */
                  $controller = $container->get('controller.transactions.update');
                  $request = $slim->request();
@@ -185,7 +184,7 @@ class Routing extends KernelRouting
 
         $slim->map(
              '/transactions/list',
-             function() use ($container, $slim) {
+             function () use ($container, $slim) {
                  /** @var \Api\Controller\Transactions\ListController $controller */
                  $controller = $container->get('controller.transactions.list');
                  $response = $controller->getResponse(
@@ -206,7 +205,7 @@ class Routing extends KernelRouting
 
         $slim->map(
             '/transactions/add',
-            function() use ($container, $slim) {
+            function () use ($container, $slim) {
                 /** @var \Api\Controller\Transactions\CreateController $controller */
                 $controller = $container->get('controller.transactions.create');
                 $request = $slim->request();
@@ -225,7 +224,7 @@ class Routing extends KernelRouting
 
         $slim->map(
             '/distinct/groups',
-            function() use ($container, $slim) {
+            function () use ($container, $slim) {
                 /** @var \Api\Controller\Distinct\GroupsController $controller */
                 $controller = $container->get('controller.distinct.groups');
                 $response = $controller->getResponse(
@@ -241,7 +240,7 @@ class Routing extends KernelRouting
 
         $slim->map(
             '/distinct/items',
-            function() use ($container, $slim) {
+            function () use ($container, $slim) {
                 /** @var \Api\Controller\Distinct\ItemsController $controller */
                 $controller = $container->get('controller.distinct.items');
                 $response = $controller->getResponse(
@@ -257,7 +256,7 @@ class Routing extends KernelRouting
 
         $slim->map(
             '/predict/group',
-            function() use ($container, $slim) {
+            function () use ($container, $slim) {
                 /** @var \Api\Controller\Predict\GroupController $controller */
                 $controller = $container->get('controller.predict.group');
                 $response = $controller->getResponse(
@@ -272,7 +271,7 @@ class Routing extends KernelRouting
 
         $slim->map(
              '/predict/price',
-             function() use ($container, $slim) {
+             function () use ($container, $slim) {
                  /** @var \Api\Controller\Predict\PriceController $controller */
                  $controller = $container->get('controller.predict.price');
                  $response = $controller->getResponse(
@@ -288,7 +287,7 @@ class Routing extends KernelRouting
 
         $slim->map(
             '/user/data',
-            function() use ($container, $slim) {
+            function () use ($container, $slim) {
                 /** @var \Api\Controller\User\DataController $controller */
                 $controller = $container->get('controller.user.data');
                 $response = $controller->getResponse($slim->config('user'));
@@ -299,7 +298,7 @@ class Routing extends KernelRouting
 
         $slim->map(
             '/user/update',
-            function() use ($container, $slim) {
+            function () use ($container, $slim) {
                 /** @var \Api\Controller\User\UpdateController $controller */
                 $controller = $container->get('controller.user.update');
                 $response = $controller->getResponse(
@@ -317,12 +316,12 @@ class Routing extends KernelRouting
 
         $slim->map(
             '/connection/list',
-            function() use ($container, $slim) {
+            function () use ($container, $slim) {
                 /** @var \Api\Controller\Connection\ListController $controller */
                 $controller = $container->get('controller.connection.list');
                 $response = $controller->getResponse(
                     $slim->config('user'),
-                    (bool)$slim->request()->get('parent')
+                    (bool) $slim->request()->get('parent')
                 );
                 $slim->setData($response);
             }
@@ -331,7 +330,7 @@ class Routing extends KernelRouting
 
         $slim->map(
             '/connection/add',
-            function() use ($container, $slim) {
+            function () use ($container, $slim) {
                 /** @var \Api\Controller\Connection\AddController $controller */
                 $controller = $container->get('controller.connection.add');
                 $response = $controller->getResponse(
@@ -345,7 +344,7 @@ class Routing extends KernelRouting
 
         $slim->map(
             '/connection/reject/:id',
-            function($id) use ($container, $slim) {
+            function ($id) use ($container, $slim) {
                 /** @var \Api\Controller\Connection\RejectController $controller */
                 $controller = $container->get('controller.connection.reject');
                 $response = $controller->getResponse($slim->config('user'), $id);
@@ -356,7 +355,7 @@ class Routing extends KernelRouting
 
         $slim->map(
             '/connection/accept/:id',
-            function($id) use ($container, $slim) {
+            function ($id) use ($container, $slim) {
                 /** @var \Api\Controller\Connection\AcceptController $controller */
                 $controller = $container->get('controller.connection.accept');
                 $response = $controller->getResponse($slim->config('user'), $id);
@@ -365,10 +364,9 @@ class Routing extends KernelRouting
         )
         ->via(Request::METHOD_POST);
 
-
         $slim->map(
              '/chart/pie',
-             function() use ($container, $slim) {
+             function () use ($container, $slim) {
                  /** @var \Api\Controller\Chart\PieController $controller */
                  $controller = $container->get('controller.chart.pie');
                  $response = $controller->getResponse(

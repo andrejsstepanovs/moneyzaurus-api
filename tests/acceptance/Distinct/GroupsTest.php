@@ -43,7 +43,7 @@ class GroupsTest extends CreateTest
                     'group'    => 'food',
                     'price'    => '1.00',
                     'currency' => 'EUR',
-                    'date'     => '2000-01-01'
+                    'date'     => '2000-01-01',
                 ),
             ),
             array(
@@ -52,7 +52,7 @@ class GroupsTest extends CreateTest
                     'group'    => 'food',
                     'price'    => '0.5',
                     'currency' => 'EUR',
-                    'date'     => date('Y-m-d')
+                    'date'     => date('Y-m-d'),
                 ),
             ),
             array(
@@ -61,7 +61,7 @@ class GroupsTest extends CreateTest
                     'group'    => 'home',
                     'price'    => '0.5',
                     'currency' => 'EUR',
-                    'date'     => date('Y-m-d')
+                    'date'     => date('Y-m-d'),
                 ),
             ),
         );
@@ -85,7 +85,7 @@ class GroupsTest extends CreateTest
     public function testGroups($token)
     {
         $response = $this->get('/distinct/groups?token=' . $token);
-        $data = (array)$response->json();
+        $data = (array) $response->json();
 
         $this->assertTrue($data['success']);
         $this->assertArrayHasKey('count', $data);
@@ -97,5 +97,4 @@ class GroupsTest extends CreateTest
             $data['data']
         );
     }
-
 }

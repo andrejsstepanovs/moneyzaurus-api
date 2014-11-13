@@ -46,7 +46,7 @@ class DataTest extends TestCase
              ->method('createQuery')
              ->with(
                  $this->callback(
-                      function($dql) {
+                      function ($dql) {
                           $searchWords = array(
                               't.date >= :dateFrom',
                               't.date <= :dateTill',
@@ -223,7 +223,7 @@ class DataTest extends TestCase
             'itemName'        => null,
             'itemId'          => null,
             'groupName'       => null,
-            'groupId'         => null
+            'groupId'         => null,
         );
 
         $this->assertTrue(is_array($response));

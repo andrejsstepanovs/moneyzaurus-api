@@ -43,7 +43,7 @@ class CreateTest extends TestCase
                     'group'    => 'Group Name',
                     'price'    => '12',
                     'currency' => 'EUR',
-                    'date'     => date('Y-m-d')
+                    'date'     => date('Y-m-d'),
                 ),
             ),
             array(
@@ -52,7 +52,7 @@ class CreateTest extends TestCase
                     'group'    => 'ŠĶĻĀnņūīkls',
                     'price'    => '11.10',
                     'currency' => 'EUR',
-                    'date'     => date('Y-m-d')
+                    'date'     => date('Y-m-d'),
                 ),
             ),
             array(
@@ -61,7 +61,7 @@ class CreateTest extends TestCase
                     'group'    => 'Test1',
                     'price'    => '10.95',
                     'currency' => 'EUR',
-                    'date'     => date('Y-m-d')
+                    'date'     => date('Y-m-d'),
                 ),
             ),
             array(
@@ -70,7 +70,7 @@ class CreateTest extends TestCase
                     'group'    => 'Test1',
                     'price'    => '5.05',
                     'currency' => 'EUR',
-                    'date'     => date('Y-m-d')
+                    'date'     => date('Y-m-d'),
                 ),
             ),
             array(
@@ -79,7 +79,7 @@ class CreateTest extends TestCase
                     'group'    => 'Test1',
                     'price'    => '5.05',
                     'currency' => 'EUR',
-                    'date'     => date('Y-m-d')
+                    'date'     => date('Y-m-d'),
                 ),
             ),
         );
@@ -94,7 +94,7 @@ class CreateTest extends TestCase
     public function testSuccessfulCreate(array $post, $token)
     {
         $response = $this->post('/transactions/add?token=' . $token, $post);
-        $data = (array)$response->json();
+        $data = (array) $response->json();
 
         $this->assertTrue($data['success']);
         $this->assertGreaterThan(0, $data['data']['id']);

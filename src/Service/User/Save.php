@@ -33,7 +33,6 @@ class Save
             $entityManager->persist($user);
             $entityManager->flush($user);
             $entityManager->commit();
-
         } catch (\Exception $exc) {
             $this->getEntityManager()->rollback();
 

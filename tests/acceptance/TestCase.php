@@ -25,7 +25,7 @@ class TestCase extends PHPUnit_Framework_TestCase
     protected function getBaseUrl()
     {
         if ($this->baseUrl === null) {
-            $this->baseUrl = 'http://localhost:8000';
+            $this->baseUrl = 'http://127.0.0.1:80';
         }
 
         return $this->baseUrl;
@@ -104,7 +104,7 @@ class TestCase extends PHPUnit_Framework_TestCase
         );
 
         $response = $this->post('/user/register', $postData);
-        $data = (array)$response->json();
+        $data = (array) $response->json();
 
         $this->assertTrue($data['success']);
         $this->assertGreaterThan(0, $data['data']['id']);
@@ -126,12 +126,13 @@ class TestCase extends PHPUnit_Framework_TestCase
     {
         $postData = array(
             'username' => $user['email'],
-            'password' => $user['password']
+            'password' => $user['password'],
         );
 
         $response = $this->post('/authenticate/login', $postData);
-        $responseData = (array)$response->json();
+        $responseData = (array) $response->json();
 
+        $this->assertArrayHasKey('success', $responseData, print_r($responseData, true));
         $this->assertTrue($responseData['success']);
         $this->assertNotEmpty($responseData['data']['token']);
         $this->assertNotEmpty($responseData['data']['expires']);

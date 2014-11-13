@@ -3,7 +3,6 @@
 namespace Tests\Service\Transaction;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Query;
 use Api\Service\Transaction\Save;
 use Api\Entities\Item;
 use Api\Entities\Group;
@@ -45,6 +44,7 @@ class CreateTest extends TestCase
     private function getEntityRepositoryMock()
     {
         $methods = array('findOneBy');
+
         return $this
             ->getMockBuilder('Doctrine\ORM\EntityRepository')
             ->disableOriginalConstructor()
@@ -106,7 +106,7 @@ class CreateTest extends TestCase
         $group    = 'group';
         $amount   = 100;
         $currency = 'UNKNOWN';
-        $dateTime = new \DateTime;
+        $dateTime = new \DateTime();
 
         $this->getCurrencyEntityRepositoryMock()
             ->expects($this->once())
@@ -130,7 +130,7 @@ class CreateTest extends TestCase
         $group    = 'group';
         $amount   = 100;
         $currency = 'UNKNOWN';
-        $dateTime = new \DateTime;
+        $dateTime = new \DateTime();
 
         $this->getCurrencyEntityRepositoryMock()
              ->expects($this->once())
@@ -159,7 +159,7 @@ class CreateTest extends TestCase
         $group    = 'group';
         $amount   = 100;
         $currency = 'UNKNOWN';
-        $dateTime = new \DateTime;
+        $dateTime = new \DateTime();
 
         $this->getCurrencyEntityRepositoryMock()
              ->expects($this->once())
@@ -193,7 +193,7 @@ class CreateTest extends TestCase
         $group    = 'group';
         $amount   = 100;
         $currency = 'UNKNOWN';
-        $dateTime = new \DateTime;
+        $dateTime = new \DateTime();
 
         $this->getCurrencyEntityRepositoryMock()
              ->expects($this->once())
@@ -227,7 +227,7 @@ class CreateTest extends TestCase
         $group    = 'group';
         $amount   = 'wrong amount value';
         $currency = 'UNKNOWN';
-        $dateTime = new \DateTime;
+        $dateTime = new \DateTime();
 
         $this->mock()->get('Api\Entities\Currency')
              ->expects($this->once())
@@ -263,7 +263,7 @@ class CreateTest extends TestCase
         $group    = 'group';
         $amount   = 100;
         $currency = 'UNKNOWN';
-        $dateTime = new \DateTime;
+        $dateTime = new \DateTime();
 
         $this->mock()->get('Api\Entities\Currency')
              ->expects($this->once())
@@ -301,7 +301,7 @@ class CreateTest extends TestCase
         $group    = 'group';
         $amount   = 100;
         $currency = 'UNKNOWN';
-        $dateTime = new \DateTime;
+        $dateTime = new \DateTime();
 
         $this->mock()->get('Api\Entities\Currency')
              ->expects($this->once())
@@ -336,7 +336,6 @@ class CreateTest extends TestCase
 
         $this->assertInstanceOf('Api\Entities\Transaction', $response);
     }
-
 
     public function testGroupIsNotFoundAndIsCreatedSuccessfully()
     {
@@ -345,7 +344,7 @@ class CreateTest extends TestCase
         $group    = 'group';
         $amount   = 100;
         $currency = 'UNKNOWN';
-        $dateTime = new \DateTime;
+        $dateTime = new \DateTime();
 
         $this->mock()->get('Api\Entities\Currency')
              ->expects($this->once())
@@ -380,5 +379,4 @@ class CreateTest extends TestCase
 
         $this->assertInstanceOf('Api\Entities\Transaction', $response);
     }
-
 }

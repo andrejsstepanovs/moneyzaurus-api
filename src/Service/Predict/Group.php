@@ -65,7 +65,7 @@ class Group
 
         $parameters = array(
             'userIds'  => $userIds,
-            'dateFrom' => $dateFrom->format('Y-m-d')
+            'dateFrom' => $dateFrom->format('Y-m-d'),
         );
 
         if (!empty($item)) {
@@ -95,5 +95,4 @@ class Group
 
         return $query->getResult();
     }
-
 }

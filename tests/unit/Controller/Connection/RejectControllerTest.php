@@ -51,7 +51,6 @@ class RejectControllerTest extends TestCase
             ->method('getParent')
             ->will($this->returnValue($parent));
 
-
         $response = $this->sut->getResponse($user, $connectionId);
 
         $this->assertFalse($response['success']);
@@ -130,4 +129,3 @@ class RejectControllerTest extends TestCase
         $this->assertTrue($response['success']);
     }
 }
-

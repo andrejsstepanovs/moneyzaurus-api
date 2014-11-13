@@ -3,7 +3,6 @@
 namespace Api\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
-use Api\Entities\User;
 
 /**
  * AccessToken
@@ -179,5 +178,4 @@ class AccessToken
     {
         return $this->token;
     }
-
 }

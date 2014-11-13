@@ -9,7 +9,7 @@ use Api\Entities\Connection;
 use Api\Service\User\Data as UserData;
 use Api\Service\Locale;
 use Doctrine\ORM\EntityRepository;
-use \Doctrine\DBAL\LockMode;
+
 
 /**
  * Class Data
@@ -37,7 +37,7 @@ class Data
     public function findByUser(User $user)
     {
         $criteria = array(
-            'user' => $user->getId()
+            'user' => $user->getId(),
         );
 
         return $this->getConnectionRepository()->findBy($criteria);
@@ -51,7 +51,7 @@ class Data
     public function findByParent(User $user)
     {
         $criteria = array(
-            'parent' => $user->getId()
+            'parent' => $user->getId(),
         );
 
         return $this->getConnectionRepository()->findBy($criteria);

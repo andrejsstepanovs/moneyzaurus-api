@@ -43,15 +43,15 @@ class LoginAbuseTest extends TestCase
         $expectedSleepTime = $security['login_abuse_sleep_time'];
         $maxLoginAttempts  = $security['max_login_attempts'];
 
-        for($i = 1; $i <= $maxLoginAttempts; $i++) {
+        for ($i = 1; $i <= $maxLoginAttempts; $i++) {
             $start = time();
             $postData = array(
                 'username' => $user['email'],
-                'password' => 'wrong password'
+                'password' => 'wrong password',
             );
 
             $response = $this->post('/authenticate/login', $postData);
-            $data = (array)$response->json();
+            $data = (array) $response->json();
 
             $this->assertFalse($data['success']);
 
@@ -64,5 +64,4 @@ class LoginAbuseTest extends TestCase
             }
         }
     }
-
 }

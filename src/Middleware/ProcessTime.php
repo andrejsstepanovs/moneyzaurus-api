@@ -45,7 +45,7 @@ class ProcessTime extends Middleware
 
         $timeDifference = array(
             'timestamp' => $time->getDateTime()->getTimestamp(),
-            'process'   => $time->getMicroTimeDifference($this->getStartTime(), $this->getStopTime())
+            'process'   => $time->getMicroTimeDifference($this->getStartTime(), $this->getStopTime()),
         );
 
         $appData = $app->getData();

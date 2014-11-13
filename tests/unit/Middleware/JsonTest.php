@@ -26,7 +26,7 @@ class JsonTest extends TestCase
     public function testJson()
     {
         $data = array(
-            'banana' => 'yellow'
+            'banana' => 'yellow',
         );
 
         $this->mock()->get('\Api\Slim')
@@ -64,11 +64,10 @@ class JsonTest extends TestCase
         $this->sut->call();
     }
 
-
     public function testJsonParseError()
     {
         $data = array(
-            'banana' => 'yellow'
+            'banana' => 'yellow',
         );
 
         $this->mock()->get('\Api\Slim')

@@ -11,7 +11,6 @@ use Api\Entities\User;
 use Api\Service\AccessorTrait;
 use Api\Service\Time;
 use Api\Service\Exception\ResourceDeniedException;
-use Api\Middleware\Json;
 
 /**
  * Class Json
@@ -87,11 +86,10 @@ class Authorization extends Middleware
             $app->config('connectedUserIds', $connectedUserIds);
 
             $this->getNextMiddleware()->call();
-
         } catch (\RuntimeException $exc) {
             $data = [
                 'success' => false,
-                'message' => $exc->getMessage()
+                'message' => $exc->getMessage(),
             ];
             $app->setData($data);
 

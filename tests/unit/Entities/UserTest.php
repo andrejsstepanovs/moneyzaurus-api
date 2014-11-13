@@ -2,7 +2,6 @@
 
 namespace Tests\Entities;
 
-
 use Api\Entities\User;
 use Tests\TestCase;
 
@@ -108,5 +107,4 @@ class UserTest extends TestCase
 
         $this->assertEquals($value, $response);
     }
-
 }

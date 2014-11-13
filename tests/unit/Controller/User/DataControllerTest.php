@@ -48,7 +48,7 @@ class DataControllerTest extends TestCase
             'language' => 'en_US',
             'locale'   => 'lv_LV',
             'timezone' => 'Europe/Berlin',
-            'state'    => 1
+            'state'    => 1,
         );
 
         $this->expectedMethod('getId', $expected['id']);
@@ -65,7 +65,7 @@ class DataControllerTest extends TestCase
         $this->assertEquals(
             array(
                 'success' => true,
-                'data'    => $expected
+                'data'    => $expected,
             ),
             $response
         );

@@ -92,7 +92,7 @@ class Headers extends Middleware
             Request::METHOD_POST,
             Request::METHOD_DELETE,
             Request::METHOD_PUT,
-            Request::METHOD_OPTIONS
+            Request::METHOD_OPTIONS,
         ];
         $headers->set('Access-Control-Allow-Methods', implode(', ', $allowMethods));
 

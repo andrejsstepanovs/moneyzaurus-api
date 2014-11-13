@@ -3,7 +3,6 @@
 namespace Tests\Controller\Authenticate;
 
 use Api\Controller\Authenticate\PasswordRecoveryController;
-use \Swift_Mailer as Mailer;
 use Tests\TestCase;
 
 /**

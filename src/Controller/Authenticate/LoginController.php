@@ -45,12 +45,13 @@ class LoginController
     public function getResponse($username, $password)
     {
         $response = array(
-            'success' => false
+            'success' => false,
         );
 
         $user = $this->getUserData()->findUser($username);
         if (!$user) {
             sleep(2);
+
             return $response;
         }
 
@@ -70,7 +71,7 @@ class LoginController
                 'email'             => $user->getEmail(),
                 'token'             => $token->getToken(),
                 'expires'           => $dateTimeFormatter->format($validUntil),
-                'expires_timestamp' => $validUntil->getTimestamp()
+                'expires_timestamp' => $validUntil->getTimestamp(),
             );
         }
 

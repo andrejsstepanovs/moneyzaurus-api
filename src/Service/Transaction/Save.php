@@ -73,7 +73,7 @@ class Save
     {
         $criteria = array(
             'name' => $item,
-            'user' => $user
+            'user' => $user,
         );
 
         $entity = $this->getItemEntity()->findOneBy($criteria);
@@ -95,7 +95,7 @@ class Save
      */
     private function createItem($name, User $user, \DateTime $dateTime)
     {
-        $entity = new Item;
+        $entity = new Item();
         $entity
             ->setName($name)
             ->setUser($user)
@@ -118,7 +118,7 @@ class Save
     {
         $criteria = array(
             'name' => $group,
-            'user' => $user
+            'user' => $user,
         );
 
         $entity = $this->getGroupEntity()->findOneBy($criteria);
@@ -140,7 +140,7 @@ class Save
      */
     private function createGroup($name, User $user, \DateTime $dateTime)
     {
-        $entity = new Group;
+        $entity = new Group();
         $entity
             ->setName($name)
             ->setUser($user)
@@ -223,7 +223,7 @@ class Save
             ->setGroup($group)
             ->setCurrency($currency)
             ->setPrice($price->getAmount())
-            ->setDateCreated(new \DateTime)
+            ->setDateCreated(new \DateTime())
             ->setDate($dateTime);
 
         $entityManager = $this->getEntityManager();

@@ -34,5 +34,4 @@ class Date
 
         return $dateTime;
     }
-
 }

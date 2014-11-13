@@ -34,7 +34,7 @@ class PriceController
         $userIds = array_merge(array($user->getId()), $connectedUserIds);
 
         $data = array(
-            'success' => true
+            'success' => true,
         );
 
         try {

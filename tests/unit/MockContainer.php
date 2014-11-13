@@ -38,6 +38,7 @@ class MockContainer extends Pimple
     public function setTestCase(PHPUnit_Framework_TestCase $testCase)
     {
         $this['case'] = $testCase;
+
         return $this;
     }
 
@@ -51,7 +52,7 @@ class MockContainer extends Pimple
 
     private function initMiddleware()
     {
-        $this['Api\Middleware\Json'] = function(MockContainer $self) {
+        $this['Api\Middleware\Json'] = function (MockContainer $self) {
             return $self->buildMock(
                 '\Api\Middleware\Json',
                 array('modifyResponse')
@@ -61,16 +62,17 @@ class MockContainer extends Pimple
 
     private function initEmail()
     {
-        $this['Tests\Stub\TestTransport'] = function(MockContainer $self) {
+        $this['Tests\Stub\TestTransport'] = function (MockContainer $self) {
             require_once 'Stub/TestTransport.php';
+
             return new \Tests\Stub\TestTransport();
         };
 
-        $this['\Swift_Mailer'] = function(MockContainer $self) {
+        $this['\Swift_Mailer'] = function (MockContainer $self) {
             return new \Swift_Mailer($self->get('Tests\Stub\TestTransport'));
         };
 
-        $this['\Egulias\EmailValidator\EmailValidator'] = function(MockContainer $self) {
+        $this['\Egulias\EmailValidator\EmailValidator'] = function (MockContainer $self) {
             return $self->buildMock(
                 '\Egulias\EmailValidator\EmailValidator',
                 array('isValid')
@@ -80,28 +82,28 @@ class MockContainer extends Pimple
 
     public function initServiceTransaction()
     {
-        $this['Api\Service\Items\Data'] = function(MockContainer $self) {
+        $this['Api\Service\Items\Data'] = function (MockContainer $self) {
             return $self->buildMock(
                 'Api\Service\Items\Data',
                 array('getItems')
             );
         };
 
-        $this['Api\Service\Groups\Data'] = function(MockContainer $self) {
+        $this['Api\Service\Groups\Data'] = function (MockContainer $self) {
             return $self->buildMock(
                 'Api\Service\Groups\Data',
                 array('getGroups')
             );
         };
 
-        $this['Api\Service\Connection\Save'] = function(MockContainer $self) {
+        $this['Api\Service\Connection\Save'] = function (MockContainer $self) {
             return $self->buildMock(
                 'Api\Service\Connection\Save',
                 array('save')
             );
         };
 
-        $this['Api\Service\Connection\Data'] = function(MockContainer $self) {
+        $this['Api\Service\Connection\Data'] = function (MockContainer $self) {
             return $self->buildMock(
                 'Api\Service\Connection\Data',
                 array(
@@ -114,19 +116,19 @@ class MockContainer extends Pimple
             );
         };
 
-        $this['Api\Service\Transaction\Data'] = function(MockContainer $self) {
+        $this['Api\Service\Transaction\Data'] = function (MockContainer $self) {
             return $self->buildMock(
                 'Api\Service\Transaction\Data',
                 array(
                     'find',
                     'toArray',
                     'getTransactionsList',
-                    'normalizeResults'
+                    'normalizeResults',
                 )
             );
         };
 
-        $this['Api\Service\Email\Messages\ConnectionInvitation'] = function(MockContainer $self) {
+        $this['Api\Service\Email\Messages\ConnectionInvitation'] = function (MockContainer $self) {
             return $self->buildMock(
                 'Api\Service\Email\Messages\ConnectionInvitation',
                 array(
@@ -136,7 +138,7 @@ class MockContainer extends Pimple
             );
         };
 
-        $this['Api\Service\Email\Messages\PasswordRecovery'] = function(MockContainer $self) {
+        $this['Api\Service\Email\Messages\PasswordRecovery'] = function (MockContainer $self) {
             return $self->buildMock(
                 'Api\Service\Email\Messages\PasswordRecovery',
                 array(
@@ -147,27 +149,27 @@ class MockContainer extends Pimple
             );
         };
 
-        $this['Api\Service\User\Data'] = function(MockContainer $self) {
+        $this['Api\Service\User\Data'] = function (MockContainer $self) {
             return $self->buildMock(
                 'Api\Service\User\Data',
                 array(
                     'setUser',
-                    'findUser'
+                    'findUser',
                 )
             );
         };
 
-        $this['Api\Service\User\Save'] = function(MockContainer $self) {
+        $this['Api\Service\User\Save'] = function (MockContainer $self) {
             return $self->buildMock(
                 'Api\Service\User\Save',
                 array(
                     'setEntityManager',
-                    'saveUser'
+                    'saveUser',
                 )
             );
         };
 
-        $this['Api\Service\Transaction\Validate'] = function(MockContainer $self) {
+        $this['Api\Service\Transaction\Validate'] = function (MockContainer $self) {
             return $self->buildMock(
                 'Api\Service\Transaction\Validate',
                 array(
@@ -176,7 +178,7 @@ class MockContainer extends Pimple
             );
         };
 
-        $this['Api\Service\Transaction\Save'] = function(MockContainer $self) {
+        $this['Api\Service\Transaction\Save'] = function (MockContainer $self) {
             return $self->buildMock(
                 'Api\Service\Transaction\Save',
                 array(
@@ -185,7 +187,7 @@ class MockContainer extends Pimple
             );
         };
 
-        $this['Api\Service\Transaction\Remove'] = function(MockContainer $self) {
+        $this['Api\Service\Transaction\Remove'] = function (MockContainer $self) {
             return $self->buildMock(
                 'Api\Service\Transaction\Remove',
                 array(
@@ -194,7 +196,7 @@ class MockContainer extends Pimple
             );
         };
 
-        $this['Api\Service\Transaction\Date'] = function(MockContainer $self) {
+        $this['Api\Service\Transaction\Date'] = function (MockContainer $self) {
             return $self->buildMock(
                 'Api\Service\Transaction\Date',
                 array(
@@ -203,7 +205,7 @@ class MockContainer extends Pimple
             );
         };
 
-        $this['Api\Service\Transaction\Money'] = function(MockContainer $self) {
+        $this['Api\Service\Transaction\Money'] = function (MockContainer $self) {
             return $self->buildMock(
                 'Api\Service\Transaction\Money',
                 array(
@@ -212,7 +214,7 @@ class MockContainer extends Pimple
             );
         };
 
-        $this['Api\Service\Locale'] = function(MockContainer $self) {
+        $this['Api\Service\Locale'] = function (MockContainer $self) {
             return $self->buildMock(
                 'Api\Service\Locale',
                 array(
@@ -223,24 +225,24 @@ class MockContainer extends Pimple
                     'getFormattedMoney',
                     'format',
                     'isValidLocale',
-                    'isValidTimezone'
+                    'isValidTimezone',
                 )
             );
         };
 
-        $this['Doctrine\ORM\EntityRepository'] = function(MockContainer $self) {
+        $this['Doctrine\ORM\EntityRepository'] = function (MockContainer $self) {
             return $self->buildMock(
                 'Doctrine\ORM\EntityRepository',
                 array(
                     'find',
                     'findBy',
                     'findOneBy',
-                    'getUser'
+                    'getUser',
                 )
             );
         };
 
-        $this['Doctrine\ORM\EntityManager'] = function(MockContainer $self) {
+        $this['Doctrine\ORM\EntityManager'] = function (MockContainer $self) {
             return $self->buildMock(
                 'Doctrine\ORM\EntityManager',
                 array(
@@ -254,12 +256,12 @@ class MockContainer extends Pimple
                     'findBy',
                     'findOneBy',
                     'find',
-                    'remove'
+                    'remove',
                 )
             );
         };
 
-        $this['Doctrine\ORM\AbstractQuery'] = function(MockContainer $self) {
+        $this['Doctrine\ORM\AbstractQuery'] = function (MockContainer $self) {
             return $self->buildMock(
                 'Doctrine\ORM\AbstractQuery',
                 array(
@@ -268,23 +270,23 @@ class MockContainer extends Pimple
                     'setFirstResult',
                     'getResult',
                     'getSQL',
-                    '_doExecute'
+                    '_doExecute',
                 )
             );
         };
 
-        $this['Api\Service\Authorization\Crypt'] = function(MockContainer $self) {
+        $this['Api\Service\Authorization\Crypt'] = function (MockContainer $self) {
             return $self->buildMock(
                 'Api\Service\Authorization\Crypt',
                 array(
                     'verify',
                     'create',
-                    'getRandomPassword'
+                    'getRandomPassword',
                 )
             );
         };
 
-        $this['Api\Service\Authorization\Token'] = function(MockContainer $self) {
+        $this['Api\Service\Authorization\Token'] = function (MockContainer $self) {
             return $self->buildMock(
                 'Api\Service\Authorization\Token',
                 array(
@@ -296,53 +298,53 @@ class MockContainer extends Pimple
                     'generateToken',
                     'setUser',
                     'setAccessToken',
-                    'remove'
+                    'remove',
                 )
             );
         };
 
-        $this['\Api\Service\Time'] = function(MockContainer $self) {
+        $this['\Api\Service\Time'] = function (MockContainer $self) {
             return $self->buildMock(
                 '\Api\Service\Time',
                 array(
                     'setTimezone',
                     'getMicroTimeDifference',
                     'getDateTime',
-                    'compareDateTime'
+                    'compareDateTime',
                 )
             );
         };
 
-        $this['\Api\Service\Json'] = function(MockContainer $self) {
+        $this['\Api\Service\Json'] = function (MockContainer $self) {
             return $self->buildMock(
                 '\Api\Service\Json',
                 array(
                     'encode',
                     'decode',
-                    'getJsonErrorMessage'
+                    'getJsonErrorMessage',
                 )
             );
         };
 
-        $this['Api\Service\Predict\Group'] = function(MockContainer $self) {
+        $this['Api\Service\Predict\Group'] = function (MockContainer $self) {
             return $self->buildMock(
                 'Api\Service\Predict\Group',
                 array(
-                    'predict'
+                    'predict',
                 )
             );
         };
 
-        $this['Api\Service\Predict\Price'] = function(MockContainer $self) {
+        $this['Api\Service\Predict\Price'] = function (MockContainer $self) {
             return $self->buildMock(
                 'Api\Service\Predict\Price',
                 array(
-                    'predict'
+                    'predict',
                 )
             );
         };
 
-        $this['\Slim\Slim'] = function(MockContainer $self) {
+        $this['\Slim\Slim'] = function (MockContainer $self) {
             return $self->buildMock(
                 '\Slim\Slim',
                 array(
@@ -356,7 +358,7 @@ class MockContainer extends Pimple
             );
         };
 
-        $this['\Api\Slim'] = function(MockContainer $self) {
+        $this['\Api\Slim'] = function (MockContainer $self) {
             return $self->buildMock(
                 '\Api\Slim',
                 array(
@@ -370,80 +372,79 @@ class MockContainer extends Pimple
             );
         };
 
-        $this['\Slim\Middleware'] = function(MockContainer $self) {
+        $this['\Slim\Middleware'] = function (MockContainer $self) {
             return $self->buildMock(
                 '\Slim\Middleware',
                 array(
-                    'call'
+                    'call',
                 )
             );
         };
 
-        $this['\Slim\Http\Response'] = function(MockContainer $self) {
+        $this['\Slim\Http\Response'] = function (MockContainer $self) {
             return $self->buildMock(
                 '\Slim\Http\Response',
                 array(
                     'headers',
                     'setBody',
-                    'setStatus'
+                    'setStatus',
                 )
             );
         };
 
-        $this['\Slim\Http\Headers'] = function(MockContainer $self) {
+        $this['\Slim\Http\Headers'] = function (MockContainer $self) {
             return $self->buildMock(
                 '\Slim\Http\Headers',
                 array(
-                    'set'
+                    'set',
                 )
             );
         };
 
-        $this['\Slim\Http\Request'] = function(MockContainer $self) {
+        $this['\Slim\Http\Request'] = function (MockContainer $self) {
             return $self->buildMock(
                 '\Slim\Http\Request',
                 array(
                     'get',
                     'post',
-                    'getPath'
+                    'getPath',
                 )
             );
         };
 
-        $this['Api\Service\Chart\Pie'] = function(MockContainer $self) {
+        $this['Api\Service\Chart\Pie'] = function (MockContainer $self) {
             return $self->buildMock(
                 'Api\Service\Chart\Pie',
                 array(
                     'getData',
-                    'normalizeResults'
+                    'normalizeResults',
                 )
             );
         };
 
-        $this['Api\Service\Acl'] = function(MockContainer $self) {
+        $this['Api\Service\Acl'] = function (MockContainer $self) {
             return $self->buildMock(
                 'Api\Service\Acl',
                 array(
-                    'isAllowed'
+                    'isAllowed',
                 )
             );
         };
 
-        $this['Zend\Crypt\Password\Bcrypt'] = function(MockContainer $self) {
+        $this['Zend\Crypt\Password\Bcrypt'] = function (MockContainer $self) {
             return $self->buildMock(
                 'Zend\Crypt\Password\Bcrypt',
                 array(
                     'create',
-                    'verify'
+                    'verify',
                 )
             );
         };
-
     }
 
     private function initEntities()
     {
-        $this['Api\Entities\Transaction'] = function(MockContainer $self) {
+        $this['Api\Entities\Transaction'] = function (MockContainer $self) {
             return $self->buildMock(
                 'Api\Entities\Transaction',
                 array(
@@ -454,12 +455,12 @@ class MockContainer extends Pimple
                     'getUser',
                     'getDate',
                     'getDateCreated',
-                    'getCurrency'
+                    'getCurrency',
                 )
             );
         };
 
-        $this['Api\Entities\User'] = function(MockContainer $self) {
+        $this['Api\Entities\User'] = function (MockContainer $self) {
             return $self->buildMock(
                 'Api\Entities\User',
                 array(
@@ -483,7 +484,7 @@ class MockContainer extends Pimple
             );
         };
 
-        $this['Api\Entities\Item'] = function(MockContainer $self) {
+        $this['Api\Entities\Item'] = function (MockContainer $self) {
             return $self->buildMock(
                 'Api\Entities\Item',
                 array(
@@ -492,7 +493,7 @@ class MockContainer extends Pimple
             );
         };
 
-        $this['Api\Entities\Group'] = function(MockContainer $self) {
+        $this['Api\Entities\Group'] = function (MockContainer $self) {
             return $self->buildMock(
                 'Api\Entities\Group',
                 array(
@@ -501,7 +502,7 @@ class MockContainer extends Pimple
             );
         };
 
-        $this['Api\Entities\Currency'] = function(MockContainer $self) {
+        $this['Api\Entities\Currency'] = function (MockContainer $self) {
             return $self->buildMock(
                 'Api\Entities\Currency',
                 array(
@@ -510,7 +511,7 @@ class MockContainer extends Pimple
             );
         };
 
-        $this['Api\Entities\AccessToken'] = function(MockContainer $self) {
+        $this['Api\Entities\AccessToken'] = function (MockContainer $self) {
             return $self->buildMock(
                 'Api\Entities\AccessToken',
                 array(
@@ -523,12 +524,12 @@ class MockContainer extends Pimple
                     'setUsedAt',
                     'getUsedAt',
                     'setValidUntil',
-                    'getValidUntil'
+                    'getValidUntil',
                 )
             );
         };
 
-        $this['Api\Entities\Connection'] = function(MockContainer $self) {
+        $this['Api\Entities\Connection'] = function (MockContainer $self) {
             return $self->buildMock(
                 'Api\Entities\Connection',
                 array(
@@ -540,7 +541,6 @@ class MockContainer extends Pimple
                 )
             );
         };
-
     }
 
     /**

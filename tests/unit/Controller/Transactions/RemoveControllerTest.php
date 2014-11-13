@@ -132,5 +132,4 @@ class RemoveControllerTest extends TestCase
 
         $this->assertTrue($response['success']);
     }
-
 }

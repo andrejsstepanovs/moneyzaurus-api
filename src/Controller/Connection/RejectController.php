@@ -31,7 +31,7 @@ class RejectController
     public function getResponse(User $user, $connectionId)
     {
         $response = array(
-            'success' => false
+            'success' => false,
         );
 
         try {
@@ -52,12 +52,10 @@ class RejectController
             $this->getConnectionSave()->save($connection);
 
             $response['success'] = true;
-
         } catch (\InvalidArgumentException $exc) {
             $response['message'] = $exc->getMessage();
         }
 
         return $response;
     }
-
 }

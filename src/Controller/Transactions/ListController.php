@@ -64,10 +64,9 @@ class ListController
         $response = array(
             'success' => true,
             'count'   => count($transactions),
-            'data'    => $this->getData()->normalizeResults($transactions, $user)
+            'data'    => $this->getData()->normalizeResults($transactions, $user),
         );
 
         return $response;
     }
-
 }

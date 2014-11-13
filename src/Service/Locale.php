@@ -5,7 +5,6 @@ namespace Api\Service;
 use SebastianBergmann\Money\Currency;
 use SebastianBergmann\Money\Money;
 use SebastianBergmann\Money\IntlFormatter;
-use Api\Service\AccessorTrait;
 use Api\Entities\User;
 
 /**
@@ -128,5 +127,4 @@ class Locale
 
         return $formatter->format($money);
     }
-
 }

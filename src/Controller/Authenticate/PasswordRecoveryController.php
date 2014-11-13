@@ -38,17 +38,18 @@ class PasswordRecoveryController
     public function getResponse($username)
     {
         $response = array(
-            'success' => false
+            'success' => false,
         );
 
         $user = $this->getUserData()->findUser($username);
         if (!$user) {
             sleep(2);
+
             return $response;
         }
 
         try {
-            $response['success'] = (bool)$this->process($user);
+            $response['success'] = (bool) $this->process($user);
         } catch (\Exception $exc) {
             $response['message'] = $exc->getMessage();
         }

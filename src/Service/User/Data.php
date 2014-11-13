@@ -29,5 +29,4 @@ class Data
 
         return $this->getUser()->findOneBy($criteria);
     }
-
 }

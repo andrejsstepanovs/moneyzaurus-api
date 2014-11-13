@@ -2,7 +2,6 @@
 
 namespace Tests\Entities;
 
-
 use Api\Entities\Item;
 use Tests\TestCase;
 
@@ -52,5 +51,4 @@ class ItemTest extends TestCase
 
         $this->assertEquals($value, $response);
     }
-
 }

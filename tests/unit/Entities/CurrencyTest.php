@@ -2,7 +2,6 @@
 
 namespace Tests\Entities;
 
-
 use Api\Entities\Currency;
 use Tests\TestCase;
 
@@ -52,5 +51,4 @@ class CurrencyTest extends TestCase
 
         $this->assertEquals($value, $response);
     }
-
 }

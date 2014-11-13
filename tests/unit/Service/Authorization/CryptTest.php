@@ -2,7 +2,6 @@
 
 namespace Tests\Service\Authorization;
 
-use PHPUnit_Framework_TestCase;
 use Api\Service\Authorization\Crypt;
 use Tests\TestCase;
 

@@ -26,7 +26,6 @@ class DateTest extends TestCase
         $date         = '2014-12-30';
         $timeZoneRiga = new \DateTimeZone('Europe/Berlin');
 
-
         $this->mock()->get('Api\Entities\User')
             ->expects($this->once())
             ->method('getTimezone')

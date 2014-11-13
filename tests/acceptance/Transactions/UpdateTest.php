@@ -41,7 +41,7 @@ class UpdateTest extends CreateTest
                     'group'    => 'food',
                     'price'    => '1.00',
                     'currency' => 'EUR',
-                    'date'     => '2000-01-01'
+                    'date'     => '2000-01-01',
                 ),
             ),
             array(
@@ -50,7 +50,7 @@ class UpdateTest extends CreateTest
                     'group'    => 'food',
                     'price'    => '0.5',
                     'currency' => 'EUR',
-                    'date'     => date('Y-m-d')
+                    'date'     => date('Y-m-d'),
                 ),
             ),
         );
@@ -74,7 +74,7 @@ class UpdateTest extends CreateTest
     public function testGetTransactionList($token)
     {
         $response = $this->get('/transactions/list?token=' . $token);
-        $data = (array)$response->json();
+        $data = (array) $response->json();
 
         $this->assertTrue($data['success']);
         $this->assertNotEmpty($data['data']);
@@ -102,7 +102,7 @@ class UpdateTest extends CreateTest
             );
 
             $response = $this->post('/transactions/update/' . $transaction['id'] . '?token=' . $token, $post);
-            $data = (array)$response->json();
+            $data = (array) $response->json();
 
             $this->assertTrue($data['success']);
 
@@ -124,7 +124,7 @@ class UpdateTest extends CreateTest
     {
         foreach ($transactionList as $key => $transaction) {
             $response = $this->get('/transactions/id/' . $transaction['id'] . '?token=' . $token);
-            $data = (array)$response->json();
+            $data = (array) $response->json();
 
             $transactionData = $data['data'];
             $newData = $updatedData[$key];
@@ -135,5 +135,4 @@ class UpdateTest extends CreateTest
             $this->assertEquals($newData['date'], $transactionData['date']);
         }
     }
-
 }

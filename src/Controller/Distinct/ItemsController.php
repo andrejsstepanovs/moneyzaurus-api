@@ -39,7 +39,7 @@ class ItemsController
         $response = array(
             'success' => true,
             'count'   => count($items),
-            'data'    => $items
+            'data'    => $items,
         );
 
         return $response;

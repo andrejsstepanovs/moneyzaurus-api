@@ -66,6 +66,7 @@ class RegisterController
             $user = $this->getUserSave()->saveUser($user);
         } catch (\Exception $exc) {
             $response['message'] = $exc->getMessage();
+
             return $response;
         }
 
@@ -77,7 +78,7 @@ class RegisterController
             'language' => $user->getLanguage(),
             'locale'   => $user->getLocale(),
             'timezone' => $user->getTimezone(),
-            'state'    => $user->getState()
+            'state'    => $user->getState(),
         );
 
         $data = array(

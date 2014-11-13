@@ -153,7 +153,7 @@ class TokenTest extends TestCase
             ->method('getId')
             ->will($this->returnValue(1));
 
-       $this->mock()->get('Api\Entities\User')
+        $this->mock()->get('Api\Entities\User')
             ->expects($this->at(1))
             ->method('getId')
             ->will($this->returnValue(2));
@@ -323,7 +323,6 @@ class TokenTest extends TestCase
 
         $this->assertEquals($expected, $formatted);
     }
-
 
     /**
      * @expectedException \RuntimeException

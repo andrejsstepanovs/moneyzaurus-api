@@ -130,7 +130,7 @@ class UpdateControllerTest extends TestCase
         $this->mock()->get('Api\Entities\Transaction')
              ->expects($this->any())
              ->method('getDate')
-             ->will($this->returnValue(new \DateTime));
+             ->will($this->returnValue(new \DateTime()));
 
         $this->mock()->get('Api\Entities\Transaction')
              ->expects($this->any())

@@ -25,7 +25,6 @@ class AddControllerTest extends TestCase
         $message = $this->mock()->get('Api\Service\Email\Messages\ConnectionInvitation');
         $message->expects($this->any())->method('setConnection')->will($this->returnSelf());
 
-
         $this->sut = new AddController();
         $this->sut->setConnectionSave($this->mock()->get('Api\Service\Connection\Save'));
         $this->sut->setConnectionData($this->mock()->get('Api\Service\Connection\Data'));
@@ -106,7 +105,6 @@ class AddControllerTest extends TestCase
             ->method('getId')
             ->will($this->returnValue(1));
 
-
         $sendResponse = 1;
         $message = new \Swift_Message();
         $message->setDescription($sendResponse);
@@ -122,4 +120,3 @@ class AddControllerTest extends TestCase
         $this->assertTrue($response['success']);
     }
 }
-

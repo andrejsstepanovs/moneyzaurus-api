@@ -2,7 +2,6 @@
 
 namespace Tests\Entities;
 
-
 use Api\Entities\AccessToken;
 use Tests\TestCase;
 
@@ -68,5 +67,4 @@ class AccessTokenTest extends TestCase
 
         $this->assertEquals($value, $response);
     }
-
 }

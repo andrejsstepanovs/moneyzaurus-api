@@ -43,7 +43,7 @@ class PieTest extends CreateTest
                     'group'    => 'food',
                     'price'    => '30.00',
                     'currency' => 'EUR',
-                    'date'     => '2000-01-01'
+                    'date'     => '2000-01-01',
                 ),
             ),
             array(
@@ -52,7 +52,7 @@ class PieTest extends CreateTest
                     'group'    => 'food',
                     'price'    => '10.00',
                     'currency' => 'EUR',
-                    'date'     => '2000-02-01'
+                    'date'     => '2000-02-01',
                 ),
             ),
             array(
@@ -61,7 +61,7 @@ class PieTest extends CreateTest
                     'group'    => 'fruit',
                     'price'    => '40.00',
                     'currency' => 'EUR',
-                    'date'     => '2000-02-01'
+                    'date'     => '2000-02-01',
                 ),
             ),
         );
@@ -86,11 +86,11 @@ class PieTest extends CreateTest
     {
         $params = [
             'token'    => $token,
-            'currency' => 'EUR'
+            'currency' => 'EUR',
         ];
 
         $response = $this->get('/chart/pie?' . http_build_query($params));
-        $data = (array)$response->json();
+        $data = (array) $response->json();
 
         $this->assertTrue($data['success']);
         $this->assertArrayHasKey('count', $data);
@@ -112,7 +112,7 @@ class PieTest extends CreateTest
                     'groupName' => 'food',
                     'percent'   => 50,
                     'price'     => '40.00',
-                    'money'     => '€40.00'
+                    'money'     => '€40.00',
                  ],
                  [
                      'amount'    => '4000',
@@ -121,7 +121,7 @@ class PieTest extends CreateTest
                      'percent'   => 50,
                      'price'     => '40.00',
                      'money'     => '€40.00'
-                 ]
+                 ],
              ],
              $data['data']
         );
@@ -142,7 +142,7 @@ class PieTest extends CreateTest
         ];
 
         $response = $this->get('/chart/pie?' . http_build_query($params));
-        $data = (array)$response->json();
+        $data = (array) $response->json();
 
         $this->assertTrue($data['success']);
         $this->assertArrayHasKey('count', $data);
@@ -163,7 +163,7 @@ class PieTest extends CreateTest
                      'groupName' => 'fruit',
                      'percent'   => 80,
                      'price'     => '40.00',
-                     'money'     => '€40.00'
+                     'money'     => '€40.00',
                  ],
                  [
                      'amount'    => '1000',
@@ -172,7 +172,7 @@ class PieTest extends CreateTest
                      'percent'   => 20,
                      'price'     => '10.00',
                      'money'     => '€10.00'
-                 ]
+                 ],
              ],
              $data['data']
         );
@@ -193,7 +193,7 @@ class PieTest extends CreateTest
         ];
 
         $response = $this->get('/chart/pie?' . http_build_query($params));
-        $data = (array)$response->json();
+        $data = (array) $response->json();
 
         $this->assertTrue($data['success']);
         $this->assertArrayHasKey('count', $data);
@@ -213,8 +213,8 @@ class PieTest extends CreateTest
                      'groupName' => 'food',
                      'percent'   => 100,
                      'price'     => '30.00',
-                     'money'     => '€30.00'
-                 ]
+                     'money'     => '€30.00',
+                 ],
              ],
              $data['data']
         );

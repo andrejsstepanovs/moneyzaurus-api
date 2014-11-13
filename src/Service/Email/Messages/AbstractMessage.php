@@ -32,5 +32,4 @@ abstract class AbstractMessage
 
         return $this->message;
     }
-
 }

@@ -132,8 +132,8 @@ class DataTest extends TestCase
                     'state'             => null,
                     'created'           => '2014-01-01',
                     'created_full'      => '2014-01-01',
-                    'created_timestamp' => 1388534400
-                 )
+                    'created_timestamp' => 1388534400,
+                 ),
              ),
              $response
         );
@@ -286,5 +286,4 @@ class DataTest extends TestCase
 
         $this->assertInstanceOf(get_class($this->mock()->get('Api\Entities\User')), $response);
     }
-
 }

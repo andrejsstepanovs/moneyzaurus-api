@@ -48,7 +48,7 @@ class CreateController
             $this->checkNotEmpty($item, $group, $currency, $date, $price);
 
             $transaction = $this->getSave()->save(
-                new Transaction,
+                new Transaction(),
                 $user,
                 $item,
                 $group,
@@ -58,9 +58,8 @@ class CreateController
             );
 
             $response['data'] = array(
-                'id' => $transaction->getId()
+                'id' => $transaction->getId(),
             );
-
         } catch (\Exception $exc) {
             $response['success'] = false;
             $response['message'] = $exc->getMessage();

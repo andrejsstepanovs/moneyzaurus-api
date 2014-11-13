@@ -49,7 +49,7 @@ class PieController
             'currency' => $currency,
             'from'     => $dateFrom ? $dateFrom->getTimestamp() : null,
             'till'     => $dateTill ? $dateTill->getTimestamp() : null,
-            'data'     => array()
+            'data'     => array(),
         );
 
         try {

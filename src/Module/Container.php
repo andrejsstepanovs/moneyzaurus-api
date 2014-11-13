@@ -200,12 +200,14 @@ class Container extends KernelContainer
         $this[self::PREDICT_GROUP] = function () {
             $group = new \Api\Service\Predict\Group();
             $group->setEntityManager($this->get(self::ENTITY_MANAGER));
+
             return $group;
         };
 
         $this[self::PREDICT_PRICE] = function () {
             $group = new \Api\Service\Predict\Price();
             $group->setEntityManager($this->get(self::ENTITY_MANAGER));
+
             return $group;
         };
     }
@@ -229,7 +231,6 @@ class Container extends KernelContainer
 
             return $data;
         };
-
     }
 
     private function initServiceChart()
@@ -251,6 +252,7 @@ class Container extends KernelContainer
     {
         $this[self::TRANSACTION_VALIDATE] = function () {
             $validate = new \Api\Service\Transaction\Validate();
+
             return $validate;
         };
 
@@ -262,6 +264,7 @@ class Container extends KernelContainer
             $data->setTransactionEntity(
                  $entityManager->getRepository('Api\Entities\Transaction')
             );
+
             return $data;
         };
 
@@ -280,16 +283,19 @@ class Container extends KernelContainer
         $this[self::TRANSACTION_REMOVE] = function () {
             $remove = new \Api\Service\Transaction\Remove();
             $remove->setEntityManager($this->get(self::ENTITY_MANAGER));
+
             return $remove;
         };
 
         $this[self::TRANSACTION_MONEY] = function () {
             $money = new \Api\Service\Transaction\Money();
+
             return $money;
         };
 
         $this[self::TRANSACTION_DATE] = function () {
             $date = new \Api\Service\Transaction\Date();
+
             return $date;
         };
     }
@@ -331,7 +337,7 @@ class Container extends KernelContainer
         };
 
         $this[self::AUTHORIZATION_TOKEN] = function () {
-            $token = new \Api\Service\Authorization\Token;
+            $token = new \Api\Service\Authorization\Token();
             $token->setEntityManager($this->get(self::ENTITY_MANAGER));
             $token->setAccessToken(new \Api\Entities\AccessToken());
             $token->setTime($this->get(self::SERVICE_TIME));
@@ -386,7 +392,6 @@ class Container extends KernelContainer
 
             return $controller;
         };
-
     }
 
     private function initControllerPredict()
@@ -459,7 +464,6 @@ class Container extends KernelContainer
 
             return $controller;
         };
-
     }
 
     private function initControllerAuthenticate()
@@ -590,14 +594,13 @@ class Container extends KernelContainer
 
             return $middleware;
         };
-
     }
 
     private function initEntityManager()
     {
         $dbConfig = $this->getConfig()->get(Config::DATABASE);
 
-        $this[self::DOCTRINE_LOGGER] = function() {
+        $this[self::DOCTRINE_LOGGER] = function () {
             return new \Api\Service\Doctrine\SQLLogger();
         };
 
@@ -623,5 +626,4 @@ class Container extends KernelContainer
             return $entityManager;
         };
     }
-
 }

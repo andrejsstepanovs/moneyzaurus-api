@@ -157,5 +157,4 @@ class Connection
     {
         return $this->state;
     }
-
 }

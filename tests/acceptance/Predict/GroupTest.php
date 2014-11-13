@@ -43,7 +43,7 @@ class GroupTest extends CreateTest
                     'group'    => 'food',
                     'price'    => '0.5',
                     'currency' => 'EUR',
-                    'date'     => date('Y-m-d')
+                    'date'     => date('Y-m-d'),
                 ),
             ),
             array(
@@ -52,7 +52,7 @@ class GroupTest extends CreateTest
                     'group'    => 'food',
                     'price'    => '0.5',
                     'currency' => 'EUR',
-                    'date'     => date('Y-m-d')
+                    'date'     => date('Y-m-d'),
                 ),
             ),
             array(
@@ -61,7 +61,7 @@ class GroupTest extends CreateTest
                     'group'    => 'food',
                     'price'    => '0.5',
                     'currency' => 'EUR',
-                    'date'     => date('Y-m-d')
+                    'date'     => date('Y-m-d'),
                 ),
             ),
             array(
@@ -70,7 +70,7 @@ class GroupTest extends CreateTest
                     'group'    => 'fruit',
                     'price'    => '0.5',
                     'currency' => 'EUR',
-                    'date'     => date('Y-m-d')
+                    'date'     => date('Y-m-d'),
                 ),
             ),
             array(
@@ -79,7 +79,7 @@ class GroupTest extends CreateTest
                     'group'    => 'fruit',
                     'price'    => '0.5',
                     'currency' => 'EUR',
-                    'date'     => date('Y-m-d')
+                    'date'     => date('Y-m-d'),
                 ),
             ),
             array(
@@ -88,7 +88,7 @@ class GroupTest extends CreateTest
                     'group'    => 'fruits',
                     'price'    => '0.5',
                     'currency' => 'EUR',
-                    'date'     => date('Y-m-d')
+                    'date'     => date('Y-m-d'),
                 ),
             ),
             array(
@@ -97,7 +97,7 @@ class GroupTest extends CreateTest
                     'group'    => 'home',
                     'price'    => '0.5',
                     'currency' => 'EUR',
-                    'date'     => date('Y-m-d')
+                    'date'     => date('Y-m-d'),
                 ),
             ),
         );
@@ -121,10 +121,10 @@ class GroupTest extends CreateTest
     public function testPredict($token)
     {
         $post = array(
-            'item' => 'banana'
+            'item' => 'banana',
         );
         $response = $this->post('/predict/group?token=' . $token, $post);
-        $data = (array)$response->json();
+        $data = (array) $response->json();
 
         $this->assertTrue($data['success']);
         $this->assertArrayHasKey('count', $data);
@@ -136,5 +136,4 @@ class GroupTest extends CreateTest
             $data['data']
         );
     }
-
 }

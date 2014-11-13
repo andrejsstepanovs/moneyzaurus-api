@@ -300,8 +300,6 @@ class AuthorizationTest extends TestCase
              ->expects($this->once())
              ->method('call');
 
-
         $this->sut->call();
     }
-
 }

@@ -2,7 +2,6 @@
 
 namespace Tests\Entities;
 
-
 use Api\Entities\Connection;
 use Tests\TestCase;
 
@@ -60,5 +59,4 @@ class ConnectionTest extends TestCase
 
         $this->assertEquals($value, $response);
     }
-
 }

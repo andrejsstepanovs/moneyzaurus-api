@@ -56,5 +56,4 @@ class LogoutControllerTest extends TestCase
         $this->assertArrayHasKey('success', $response);
         $this->assertTrue($response['success']);
     }
-
 }

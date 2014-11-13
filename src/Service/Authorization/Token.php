@@ -80,7 +80,7 @@ class Token
     {
         $criteria = array(
             'token' => $token,
-            'user'  => $user
+            'user'  => $user,
         );
 
         /** @var \Doctrine\ORM\EntityRepository $accessTokenRepository */
@@ -111,9 +111,9 @@ class Token
             $entityManager->flush();
 
             $entityManager->commit();
-
         } catch (\Exception $exc) {
             $entityManager->rollback();
+
             return false;
         }
 
@@ -133,7 +133,7 @@ class Token
             $connectionRepository = $this->getEntityManager()->getRepository('Api\Entities\Connection');
             $criteria = array(
                 'user'  => $userId,
-                'state' => Connection::STATE_ACCEPTED
+                'state' => Connection::STATE_ACCEPTED,
             );
             $connections = $connectionRepository->findBy($criteria);
 
@@ -144,7 +144,7 @@ class Token
 
             $criteria = array(
                 'parent' => $userId,
-                'state'  => Connection::STATE_ACCEPTED
+                'state'  => Connection::STATE_ACCEPTED,
             );
             $connections = $connectionRepository->findBy($criteria);
 
@@ -203,8 +203,9 @@ class Token
     private function generateToken($prefix)
     {
         $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789_-';
+        $token      = substr(str_shuffle($characters), 0, self::MIN_TOKEN_SIZE);
 
-        return $prefix . substr(str_shuffle($characters), 0, self::MIN_TOKEN_SIZE);
+        return $prefix . $token;
     }
 
     /**
@@ -213,7 +214,8 @@ class Token
      * @return AccessToken
      * @throws \Exception
      */
-    public function save(AccessToken $accessToken) {
+    public function save(AccessToken $accessToken)
+    {
         try {
             $entityManager = $this->getEntityManager();
 

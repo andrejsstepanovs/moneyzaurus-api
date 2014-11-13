@@ -178,5 +178,4 @@ class LoginControllerTest extends TestCase
 
         $this->assertFalse($response['success']);
     }
-
 }

@@ -30,28 +30,28 @@ class GroupControllerTest extends TestCase
                     'success' => true,
                     'count'   => 0,
                     'data'    => array(),
-                )
+                ),
             ),
             array(
                 array(
-                    array('name' => 'test')
+                    array('name' => 'test'),
                 ),
                 array(
                     'success' => true,
                     'count'   => 1,
                     'data'    => array('test'),
-                )
+                ),
             ),
             array(
                 array(
                     array('name' => 'apple'),
-                    array('name' => 'banana')
+                    array('name' => 'banana'),
                 ),
                 array(
                     'success' => true,
                     'count'   => 2,
                     'data'    => array('apple', 'banana'),
-                )
+                ),
             ),
         );
     }
@@ -76,5 +76,4 @@ class GroupControllerTest extends TestCase
 
         $this->assertEquals($expected, $response);
     }
-
 }

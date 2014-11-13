@@ -2,7 +2,6 @@
 
 namespace Tests\Service\Email\Messages;
 
-
 use Api\Service\Email\Messages\PasswordRecovery;
 use Tests\TestCase;
 
@@ -49,5 +48,4 @@ class PasswordRecoveryTest extends TestCase
         $this->sut->setPassword($password);
         $this->sut->getMessage();
     }
-
 }

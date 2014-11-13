@@ -56,7 +56,6 @@ class UpdateController
 
         $entity = $this->getData()->find($transactionId);
         if ($entity && $this->getValidate()->isAllowed($user, $connectedUserIds, $entity)) {
-
             try {
                 $transaction = $this->update(
                     $entity,
@@ -70,14 +69,12 @@ class UpdateController
 
                 $response['success'] = true;
                 $response['data'] = array(
-                    'id' => $transaction->getId()
+                    'id' => $transaction->getId(),
                 );
-
             } catch (\Exception $exc) {
                 $response['success'] = false;
                 $response['message'] = $exc->getMessage();
             }
-
         } else {
             $response['message'] = 'Not allowed';
         }

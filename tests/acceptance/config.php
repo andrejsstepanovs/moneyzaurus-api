@@ -7,15 +7,15 @@ return [
     Config::PASSWORD_DEFAULT_COST => 4,
     Config::DATABASE  => [
         Config::DATABASE_ENTITIES   => [
-            __DIR__ . '/../src/Entities'
+            __DIR__ . '/../src/Entities',
         ],
         Config::DATABASE_CONNECTION => [
             'driver'   => 'pdo_sqlite',
             'path'     => __DIR__ . '/tmp.appdb.sqlite',
             'user'     => 'root',
             'password' => 'root',
-            'memory'   => false
-        ]
+            'memory'   => false,
+        ],
     ],
     Config::EMAIL => [
         'host'     => 'localhost',
@@ -23,14 +23,14 @@ return [
         'security' => 'ssl',
         'username' => 'test@email.com',
         'password' => 'password',
-        'test'     => true
+        'test'     => true,
     ],
     Config::LOG => [
-        'file'  => __DIR__ . '/../tmp.error.log'
+        'file'  => __DIR__ . '/../tmp.error.log',
     ],
     Config::SECURITY => [
         'token_interval'         => 'PT10S',
         'max_login_attempts'     => 3,
-        'login_abuse_sleep_time' => 4
+        'login_abuse_sleep_time' => 4,
     ]
 ];

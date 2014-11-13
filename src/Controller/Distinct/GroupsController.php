@@ -41,7 +41,7 @@ class GroupsController
         $response = array(
             'success' => true,
             'count'   => count($groups),
-            'data'    => $groups
+            'data'    => $groups,
         );
 
         return $response;
