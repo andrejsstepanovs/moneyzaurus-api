@@ -1,10 +1,10 @@
 moneyzaurus-api
 ===============
 
-API implementation for expense monitoring system [wormhit/moneyzaurus][1].
-Code is based on [wormhit/slim-api][2] framework.
+API implementation for expense monitoring system [andrejsstepanovs/moneyzaurus][1].
+Code is based on [andrejsstepanovs/slim-api][2] framework.
 
-[![Build Status](https://travis-ci.org/wormhit/moneyzaurus-api.png?branch=master)](https://travis-ci.org/wormhit/moneyzaurus-api) [![Code Quality](https://scrutinizer-ci.com/g/wormhit/moneyzaurus-api/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/wormhit/moneyzaurus-api/) [![Coverage Coverage](https://coveralls.io/repos/wormhit/moneyzaurus-api/badge.png?branch=master)](https://coveralls.io/r/wormhit/moneyzaurus-api?branch=master) [![SensioLabsInsight](https://insight.sensiolabs.com/projects/3afa2205-918f-4bbe-bac3-dd29799bdadd/mini.png)](https://insight.sensiolabs.com/projects/3afa2205-918f-4bbe-bac3-dd29799bdadd)
+[![Build Status](https://travis-ci.org/andrejsstepanovs/moneyzaurus-api.svg?branch=master)](https://travis-ci.org/andrejsstepanovs/moneyzaurus-api) [![Code Quality](https://scrutinizer-ci.com/g/wormhit/moneyzaurus-api/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/wormhit/moneyzaurus-api/) [![Coverage Coverage](https://coveralls.io/repos/wormhit/moneyzaurus-api/badge.png?branch=master)](https://coveralls.io/r/wormhit/moneyzaurus-api?branch=master) [![SensioLabsInsight](https://insight.sensiolabs.com/projects/3afa2205-918f-4bbe-bac3-dd29799bdadd/mini.png)](https://insight.sensiolabs.com/projects/3afa2205-918f-4bbe-bac3-dd29799bdadd)
 
 
 Install
@@ -141,5 +141,5 @@ curl --request GET 'http://127.0.0.1/authenticate/logout?token=212WRaUZuefGyE_Sv
 /connection/accept/:id
 ```
 
-[1]: https://github.com/wormhit/moneyzaurus
-[2]: https://github.com/wormhit/slim-api
+[1]: https://github.com/andrejsstepanovs/moneyzaurus
+[2]: https://github.com/andrejsstepanovs/slim-api
