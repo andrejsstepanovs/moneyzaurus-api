@@ -28,3 +28,4 @@
         <!--<log type="coverage-html" target="coverage" charset="UTF-8"/>-->
     </logging>
 </phpunit>
+
