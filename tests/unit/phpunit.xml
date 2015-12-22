@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<phpunit colors="true" bootstrap="bootstrap.php" strict="true">
+<phpunit colors="true" bootstrap="bootstrap.php">
     <testsuites>
         <testsuite name="controller">
             <directory>Controller</directory>
@@ -28,3 +28,4 @@
         <!--<log type="coverage-html" target="coverage" charset="UTF-8"/>-->
     </logging>
 </phpunit>
+
