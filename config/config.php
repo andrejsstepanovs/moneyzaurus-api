@@ -11,7 +11,7 @@ return [
     Config::PASSWORD_DEFAULT_COST => 14, // 4
     Config::DATABASE  => [
         Config::DATABASE_ENTITIES   => [
-            __DIR__.'/../src/Entities',
+            __DIR__ . '/../src/Entities',
         ],
         Config::DATABASE_CONNECTION => [
             'driver'   => 'pdo_mysql',

@@ -8,7 +8,6 @@ use Api\Slim;
 use Api\Service\Json as JsonService;
 use Api\Service\AccessorTrait;
 
-
 /**
  * Class Json
  *
@@ -51,8 +50,8 @@ class Json extends Middleware
         if ($json !== false) {
             $response->setBody($json);
         } else {
+            // @todo add correct error code
             $response->setBody('Failed to parse to json. Error: ' . $jsonService->getJsonErrorMessage());
         }
     }
-
 }
