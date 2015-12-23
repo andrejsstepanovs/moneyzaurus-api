@@ -60,20 +60,20 @@ class Routing extends KernelRouting
             });
         }
 
-        $slim->map(
-             '/',
-             function () use ($container, $slim) {
-                 /** @var \Api\Controller\Index\IndexController $controller */
-                 $controller = $container->get('controller.index.index');
-                 $slim->setData($controller->getResponse());
-             }
-        )
-        ->via(Request::METHOD_GET);
-
         $baseUrl = $config->get(Config::BASE_URL);
         if (!empty($baseUrl)) {
-            $baseUrl = '/' . trim($baseUrl, '/') . '/';
+            $baseUrl = '/' . trim($baseUrl, '/');
         }
+
+        $slim->map(
+            $baseUrl. '/',
+            function () use ($container, $slim) {
+                /** @var \Api\Controller\Index\IndexController $controller */
+                $controller = $container->get('controller.index.index');
+                $slim->setData($controller->getResponse());
+            }
+        )
+        ->via(Request::METHOD_GET);
 
         $slim->map(
             $baseUrl . '/authenticate/login',
