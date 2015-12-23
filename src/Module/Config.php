@@ -27,7 +27,16 @@ class Config extends KernelConfig
      */
     public function env($key, $default = null)
     {
-        $value = getenv($key);
+        if (is_array($key)) {
+            foreach ($key as $k) {
+                $value = $this->env($k, $default);
+                if (!empty($value) && $value !== $default) {
+                    break;
+                }
+            }
+        } else {
+            $value = getenv($key);
+        }
 
         if (empty($value) && !empty($default)) {
             return $default;

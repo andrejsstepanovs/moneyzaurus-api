@@ -8,6 +8,9 @@
         <testsuite name="middleware">
             <directory>Middleware</directory>
         </testsuite>
+        <testsuite name="module">
+            <directory>Module</directory>
+        </testsuite>
         <testsuite name="service">
             <directory>Service</directory>
         </testsuite>
