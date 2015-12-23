@@ -6,6 +6,7 @@ $config = new Config();
 
 return [
     Config::ROUTING               => 'Api\Module\Routing',
+    Config::BASE_URL              => '',
     Config::SLIM                  => 'Api\Slim',
     Config::DEVMODE               => true,
     Config::PASSWORD_DEFAULT_COST => 14, // 4

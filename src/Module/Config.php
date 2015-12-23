@@ -17,6 +17,7 @@ class Config extends KernelConfig
     const PASSWORD_DEFAULT_COST = 'defaultPasswordCost';
     const EMAIL                 = 'email';
     const SECURITY              = 'security';
+    const BASE_URL              = 'baseUrl';
     const LOG                   = 'log';
 
     /**

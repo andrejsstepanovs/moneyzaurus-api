@@ -70,141 +70,146 @@ class Routing extends KernelRouting
         )
         ->via(Request::METHOD_GET);
 
-        $slim->map(
-             '/authenticate/login',
-             function () use ($container, $slim) {
-                 $username = $slim->request()->post('username');
-                 $password = $slim->request()->post('password');
+        $baseUrl = $config->get(Config::BASE_URL);
+        if (!empty($baseUrl)) {
+            $baseUrl = '/' . trim($baseUrl, '/') . '/';
+        }
 
-                 /** @var \Api\Controller\Authenticate\LoginController $controller */
-                 $controller = $container->get('controller.authenticate.login');
-                 $slim->setData($controller->getResponse($username, $password));
-             }
+        $slim->map(
+            $baseUrl . '/authenticate/login',
+            function () use ($container, $slim) {
+                $username = $slim->request()->post('username');
+                $password = $slim->request()->post('password');
+
+                /** @var \Api\Controller\Authenticate\LoginController $controller */
+                $controller = $container->get('controller.authenticate.login');
+                $slim->setData($controller->getResponse($username, $password));
+            }
         )
         ->via(Request::METHOD_POST);
 
         $slim->map(
-             '/user/register',
-             function () use ($container, $slim) {
-                 $request = $slim->request();
+            $baseUrl . '/user/register',
+            function () use ($container, $slim) {
+                $request = $slim->request();
 
-                 /** @var \Api\Controller\User\RegisterController $controller */
-                 $controller = $container->get('controller.user.register');
-                 $responseData = $controller->getResponse(
+                /** @var \Api\Controller\User\RegisterController $controller */
+                $controller = $container->get('controller.user.register');
+                $responseData = $controller->getResponse(
                     $request->post('username'),
                     $request->post('password'),
                     $request->post('timezone'),
                     $request->post('display_name'),
                     $request->post('language'),
                     $request->post('locale')
-                 );
+                );
 
-                 $slim->setData($responseData);
-             }
+                $slim->setData($responseData);
+            }
         )
         ->via(Request::METHOD_POST);
 
         $slim->map(
-             '/authenticate/logout',
-             function () use ($container, $slim) {
-                 /** @var \Api\Controller\Authenticate\LogoutController $controller */
-                 $controller = $container->get('controller.authenticate.logout');
-                 $response = $controller->getResponse(
-                    $slim->config('user'),
-                    $slim->request()->get('token')
-                 );
-                 $slim->setData($response);
-             }
+            $baseUrl . '/authenticate/logout',
+            function () use ($container, $slim) {
+                /** @var \Api\Controller\Authenticate\LogoutController $controller */
+                $controller = $container->get('controller.authenticate.logout');
+                $response = $controller->getResponse(
+                   $slim->config('user'),
+                   $slim->request()->get('token')
+                );
+                $slim->setData($response);
+            }
         )
         ->via(Request::METHOD_GET);
 
         $slim->map(
-             '/authenticate/password-recovery',
-             function () use ($container, $slim) {
-                 $username = $slim->request()->post('username');
+            $baseUrl . '/authenticate/password-recovery',
+            function () use ($container, $slim) {
+                $username = $slim->request()->post('username');
 
                  /** @var \Api\Controller\Authenticate\PasswordRecoveryController $controller */
-                 $controller = $container->get('controller.authenticate.password-recovery');
-                 $response = $controller->getResponse($username);
-                 $slim->setData($response);
-             }
+                $controller = $container->get('controller.authenticate.password-recovery');
+                $response = $controller->getResponse($username);
+                $slim->setData($response);
+            }
         )
         ->via(Request::METHOD_POST);
 
         $slim->map(
-             '/transactions/id/:id',
-             function ($id) use ($container, $slim) {
-                 /** @var \Api\Controller\Transactions\IdController $controller */
-                 $controller = $container->get('controller.transactions.id');
-                 $response = $controller->getResponse(
-                     $slim->config('user'),
-                     $slim->config('connectedUserIds'),
-                     $id
-                 );
-                 $slim->setData($response);
-             }
+            $baseUrl . '/transactions/id/:id',
+            function ($id) use ($container, $slim) {
+                /** @var \Api\Controller\Transactions\IdController $controller */
+                $controller = $container->get('controller.transactions.id');
+                $response = $controller->getResponse(
+                    $slim->config('user'),
+                    $slim->config('connectedUserIds'),
+                    $id
+                );
+                $slim->setData($response);
+            }
         )
         ->via(Request::METHOD_GET);
 
         $slim->map(
-             '/transactions/remove/:id',
-             function ($id) use ($container, $slim) {
-                 /** @var \Api\Controller\Transactions\RemoveController $controller */
-                 $controller = $container->get('controller.transactions.remove');
-                 $response = $controller->getResponse(
-                     $slim->config('user'),
-                     $slim->config('connectedUserIds'),
-                     $id
-                 );
-                 $slim->setData($response);
-             }
+            $baseUrl . '/transactions/remove/:id',
+            function ($id) use ($container, $slim) {
+                /** @var \Api\Controller\Transactions\RemoveController $controller */
+                $controller = $container->get('controller.transactions.remove');
+                $response = $controller->getResponse(
+                    $slim->config('user'),
+                    $slim->config('connectedUserIds'),
+                    $id
+                );
+                $slim->setData($response);
+            }
         )
         ->via(Request::METHOD_DELETE);
 
         $slim->map(
-             '/transactions/update/:id',
-             function ($id) use ($container, $slim) {
-                 /** @var \Api\Controller\Transactions\UpdateController $controller */
-                 $controller = $container->get('controller.transactions.update');
-                 $request = $slim->request();
-                 $response = $controller->getResponse(
-                     $slim->config('user'),
-                     $slim->config('connectedUserIds'),
-                     $id,
-                     $request->post('item'),
-                     $request->post('group'),
-                     $request->post('price'),
-                     $request->post('currency'),
-                     $request->post('date')
-                 );
-                 $slim->setData($response);
-             }
+            $baseUrl . '/transactions/update/:id',
+            function ($id) use ($container, $slim) {
+                /** @var \Api\Controller\Transactions\UpdateController $controller */
+                $controller = $container->get('controller.transactions.update');
+                $request = $slim->request();
+                $response = $controller->getResponse(
+                    $slim->config('user'),
+                    $slim->config('connectedUserIds'),
+                    $id,
+                    $request->post('item'),
+                    $request->post('group'),
+                    $request->post('price'),
+                    $request->post('currency'),
+                    $request->post('date')
+                );
+                $slim->setData($response);
+            }
         )
         ->via(Request::METHOD_POST);
 
         $slim->map(
-             '/transactions/list',
-             function () use ($container, $slim) {
-                 /** @var \Api\Controller\Transactions\ListController $controller */
-                 $controller = $container->get('controller.transactions.list');
-                 $response = $controller->getResponse(
-                     $slim->config('user'),
-                     $slim->config('connectedUserIds'),
-                     $slim->request()->get('offset'),
-                     $slim->request()->get('limit'),
-                     $slim->request()->get('from'),
-                     $slim->request()->get('till'),
-                     $slim->request()->get('item'),
-                     $slim->request()->get('group'),
-                     $slim->request()->get('price')
-                 );
-                 $slim->setData($response);
-             }
+            $baseUrl . '/transactions/list',
+            function () use ($container, $slim) {
+                /** @var \Api\Controller\Transactions\ListController $controller */
+                $controller = $container->get('controller.transactions.list');
+                $response = $controller->getResponse(
+                    $slim->config('user'),
+                    $slim->config('connectedUserIds'),
+                    $slim->request()->get('offset'),
+                    $slim->request()->get('limit'),
+                    $slim->request()->get('from'),
+                    $slim->request()->get('till'),
+                    $slim->request()->get('item'),
+                    $slim->request()->get('group'),
+                    $slim->request()->get('price')
+                );
+                $slim->setData($response);
+            }
         )
         ->via(Request::METHOD_GET);
 
         $slim->map(
-            '/transactions/add',
+            $baseUrl . '/transactions/add',
             function () use ($container, $slim) {
                 /** @var \Api\Controller\Transactions\CreateController $controller */
                 $controller = $container->get('controller.transactions.create');
@@ -223,7 +228,7 @@ class Routing extends KernelRouting
         ->via(Request::METHOD_POST, Request::METHOD_PUT);
 
         $slim->map(
-            '/distinct/groups',
+            $baseUrl . '/distinct/groups',
             function () use ($container, $slim) {
                 /** @var \Api\Controller\Distinct\GroupsController $controller */
                 $controller = $container->get('controller.distinct.groups');
@@ -239,7 +244,7 @@ class Routing extends KernelRouting
         ->via(Request::METHOD_GET);
 
         $slim->map(
-            '/distinct/items',
+            $baseUrl . '/distinct/items',
             function () use ($container, $slim) {
                 /** @var \Api\Controller\Distinct\ItemsController $controller */
                 $controller = $container->get('controller.distinct.items');
@@ -255,7 +260,7 @@ class Routing extends KernelRouting
         ->via(Request::METHOD_GET);
 
         $slim->map(
-            '/predict/group',
+            $baseUrl . '/predict/group',
             function () use ($container, $slim) {
                 /** @var \Api\Controller\Predict\GroupController $controller */
                 $controller = $container->get('controller.predict.group');
@@ -270,23 +275,23 @@ class Routing extends KernelRouting
         ->via(Request::METHOD_POST);
 
         $slim->map(
-             '/predict/price',
-             function () use ($container, $slim) {
-                 /** @var \Api\Controller\Predict\PriceController $controller */
-                 $controller = $container->get('controller.predict.price');
-                 $response = $controller->getResponse(
-                    $slim->config('user'),
-                    $slim->config('connectedUserIds'),
-                    $slim->request()->post('item'),
-                    $slim->request()->post('group')
-                 );
-                 $slim->setData($response);
-             }
+            $baseUrl . '/predict/price',
+            function () use ($container, $slim) {
+                /** @var \Api\Controller\Predict\PriceController $controller */
+                $controller = $container->get('controller.predict.price');
+                $response = $controller->getResponse(
+                   $slim->config('user'),
+                   $slim->config('connectedUserIds'),
+                   $slim->request()->post('item'),
+                   $slim->request()->post('group')
+                );
+                $slim->setData($response);
+            }
         )
         ->via(Request::METHOD_POST);
 
         $slim->map(
-            '/user/data',
+            $baseUrl . '/user/data',
             function () use ($container, $slim) {
                 /** @var \Api\Controller\User\DataController $controller */
                 $controller = $container->get('controller.user.data');
@@ -297,7 +302,7 @@ class Routing extends KernelRouting
         ->via(Request::METHOD_GET);
 
         $slim->map(
-            '/user/update',
+            $baseUrl . '/user/update',
             function () use ($container, $slim) {
                 /** @var \Api\Controller\User\UpdateController $controller */
                 $controller = $container->get('controller.user.update');
@@ -315,7 +320,7 @@ class Routing extends KernelRouting
         ->via(Request::METHOD_POST);
 
         $slim->map(
-            '/connection/list',
+            $baseUrl . '/connection/list',
             function () use ($container, $slim) {
                 /** @var \Api\Controller\Connection\ListController $controller */
                 $controller = $container->get('controller.connection.list');
@@ -329,7 +334,7 @@ class Routing extends KernelRouting
         ->via(Request::METHOD_GET);
 
         $slim->map(
-            '/connection/add',
+            $baseUrl . '/connection/add',
             function () use ($container, $slim) {
                 /** @var \Api\Controller\Connection\AddController $controller */
                 $controller = $container->get('controller.connection.add');
@@ -343,7 +348,7 @@ class Routing extends KernelRouting
         ->via(Request::METHOD_POST);
 
         $slim->map(
-            '/connection/reject/:id',
+            $baseUrl . '/connection/reject/:id',
             function ($id) use ($container, $slim) {
                 /** @var \Api\Controller\Connection\RejectController $controller */
                 $controller = $container->get('controller.connection.reject');
@@ -354,7 +359,7 @@ class Routing extends KernelRouting
         ->via(Request::METHOD_POST);
 
         $slim->map(
-            '/connection/accept/:id',
+            $baseUrl . '/connection/accept/:id',
             function ($id) use ($container, $slim) {
                 /** @var \Api\Controller\Connection\AcceptController $controller */
                 $controller = $container->get('controller.connection.accept');
@@ -365,19 +370,19 @@ class Routing extends KernelRouting
         ->via(Request::METHOD_POST);
 
         $slim->map(
-             '/chart/pie',
-             function () use ($container, $slim) {
-                 /** @var \Api\Controller\Chart\PieController $controller */
-                 $controller = $container->get('controller.chart.pie');
-                 $response = $controller->getResponse(
-                     $slim->config('user'),
-                     $slim->config('connectedUserIds'),
-                     $slim->request()->get('currency'),
-                     $slim->request()->get('from'),
-                     $slim->request()->get('till')
-                 );
-                 $slim->setData($response);
-             }
+            $baseUrl . '/chart/pie',
+            function () use ($container, $slim) {
+                /** @var \Api\Controller\Chart\PieController $controller */
+                $controller = $container->get('controller.chart.pie');
+                $response = $controller->getResponse(
+                    $slim->config('user'),
+                    $slim->config('connectedUserIds'),
+                    $slim->request()->get('currency'),
+                    $slim->request()->get('from'),
+                    $slim->request()->get('till')
+                );
+                $slim->setData($response);
+            }
         )
         ->via(Request::METHOD_GET);
 
