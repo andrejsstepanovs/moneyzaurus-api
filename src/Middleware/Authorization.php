@@ -11,6 +11,7 @@ use Api\Entities\User;
 use Api\Service\AccessorTrait;
 use Api\Service\Time;
 use Api\Service\Exception\ResourceDeniedException;
+use Api\Module\Config;
 
 /**
  * Class Json
@@ -34,10 +35,10 @@ class Authorization extends Middleware
     const URL_SEPARATOR = '/';
 
     /** resource consecutive number */
-    const KEY_RESOURCE  = 0;
+    private $keyResource = 0;
 
     /** privilege consecutive number */
-    const KEY_PRIVILEGE = 1;
+    private $keyPrivilege = 1;
 
     /** @var array */
     private $path;
@@ -56,8 +57,8 @@ class Authorization extends Middleware
             $pathData = explode(self::URL_SEPARATOR, $path);
 
             $this->path = array(
-                self::KEY_RESOURCE  => !empty($pathData[self::KEY_RESOURCE]) ? $pathData[self::KEY_RESOURCE] : null,
-                self::KEY_PRIVILEGE => !empty($pathData[self::KEY_PRIVILEGE]) ? $pathData[self::KEY_PRIVILEGE] : null,
+                $this->keyResource  => !empty($pathData[$this->keyResource]) ? $pathData[$this->keyResource] : null,
+                $this->keyPrivilege => !empty($pathData[$this->keyPrivilege]) ? $pathData[$this->keyPrivilege] : null,
             );
         }
 
@@ -71,6 +72,12 @@ class Authorization extends Middleware
     {
         /** @var \Api\Slim $app */
         $app = $this->getApplication();
+
+        $baseUrl = $app->container->get(Config::BASE_URL);
+        if (!empty($baseUrl)) {
+            $this->keyResource  = 1;
+            $this->keyPrivilege = 2;
+        }
 
         $tokenValue  = $this->getTokenValue($app->request());
         $tokenModule = $this->getToken();
@@ -174,8 +181,8 @@ class Authorization extends Middleware
     {
         $path = $this->getRequestPath();
 
-        $privilege = $path[self::KEY_PRIVILEGE];
-        $resource  = $path[self::KEY_RESOURCE];
+        $privilege = $path[$this->keyPrivilege];
+        $resource  = $path[$this->keyResource];
         $resource  = empty($resource) ? Acl::RESOURCE_INDEX : $resource;
 
         $allowed = $this->getAcl()->isAllowed($role, $resource, $privilege);
