@@ -93,7 +93,9 @@ class Locale
             $dateType,
             \IntlDateFormatter::MEDIUM
         );
-        $formatter->setTimezone($this->getTimezone());
+        if (method_exists($formatter, 'setTimezone')) {
+            $formatter->setTimezone($this->getTimezone());
+        }
 
         return $formatter;
     }
@@ -108,7 +110,9 @@ class Locale
             $dateType,
             \IntlDateFormatter::NONE
         );
-        $formatter->setTimezone($this->getTimezone());
+        if (method_exists($formatter, 'setTimezone')) {
+            $formatter->setTimezone($this->getTimezone());
+        }
 
         return $formatter;
     }
