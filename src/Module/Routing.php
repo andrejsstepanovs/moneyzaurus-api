@@ -62,11 +62,17 @@ class Routing extends KernelRouting
 
         $baseUrl = $config->get(Config::BASE_URL);
         if (!empty($baseUrl)) {
-            $baseUrl = '/' . trim($baseUrl, '/');
+            // if dirname is baseUrl name dont match it
+            $pos = strrpos(API_BASE_DIR, $baseUrl);
+            if ($pos !== false && $pos == strlen(API_BASE_DIR) - strlen($baseUrl)) {
+                $baseUrl = '';
+            } else {
+                $baseUrl = '/' . trim($baseUrl, '/');
+            }
         }
 
         $slim->map(
-            $baseUrl. '/',
+            $baseUrl . '/',
             function () use ($container, $slim) {
                 /** @var \Api\Controller\Index\IndexController $controller */
                 $controller = $container->get('controller.index.index');

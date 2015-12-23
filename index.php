@@ -14,6 +14,8 @@ if (file_exists($configPath . '/config.local.php')) {
     $configData = array_replace_recursive($configData, $localConfig);
 }
 
+define('API_BASE_DIR', __DIR__);
+
 $config    = new Api\Module\Config();
 $container = new Api\Module\Container();
 
