@@ -8,9 +8,17 @@ date_default_timezone_set('UTC');
 require 'vendor/autoload.php';
 
 $configPath = __DIR__ . '/config';
+
+if (!isset($localConfig)) {
+    if (file_exists($configPath . '/config.local.php')) {
+        $localConfig = include $configPath . '/config.local.php';
+    } else {
+        $localConfig = [];
+    }
+}
+
 $configData = include $configPath . '/config.php';
-if (file_exists($configPath . '/config.local.php')) {
-    $localConfig = include $configPath . '/config.local.php';
+if (!empty($localConfig)) {
     $configData = array_replace_recursive($configData, $localConfig);
 }
 
