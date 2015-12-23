@@ -571,6 +571,7 @@ class Container extends KernelContainer
             $middleware->setToken($this->get(self::AUTHORIZATION_TOKEN));
             $middleware->setTime($this->get(self::SERVICE_TIME));
             $middleware->setJsonMiddleware($this->get(self::MIDDLEWARE_JSON));
+            $middleware->setConfig($this->getConfig());
 
             return $middleware;
         };

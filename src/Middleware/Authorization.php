@@ -22,10 +22,12 @@ use Api\Module\Config;
  * @method Authorization setAcl(Acl $acl)
  * @method Authorization setJsonMiddleware(Json $acl)
  * @method Authorization setTime(Time $time)
+ * @method Authorization setConfig(Config $config)
  * @method Token         getToken()
  * @method Acl           getAcl()
  * @method Json          getJsonMiddleware()
  * @method Time          getTime()
+ * @method Config        getConfig()
  */
 class Authorization extends Middleware
 {
@@ -71,9 +73,8 @@ class Authorization extends Middleware
     public function call()
     {
         /** @var \Api\Slim $app */
-        $app = $this->getApplication();
-
-        $baseUrl = $app->container->get(Config::BASE_URL);
+        $app     = $this->getApplication();
+        $baseUrl = $this->getConfig()->get(Config::BASE_URL);
         if (!empty($baseUrl)) {
             $this->keyResource  = 1;
             $this->keyPrivilege = 2;
