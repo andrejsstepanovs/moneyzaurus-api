@@ -65,9 +65,9 @@ class Routing extends KernelRouting
             // if dirname is baseUrl name dont match it
             $pos = strrpos(API_BASE_DIR, $baseUrl);
             if ($pos !== false && $pos == strlen(API_BASE_DIR) - strlen($baseUrl)) {
-                $baseUrl = '';
-            } else {
                 $baseUrl = '/' . trim($baseUrl, '/');
+            } else {
+                $baseUrl = '';
             }
         }
 
