@@ -24,6 +24,7 @@ class AuthorizationTest extends TestCase
         $this->sut->setToken($this->mock()->get('Api\Service\Authorization\Token'));
         $this->sut->setTime($this->mock()->get('\Api\Service\Time'));
         $this->sut->setJsonMiddleware($this->mock()->get('Api\Middleware\Json'));
+        $this->sut->setConfig($this->mock()->get('Api\Module\Config'));
 
         $this->mock()->get('\Api\Slim')
              ->expects($this->any())

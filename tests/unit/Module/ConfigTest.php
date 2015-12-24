@@ -38,6 +38,9 @@ class ConfigTest extends TestCase
 
         $response = $this->sut->env(['unknown', 'TESTENVKEY'], 'default_value');
         $this->assertEquals('env_value', $response);
+
+        $response = $this->sut->env(['TESTENVKEY', 'unknown'], 'default_value');
+        $this->assertEquals('env_value', $response);
     }
 
     public function testGetConfigNoValues()

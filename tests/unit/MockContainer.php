@@ -48,6 +48,13 @@ class MockContainer extends Pimple
         $this->initServiceTransaction();
         $this->initEmail();
         $this->initMiddleware();
+
+        $this['Api\Module\Config'] = function (MockContainer $self) {
+            return $self->buildMock(
+                'Api\Module\Config',
+                array('get')
+            );
+        };
     }
 
     private function initMiddleware()
