@@ -71,6 +71,8 @@ class Routing extends KernelRouting
             }
         }
 
+        $slim->response->status(200); // @todo set corrrect response codes
+
         $slim->map(
             $baseUrl . '/',
             function () use ($container, $slim) {
