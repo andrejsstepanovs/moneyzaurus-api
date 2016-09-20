@@ -33,4 +33,29 @@ class Slim extends SlimApp
     {
         return $this->data;
     }
+
+    public function getRequestValue($key)
+    {
+        $request = parent::request();
+
+        $value = $request->post($key);
+        if (!empty($value)) {
+            return $value;
+        }
+
+        $value = $request->get($key);
+        if (!empty($value)) {
+            return $value;
+        }
+
+        $value = $request->getBody();
+        if (!empty($value)) {
+            $data = json_decode($value, true);
+            if (array_key_exists($key, $data)) {
+                return $data[$key];
+            }
+        }
+
+        return null;
+    }
 }

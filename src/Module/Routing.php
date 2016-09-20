@@ -86,8 +86,8 @@ class Routing extends KernelRouting
         $slim->map(
             $baseUrl . '/authenticate/login',
             function () use ($container, $slim) {
-                $username = $slim->request()->post('username');
-                $password = $slim->request()->post('password');
+                $username = $slim->getRequestValue('username');
+                $password = $slim->getRequestValue('password');
 
                 /** @var \Api\Controller\Authenticate\LoginController $controller */
                 $controller = $container->get('controller.authenticate.login');
@@ -99,17 +99,16 @@ class Routing extends KernelRouting
         $slim->map(
             $baseUrl . '/user/register',
             function () use ($container, $slim) {
-                $request = $slim->request();
-
                 /** @var \Api\Controller\User\RegisterController $controller */
                 $controller = $container->get('controller.user.register');
                 $responseData = $controller->getResponse(
-                    $request->post('username'),
-                    $request->post('password'),
-                    $request->post('timezone'),
-                    $request->post('display_name'),
-                    $request->post('language'),
-                    $request->post('locale')
+                    $slim->getRequestValue('username'),
+                    $slim->getRequestValue('password'),
+                    $slim->getRequestValue('timezone'),
+                    $slim->getRequestValue('display_name'),
+                    $slim->getRequestValue('display_name'),
+                    $slim->getRequestValue('language'),
+                    $slim->getRequestValue('locale')
                 );
 
                 $slim->setData($responseData);
@@ -123,8 +122,8 @@ class Routing extends KernelRouting
                 /** @var \Api\Controller\Authenticate\LogoutController $controller */
                 $controller = $container->get('controller.authenticate.logout');
                 $response = $controller->getResponse(
-                   $slim->config('user'),
-                   $slim->request()->get('token')
+                    $slim->config('user'),
+                    $slim->getRequestValue('token')
                 );
                 $slim->setData($response);
             }
@@ -134,7 +133,7 @@ class Routing extends KernelRouting
         $slim->map(
             $baseUrl . '/authenticate/password-recovery',
             function () use ($container, $slim) {
-                $username = $slim->request()->post('username');
+                $username = $slim->getRequestValue('username');
 
                  /** @var \Api\Controller\Authenticate\PasswordRecoveryController $controller */
                 $controller = $container->get('controller.authenticate.password-recovery');
@@ -179,16 +178,15 @@ class Routing extends KernelRouting
             function ($id) use ($container, $slim) {
                 /** @var \Api\Controller\Transactions\UpdateController $controller */
                 $controller = $container->get('controller.transactions.update');
-                $request = $slim->request();
                 $response = $controller->getResponse(
                     $slim->config('user'),
                     $slim->config('connectedUserIds'),
                     $id,
-                    $request->post('item'),
-                    $request->post('group'),
-                    $request->post('price'),
-                    $request->post('currency'),
-                    $request->post('date')
+                    $slim->getRequestValue('item'),
+                    $slim->getRequestValue('group'),
+                    $slim->getRequestValue('price'),
+                    $slim->getRequestValue('currency'),
+                    $slim->getRequestValue('date')
                 );
                 $slim->setData($response);
             }
@@ -203,13 +201,13 @@ class Routing extends KernelRouting
                 $response = $controller->getResponse(
                     $slim->config('user'),
                     $slim->config('connectedUserIds'),
-                    $slim->request()->get('offset'),
-                    $slim->request()->get('limit'),
-                    $slim->request()->get('from'),
-                    $slim->request()->get('till'),
-                    $slim->request()->get('item'),
-                    $slim->request()->get('group'),
-                    $slim->request()->get('price')
+                    $slim->getRequestValue('offset'),
+                    $slim->getRequestValue('limit'),
+                    $slim->getRequestValue('from'),
+                    $slim->getRequestValue('till'),
+                    $slim->getRequestValue('item'),
+                    $slim->getRequestValue('group'),
+                    $slim->getRequestValue('price')
                 );
                 $slim->setData($response);
             }
@@ -221,14 +219,13 @@ class Routing extends KernelRouting
             function () use ($container, $slim) {
                 /** @var \Api\Controller\Transactions\CreateController $controller */
                 $controller = $container->get('controller.transactions.create');
-                $request = $slim->request();
                 $response = $controller->getResponse(
                     $slim->config('user'),
-                    $request->post('item'),
-                    $request->post('group'),
-                    $request->post('price'),
-                    $request->post('currency'),
-                    $request->post('date')
+                    $slim->getRequestValue('item'),
+                    $slim->getRequestValue('group'),
+                    $slim->getRequestValue('price'),
+                    $slim->getRequestValue('currency'),
+                    $slim->getRequestValue('date')
                 );
                 $slim->setData($response);
             }
@@ -243,8 +240,8 @@ class Routing extends KernelRouting
                 $response = $controller->getResponse(
                     $slim->config('user'),
                     $slim->config('connectedUserIds'),
-                    $slim->request()->get('from'),
-                    $slim->request()->get('count')
+                    $slim->getRequestValue('from'),
+                    $slim->getRequestValue('count')
                 );
                 $slim->setData($response);
             }
@@ -259,8 +256,8 @@ class Routing extends KernelRouting
                 $response = $controller->getResponse(
                     $slim->config('user'),
                     $slim->config('connectedUserIds'),
-                    $slim->request()->get('from'),
-                    $slim->request()->get('count')
+                    $slim->getRequestValue('from'),
+                    $slim->getRequestValue('count')
                 );
                 $slim->setData($response);
             }
@@ -275,7 +272,7 @@ class Routing extends KernelRouting
                 $response = $controller->getResponse(
                     $slim->config('user'),
                     $slim->config('connectedUserIds'),
-                    $slim->request()->post('item')
+                    $slim->getRequestValue('item')
                 );
                 $slim->setData($response);
             }
@@ -290,8 +287,8 @@ class Routing extends KernelRouting
                 $response = $controller->getResponse(
                    $slim->config('user'),
                    $slim->config('connectedUserIds'),
-                   $slim->request()->post('item'),
-                   $slim->request()->post('group')
+                    $slim->getRequestValue('item'),
+                    $slim->getRequestValue('group')
                 );
                 $slim->setData($response);
             }
@@ -316,11 +313,11 @@ class Routing extends KernelRouting
                 $controller = $container->get('controller.user.update');
                 $response = $controller->getResponse(
                     $slim->config('user'),
-                    $slim->request()->post('email'),
-                    $slim->request()->post('name'),
-                    $slim->request()->post('locale'),
-                    $slim->request()->post('language'),
-                    $slim->request()->post('timezone')
+                    $slim->getRequestValue('email'),
+                    $slim->getRequestValue('name'),
+                    $slim->getRequestValue('locale'),
+                    $slim->getRequestValue('language'),
+                    $slim->getRequestValue('timezone')
                 );
                 $slim->setData($response);
             }
@@ -334,7 +331,7 @@ class Routing extends KernelRouting
                 $controller = $container->get('controller.connection.list');
                 $response = $controller->getResponse(
                     $slim->config('user'),
-                    (bool) $slim->request()->get('parent')
+                    (bool) $slim->getRequestValue('parent')
                 );
                 $slim->setData($response);
             }
@@ -348,7 +345,7 @@ class Routing extends KernelRouting
                 $controller = $container->get('controller.connection.add');
                 $response = $controller->getResponse(
                     $slim->config('user'),
-                    $slim->request()->post('email')
+                    $slim->getRequestValue('email')
                 );
                 $slim->setData($response);
             }
@@ -385,9 +382,9 @@ class Routing extends KernelRouting
                 $response = $controller->getResponse(
                     $slim->config('user'),
                     $slim->config('connectedUserIds'),
-                    $slim->request()->get('currency'),
-                    $slim->request()->get('from'),
-                    $slim->request()->get('till')
+                    $slim->getRequestValue('currency'),
+                    $slim->getRequestValue('from'),
+                    $slim->getRequestValue('till')
                 );
                 $slim->setData($response);
             }
