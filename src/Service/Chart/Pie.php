@@ -35,7 +35,7 @@ class Pie
                . 'FROM \Api\Entities\Transaction t '
                . 'JOIN t.group g '
                . '{{ WHERE }} '
-               . 'GROUP BY g.name';
+               . 'GROUP BY g.id';
 
         return $dql;
     }
