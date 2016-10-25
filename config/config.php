@@ -22,6 +22,9 @@ return [
             'password' => $config->env(['OPENSHIFT_MYSQL_DB_PASSWORD', 'DB_ENV_MYSQL_ROOT_PASSWORD'], 'root'),
             'dbname'   => $config->env(['OPENSHIFT_APP_NAME', 'DB_ENV_MYSQL_DATABASE'], 'app'),
             'charset'  => 'utf8',
+            //'driverOptions' => array(
+            //    PDO::MYSQL_ATTR_INIT_COMMAND => "SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))"
+            //),
         ],
     ],
     Config::EMAIL => [
