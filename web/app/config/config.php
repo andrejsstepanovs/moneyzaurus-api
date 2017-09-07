@@ -17,7 +17,7 @@ return [
         Config::DATABASE_CONNECTION => [
             'driver'   => 'pdo_mysql',
             'port'     => $config->env(['OPENSHIFT_MYSQL_DB_PORT', 'DB_PORT_3306_TCP_PORT'], 3306),
-            'host'     => $config->env(['OPENSHIFT_MYSQL_DB_HOST', 'DB_PORT_3306_TCP_ADDR'], '127.0.0.1'),
+            'host'     => $config->env(['OPENSHIFT_MYSQL_DB_HOST', 'DB_PORT_3306_TCP_ADDR'], 'mysql'),
             'user'     => $config->env(['OPENSHIFT_MYSQL_DB_USERNAME', 'DB_ENV_MYSQL_ROOT_USER'], 'root'),
             'password' => $config->env(['OPENSHIFT_MYSQL_DB_PASSWORD', 'DB_ENV_MYSQL_ROOT_PASSWORD'], 'root'),
             'dbname'   => $config->env(['OPENSHIFT_APP_NAME', 'DB_ENV_MYSQL_DATABASE'], 'app'),
