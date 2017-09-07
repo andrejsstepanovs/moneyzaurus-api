@@ -1,4 +1,4 @@
-vendor
+web/app/vendor
 tests/unit/coverage
 build
 config/config.local.*
