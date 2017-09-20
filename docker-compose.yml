@@ -1,7 +1,7 @@
 version: '2'
 services:
 
-    web:
+    nginx-api:
         image: nginx:latest
         ports:
             - "80:80"
@@ -11,10 +11,10 @@ services:
             - "./etc/ssl:/etc/ssl"
             - "./web:/var/www/html"
         depends_on:
-            - php-fpm
+            - php-fpm-api
             - mysql
 
-    php-fpm:
+    php-fpm-api:
         image: cytopia/php-fpm-7.1
         restart: always
         environment:
