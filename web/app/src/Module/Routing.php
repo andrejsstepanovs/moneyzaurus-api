@@ -84,6 +84,14 @@ class Routing extends KernelRouting
         ->via(Request::METHOD_GET);
 
         $slim->map(
+            $baseUrl . '/test',
+            function () use ($container, $slim) {
+                phpinfo();die();
+            }
+        )
+        ->via(Request::METHOD_GET);
+
+        $slim->map(
             $baseUrl . '/authenticate/login',
             function () use ($container, $slim) {
                 $username = $slim->getRequestValue('username');

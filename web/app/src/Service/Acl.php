@@ -15,6 +15,7 @@ use Api\Entities\User;
 class Acl
 {
     const RESOURCE_INDEX        = '';
+    const RESOURCE_TEST         = 'test';
     const RESOURCE_AUTHENTICATE = 'authenticate';
     const RESOURCE_TRANSACTIONS = 'transactions';
     const RESOURCE_DISTINCT     = 'distinct';
@@ -78,6 +79,7 @@ class Acl
         $this->getAcl()->addResource(new Resource(self::RESOURCE_USER));
         $this->getAcl()->addResource(new Resource(self::RESOURCE_CONNECTION));
         $this->getAcl()->addResource(new Resource(self::RESOURCE_CHART));
+        $this->getAcl()->addResource(new Resource(self::RESOURCE_TEST));
 
         return $this;
     }
@@ -87,6 +89,7 @@ class Acl
      */
     private function initPrivileges()
     {
+        $this->getAcl()->allow(User::ROLE_GUEST, self::RESOURCE_TEST);
         $this->getAcl()->allow(User::ROLE_GUEST, self::RESOURCE_INDEX);
         $this->getAcl()->allow(User::ROLE_GUEST, self::RESOURCE_AUTHENTICATE, array('login', 'password-recovery'));
         $this->getAcl()->allow(User::ROLE_GUEST, self::RESOURCE_USER, array('register'));
