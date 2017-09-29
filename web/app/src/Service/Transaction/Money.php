@@ -30,6 +30,9 @@ class Money
      */
     public function getPrice($amount)
     {
+        if (empty($amount)) {
+            $amount = 0;
+        }
         return sprintf('%0.2f', $amount / 100);
     }
 }
