@@ -3,3 +3,6 @@ tests/unit/coverage
 build
 config/config.local.*
 *.phar
+/vendor/
+/web/bundles/
+.idea
