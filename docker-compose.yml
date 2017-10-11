@@ -33,7 +33,7 @@ services:
         command: 'install --ignore-platform-reqs'
 
     mysql:
-        image: mysql
+        image: mysql:5.6.34
         restart: always
         environment:
             - MYSQL_DATABASE=app
