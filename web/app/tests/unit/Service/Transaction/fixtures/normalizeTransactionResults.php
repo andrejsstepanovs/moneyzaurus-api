@@ -14,7 +14,6 @@ return array(
                 'email'           => 'email@email.com',
                 'role'            => 'user',
                 'userId'          => 123,
-                'locale'          => 'lv_LV',
                 'timezone'        => 'Europe/Riga',
                 'userName'        => 'Jane Doe',
                 'itemName'        => 'banana',

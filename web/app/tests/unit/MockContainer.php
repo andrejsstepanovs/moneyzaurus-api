@@ -226,6 +226,7 @@ class MockContainer extends Pimple
                 'Api\Service\Locale',
                 array(
                     'setLocale',
+                    'getLocale',
                     'setUser',
                     'getDateFormatter',
                     'getDateTimeFormatter',

@@ -109,12 +109,18 @@ class DataTest extends TestCase
     {
         $localeMock = $this->mock()->get('Api\Service\Locale');
         $localeMock->expects($this->any())->method('setLocale')->will($this->returnSelf());
+        $localeMock->expects($this->any())->method('getLocale')->will($this->returnValue($expected[0]['locale']));
         $localeMock->expects($this->any())->method('getDateFormatter')->will($this->returnSelf());
         $localeMock->expects($this->any())->method('getDateTimeFormatter')->will($this->returnSelf());
         $localeMock->expects($this->any())->method('getFormattedMoney')->will($this->returnValue('€ 123,45'));
         $localeMock->expects($this->any())->method('format')->will($this->returnValue('2999-01-01 99:99:99'));
 
-        $result = $this->sut->normalizeResults($transactions);
+        $user = $this->mock()->get('Api\Entities\User');
+        $user->expects($this->once())
+             ->method('getLocale')
+             ->will($this->returnValue($localeMock));
+
+        $result = $this->sut->normalizeResults($transactions, $user);
 
         $this->assertEquals($expected, $result);
     }

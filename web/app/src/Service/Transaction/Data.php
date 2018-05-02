@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityRepository;
 use Api\Service\Locale;
 use Api\Entities\Transaction;
 use Api\Service\AccessorTrait;
+use Api\Entities\User;
 
 /**
  * Class Transactions
@@ -161,13 +162,19 @@ class Data
 
     /**
      * @param array $transactions
+     * @param User  $user
      *
      * @return array
      */
-    public function normalizeResults(array $transactions)
+    public function normalizeResults(array $transactions, $user)
     {
         foreach ($transactions as &$data) {
+            if (!array_key_exists('locale', $data)) {
+                $data['locale'] = $user->getLocale()->getLocale();
+            }
+
             foreach ($data as $key => &$value) {
+
                 if ($key == 'dateTransaction') {
                     /** @var \DateTime $value */
                     $data['date'] = $value->format('Y-m-d');
