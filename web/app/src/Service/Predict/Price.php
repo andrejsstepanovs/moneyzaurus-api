@@ -17,9 +17,9 @@ class Price
 {
     use AccessorTrait;
 
-    const LIMIT      = 2;
-    const USED_COUNT = 3;
-    const DATE_FROM  = '-6 months';
+    const LIMIT      = 4;
+    const USED_COUNT = 1;
+    const DATE_FROM  = '-10 months';
 
     /**
      * @param array  $userIds
@@ -87,7 +87,7 @@ class Price
             $parameters['group'] = $group;
         }
 
-        $dql .= ' GROUP BY t.price';
+        $dql .= ' GROUP BY c.currency, t.price';
         $dql .= ' HAVING usedCount >= ' . (int) $usedCount;
         $dql .= ' ORDER BY usedCount DESC';
 

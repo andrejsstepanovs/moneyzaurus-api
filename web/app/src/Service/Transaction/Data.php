@@ -170,7 +170,7 @@ class Data
     {
         foreach ($transactions as &$data) {
             if (!array_key_exists('locale', $data)) {
-                $data['locale'] = $user->getLocale()->getLocale();
+                $data['locale'] = $user->getLocale();
             }
             if (!array_key_exists('timezone', $data)) {
                 $data['timezone'] = $user->getTimezone();

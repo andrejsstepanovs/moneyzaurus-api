@@ -118,7 +118,7 @@ class DataTest extends TestCase
         $user = $this->mock()->get('Api\Entities\User');
         $user->expects($this->once())
              ->method('getLocale')
-             ->will($this->returnValue($localeMock));
+             ->will($this->returnValue($expected[0]['locale']));
 
         $user->expects($this->once())
              ->method('getTimezone')
