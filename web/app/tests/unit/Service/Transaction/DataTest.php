@@ -120,6 +120,10 @@ class DataTest extends TestCase
              ->method('getLocale')
              ->will($this->returnValue($localeMock));
 
+        $user->expects($this->once())
+             ->method('getTimezone')
+             ->will($this->returnValue('Europe/Riga'));
+
         $result = $this->sut->normalizeResults($transactions, $user);
 
         $this->assertEquals($expected, $result);

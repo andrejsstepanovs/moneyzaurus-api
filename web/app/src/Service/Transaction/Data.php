@@ -172,6 +172,9 @@ class Data
             if (!array_key_exists('locale', $data)) {
                 $data['locale'] = $user->getLocale()->getLocale();
             }
+            if (!array_key_exists('timezone', $data)) {
+                $data['timezone'] = $user->getTimezone();
+            }
 
             foreach ($data as $key => &$value) {
 
